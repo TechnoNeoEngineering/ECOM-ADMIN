@@ -14,7 +14,7 @@ import { from } from 'rxjs';
   styleUrls: ['./usercart.component.scss'],
 })
 export class UsercartComponent implements OnInit {
-  @Input() user_id: string;
+  @Input() user_id: any;
 
   SubCategoryList: any[];
   ProductviewList: any[];
