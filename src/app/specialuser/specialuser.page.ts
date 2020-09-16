@@ -83,7 +83,7 @@ console.log(error);
 }
 
 RemoveRecord(rowID) {
-this.fireStoreService.delete_userspecial(rowID);
+// this.fireStoreService.delete_userspecial(rowID);
 alert("delete option disabled");
 }
 
