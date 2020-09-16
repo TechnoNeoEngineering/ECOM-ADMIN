@@ -1,0 +1,70 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<ion-header>
+
+</ion-header>
+
+<ion-content fullscreen>
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="loginUser(validations_form.value)">
+    <div class="container" style="margin-top: 5%;">
+    <div class="row grid-divider">
+    <div class="col-sm-4">
+      <div class="col-padding">
+        <p class="para">Get started with our secure login flow</p>
+            
+        <ion-label class="required">Email Address</ion-label>
+        <br>        
+        <ion-input class="text" type="text" formControlName="email" placeholder = "Enter email" ></ion-input>
+        
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div class="error-message"
+              *ngIf="validations_form.get('email').hasError(validation.type) && (validations_form.get('email').dirty || validations_form.get('email').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+       <br>
+        <ion-label class="required">Password</ion-label>
+        <br>      
+ 
+      <ion-input class="text" [type]="passwordType" clearOnEdit="false" formControlName="password" placeholder = "Enter password"required></ion-input>
+        
+        <div class="check">
+          <br>
+        <input type="checkbox" (click)="hideShowPassword()">Show Password
+      </div>
+  
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error-message"
+              *ngIf="validations_form.get('password').hasError(validation.type) && (validations_form.get('password').dirty || validations_form.get('password').touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+        <br>
+
+        <ion-button type="submit" [disabled]="!validations_form.valid" ><b>Continue</b></ion-button>
+        <label class="error-message">{{errorMessage}}</label>
+        
+       <br>
+
+        
+      </div>
+    </div>
+
+    
+    
+    </div>
+    </div>
+  
+</form>
+
+
+</ion-content>
+
+
+  
+  
+

@@ -1,0 +1,59 @@
+<!-- <ion-app>
+  <ion-router-outlet></ion-router-outlet>
+</ion-app> -->
+
+<ion-app>
+  <ion-menu content-id="main">
+    <ion-header>
+      <ion-toolbar translucent>
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list class="dir">
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Categorypage()">Category</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="viewpage()">Sub-Category</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Productpage()">Product Details</ion-label>
+          </ion-item>
+        </ion-menu-toggle>  
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Viewproduct()">View Product Details</ion-label>
+          </ion-item>
+        </ion-menu-toggle> 
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Productrecovery()">Product Recovery</ion-label>
+          </ion-item>
+        </ion-menu-toggle>        
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Specialuser()">Special User</ion-label>
+          </ion-item>
+        </ion-menu-toggle>   
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="discountdetails()">Discount Details</ion-label>
+          </ion-item>
+        </ion-menu-toggle>  
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Logout()">Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>   
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

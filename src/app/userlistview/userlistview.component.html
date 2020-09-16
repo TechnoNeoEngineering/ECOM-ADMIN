@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cart List</ion-title>
+    <ion-buttons slot="end" color="primary">
+      <ion-button (click)="dismissModel()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- {{SubCategoryList | json}} -->
+    <ion-item>
+      <ion-label>Select sub-category</ion-label>
+      <ion-select [(ngModel)]="sSub" (ionChange)="setSubCategoryValues()">
+          <ion-select-option [value]="sSubCat" *ngFor ="let sSubCat of SubCategoryList">{{sSubCat.SubCategory}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          Check
+        </ion-col>
+        <ion-col col-2>
+          Product Id
+        </ion-col>
+        <ion-col col-2>
+          Product Name
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div *ngIf= "ProductList">
+    <div *ngIf="first<=ProductList.length">
+
+    <ion-grid  *ngFor ="let Product of ProductList">
+      <ion-row>
+        <ion-col col-2 >
+          <ion-checkbox [checked]="isFound(Product.Product_id)" (ionChange)="verifyEvent(Product)"></ion-checkbox>
+        </ion-col>
+        <ion-col col-2>
+          {{Product.Product_id}}
+        </ion-col>
+        <ion-col col-2>
+          {{Product.Product_name}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div></div>
+    <!-- <ion-list>
+      <ion-item *ngFor="let entry of SubCategoryList">
+        <ion-label>{{entry.SubCategory_id}}</ion-label>
+        <ion-checkbox slot="start" [(ngModel)]="entry.isChecked" (ionChange)="verifyEvent(entry)"></ion-checkbox>
+      </ion-item>
+    </ion-list> -->
+  <ion-button (click)="savedata()">Save</ion-button>  
+</ion-content>

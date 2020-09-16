@@ -1,0 +1,7 @@
+{
+  "name": "LatestOfferScreen",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

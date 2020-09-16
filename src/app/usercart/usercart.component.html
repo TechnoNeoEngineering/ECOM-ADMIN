@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cart Edit</ion-title>
+    <ion-buttons slot="end" color="primary">
+      <ion-button (click)="dismissModel()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item color="primary">
+    <ion-label>
+      User Id: {{user_id.user_id}}
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          Check
+        </ion-col>
+        <ion-col col-2>
+          Product Id
+        </ion-col>
+        <ion-col col-2>
+          Product Name
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngFor ="let Product of adminarr">
+      <ion-row>
+        <ion-col col-2>
+          <ion-checkbox checked (ionChange)="verifyEvent(Product)"></ion-checkbox>
+        </ion-col>
+        <ion-col col-2>
+          {{Product.Product_id}}
+        </ion-col>
+        <ion-col col-2>
+          {{Product.Product_name}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  <ion-button (click)="savedata()">Save</ion-button>  
+</ion-content>
