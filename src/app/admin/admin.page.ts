@@ -24,18 +24,37 @@ interface ProductData {
 		sku: string;
 		Star: string;
     Review: string;
-    Range: string;
     Normal_price: string;
     Price1: number;
+    Range1_from: string;
+    Range1_to: string;
     Price2: number;
+    Range2_from: string;
+    Range2_to: string;
     Price3: number;
+    Range3_from: string;
+    Range3_to: string;
     Price4: number;
+    Range4_from: string;
+    Range4_to: string;
     Price5: number;
+    Range5_from: string;
+    Range5_to: string;
     Price6: number;
+    Range6_from: string;
+    Range6_to: string;
     Price7: number;
+    Range7_from: string;
+    Range7_to: string;
     Price8: number;
+    Range8_from: string;
+    Range8_to: string;
     Price9: number;
+    Range9_from: string;
+    Range9_to: string;
     Price10: number;
+    Range10_from: string;
+    Range10_to: string;
 		Offer: string;
 		gst: string;
 		Mrp: string;
@@ -107,9 +126,12 @@ export class AdminPage implements OnInit {
   prdt_id:any;
   max_id:any;
   Productdata={ "Id": "", "isEdit": false, "SubCategory_id": "", "Enabled": true,
-  "Category_name": "", "Product_name": "","Range": "","Normal_price": "",
-  "Price1":'', "Price2": "", "Price3": "", "Price4": "",
-  "Price5": "", "Price6": "", "Price7": "", "Price8": "", "Price9": "", "Price10": "", "Product_id": "", 
+  "Category_name": "", "Product_name": "", "Normal_price": "", "Price1": "", "Range1_from": "",
+  "Range1_to": "", "Price2": "", "Range2_from": "", "Range2_to": "", "Price3": "", "Range3_from": "",
+  "Range3_to": "", "Price4": "", "Range4_from": "", "Range4_to": "", "Price5": "", "Range5_from": "",
+  "Range5_to": "", "Price6": "", "Range6_from": "", "Range6_to": "", "Price7": "", "Range7_from": "",
+  "Range7_to": "", "Price8": "", "Range8_from": "", "Range8_to": "", "Price9": "", "Range9_from": "",
+  "Range9_to": "", "Price10": "", "Range10_from": "", "Range10_to": "", "Product_id": "", 
   "Offer": "", "unit": "", "pack_size": "", "sku": "", "Star": "", "Review": "",
   "Itemdetail_name": "", "gst": "", "Mrp": "", "Emi": "", "Key_Features1": "",
   "Key_Features2": "", "Key_Features3": "", "Key_Features4": "", "Key_Features5": "", 
@@ -148,18 +170,37 @@ export class AdminPage implements OnInit {
       sku: ['', [Validators.required]],
       Star: ['', [Validators.required]],
       Review: ['', [Validators.required]],
-      Range: ['', [Validators.required]],
       Normal_price: ['', [Validators.required]],
       Price1: ['', [Validators.required]],
+      Range1_from: ['', [Validators.required]],
+      Range1_to: ['', [Validators.required]],
       Price2: ['', [Validators.required]],
+      Range2_from: ['', [Validators.required]],
+      Range2_to: ['', [Validators.required]],
       Price3: ['', [Validators.required]],
+      Range3_from: ['', [Validators.required]],
+      Range3_to: ['', [Validators.required]],
       Price4: ['', [Validators.required]],
+      Range4_from: ['', [Validators.required]],
+      Range4_to: ['', [Validators.required]],
       Price5: ['', [Validators.required]],
+      Range5_from: ['', [Validators.required]],
+      Range5_to: ['', [Validators.required]],
       Price6: ['', [Validators.required]],
+      Range6_from: ['', [Validators.required]],
+      Range6_to: ['', [Validators.required]],
       Price7: ['', [Validators.required]],
+      Range7_from: ['', [Validators.required]],
+      Range7_to: ['', [Validators.required]],
       Price8: ['', [Validators.required]],
+      Range8_from: ['', [Validators.required]],
+      Range8_to: ['', [Validators.required]],
       Price9: ['', [Validators.required]],
+      Range9_from: ['', [Validators.required]],
+      Range9_to: ['', [Validators.required]],
       Price10: ['', [Validators.required]],
+      Range10_from: ['', [Validators.required]],
+      Range10_to: ['', [Validators.required]],
       Offer: ['', [Validators.required]],
       gst: ['', [Validators.required]],
       Mrp: ['', [Validators.required]],

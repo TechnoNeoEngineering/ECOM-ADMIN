@@ -78,18 +78,38 @@ export class ViewproductPage {
 				sku: e.payload.doc.data()['sku'],
 				Star: e.payload.doc.data()['Star'],
 				Review: e.payload.doc.data()['Review'],
-				Range: e.payload.doc.data()['Range'],
+				// Range: e.payload.doc.data()['Range'],
 				Normal_price: e.payload.doc.data()['Normal_price'],
 				Price1: e.payload.doc.data()['Price1'],
+				Range1_from: e.payload.doc.data()['Range1_from'],
+				Range1_to: e.payload.doc.data()['Range1_to'],
 				Price2: e.payload.doc.data()['Price2'],
+				Range2_from: e.payload.doc.data()['Range2_from'],
+				Range2_to: e.payload.doc.data()['Range2_to'],
 				Price3: e.payload.doc.data()['Price3'],
+				Range3_from: e.payload.doc.data()['Range3_from'],
+				Range3_to: e.payload.doc.data()['Range3_to'],
 				Price4: e.payload.doc.data()['Price4'],
+				Range4_from: e.payload.doc.data()['Range4_from'],
+				Range4_to: e.payload.doc.data()['Range4_to'],
 				Price5: e.payload.doc.data()['Price5'],
+				Range5_from: e.payload.doc.data()['Range5_from'],
+				Range5_to: e.payload.doc.data()['Range5_to'],
 				Price6: e.payload.doc.data()['Price6'],
+				Range6_from: e.payload.doc.data()['Range6_from'],
+				Range6_to: e.payload.doc.data()['Range6_to'],
 				Price7: e.payload.doc.data()['Price7'],
+				Range7_from: e.payload.doc.data()['Range7_from'],
+				Range7_to: e.payload.doc.data()['Range7_to'],
 				Price8: e.payload.doc.data()['Price8'],
+				Range8_from: e.payload.doc.data()['Range8_from'],
+				Range8_to: e.payload.doc.data()['Range8_to'],
 				Price9: e.payload.doc.data()['Price9'],
+				Range9_from: e.payload.doc.data()['Range9_from'],
+				Range9_to: e.payload.doc.data()['Range9_to'],
 				Price10: e.payload.doc.data()['Price10'],
+				Range10_from: e.payload.doc.data()['Range10_from'],
+				Range10_to: e.payload.doc.data()['Range10_to'],
 				Offer: e.payload.doc.data()['Offer'],
 				gst: e.payload.doc.data()['gst'],
 				Mrp: e.payload.doc.data()['Mrp'],
@@ -148,6 +168,7 @@ export class ViewproductPage {
 	// var maxid =Math.max.apply(Math, this.ProductviewList.map(function(o) { return o.Product_id; }));
 	// this.max_id = maxid+1;
 	let record = {};
+	// console.log(recordRow);
 	record['Deleted'] = true;
 	this.fireStoreService.update_Productdetails(recordRow.id, record);
 	recordRow.isEdit = false;
