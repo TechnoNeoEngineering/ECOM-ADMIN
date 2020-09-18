@@ -19,6 +19,7 @@
   <ion-label position="floating">Email Id / Mobile No</ion-label>
   <ion-input formControlName="user_id"></ion-input>
   </ion-item>
+  
   <!-- <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="cat_id"> -->
   <!-- {{ specialuserList | json }} -->
   <ion-item>
@@ -50,14 +51,8 @@
   <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
   <ion-card-subtitle>Id: {{item.user_id}}</ion-card-subtitle>
   <ion-card-subtitle>Product Name: {{item.Product_name}}</ion-card-subtitle>
+  <ion-card-subtitle>Include GST: {{item.include_gst}}</ion-card-subtitle>
   </ion-card-header>
-  <!-- <ion-item>
-  <ion-label>Category</ion-label>
-  <ion-select (ionChange)="setDistrictValues(sState)" [(ngModel)]="sState">
-  <ion-select-option *ngFor ="let item of studentList">{{item.Category}} </ion-select-option>
-  </ion-select>
-  
-  </ion-item> -->
   <ion-card-content>
   
   <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
@@ -104,6 +99,10 @@
   <ion-item>
   <ion-label><strong>User Id</strong></ion-label>
   <ion-input type="text" [(ngModel)]="item.EditUserid"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label><strong>Include GST</strong></ion-label>
+    <ion-checkbox [(ngModel)]="item.Editinclude_gst"></ion-checkbox>
   </ion-item>
   </ion-card-content>
   </ng-template>
