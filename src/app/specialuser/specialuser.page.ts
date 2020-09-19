@@ -40,60 +40,61 @@ export class SpecialuserPage implements OnInit {
 
   ngOnInit() {
 
-  this.specialuserForm = this.fb.group({
-  user_id: ['', [Validators.required]],
-  include_gst: [false, [Validators.required]],
-  list: [[]],
-  })
-  this.fireStoreService.read_Productdetails().subscribe(data => {
-
-    this.ProductviewList = data.map(e => {
-      return {
-        id: e.payload.doc.id,
-        isEdit: false,
-        SubCategory_id: e.payload.doc.data()['SubCategory_id'],
-        Product_name: e.payload.doc.data()['Product_name'],
-        Product_id: e.payload.doc.data()['Product_id']
-      };
-    });
-  });
-
-  this.fireStoreService.read_userspecial().subscribe(data => {
-
-    this.specialuserList = data.map(e => {
-      return {
-        id: e.payload.doc.id,
-        isEdit: false,
-        user_id: e.payload.doc.data()['user_id'],
-        include_gst: e.payload.doc.data()['include_gst'],
-        list: e.payload.doc.data()['list'],
-      };
+    this.specialuserForm = this.fb.group({
+    user_id: ['', [Validators.required]],
+    include_gst: [false, [Validators.required]],
+    list: [[]],
     })
-    console.log(this.specialuserList);
-    this.cart_prodname();
-    // console.log(this.categoryList);
-  });
+    this.fireStoreService.read_Productdetails().subscribe(data => {
+
+      this.ProductviewList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          SubCategory_id: e.payload.doc.data()['SubCategory_id'],
+          Product_name: e.payload.doc.data()['Product_name'],
+          Product_id: e.payload.doc.data()['Product_id']
+        };
+      });
+    });
+
+    this.fireStoreService.read_userspecial().subscribe(data => {
+
+      this.specialuserList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          user_id: e.payload.doc.data()['user_id'],
+          include_gst: e.payload.doc.data()['include_gst'],
+          list: e.payload.doc.data()['list'],
+        };
+      })
+      console.log(this.specialuserList);
+      this.cart_prodname();
+      // console.log(this.categoryList);
+    });
   }
 
   CreateRecord() {
-  console.log(this.specialuserForm.value);
-  this.fireStoreService.create_userspecial(this.specialuserForm.value).then(resp => {
-  this.specialuserForm.reset();
-  })
-  .catch(error => {
-  console.log(error);
-  });
+    console.log(this.specialuserForm.value);
+    this.fireStoreService.create_userspecial(this.specialuserForm.value).then(resp => {
+      this.specialuserForm.reset();
+      this.ngOnInit();
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   RemoveRecord(rowID) {
-  this.fireStoreService.delete_userspecial(rowID);
-  // alert("delete option disabled");
+    // this.fireStoreService.delete_userspecial(rowID);
+    alert("delete option disabled");
   }
 
   EditRecord(record) {
-  record.isEdit = true;
-  record.EditUserid = record.user_id;
-  record.Editinclude_gst = record.include_gst;
+    record.isEdit = true;
+    record.EditUserid = record.user_id;
+    record.Editinclude_gst = record.include_gst;
   }
 
   UpdateRecord(recordRow) {

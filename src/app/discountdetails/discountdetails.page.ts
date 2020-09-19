@@ -62,9 +62,10 @@ export class DiscountdetailsPage implements OnInit {
     
       CreateRecord() {
         console.log(this.discountForm.value);
+        this.get_max_id();
         this.fireStoreService.create_discount(this.discountForm.value).then(resp => {
           this.discountForm.reset();
-          // this.get_max_id();
+          this.ngOnInit();
         })
           .catch(error => {
             console.log(error);
@@ -100,6 +101,5 @@ export class DiscountdetailsPage implements OnInit {
         }
         console.log(this.max_id);
     }
-
 
 }

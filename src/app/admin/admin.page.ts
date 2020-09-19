@@ -123,7 +123,7 @@ export class AdminPage implements OnInit {
 
   SubCategoryList = [];
   SubCategoryform: FormGroup;
-  prdt_id:any;
+  Product_id:any;
   max_id:any;
   Productdata={ "Id": "", "isEdit": false, "SubCategory_id": "", "Enabled": true,
   "Category_name": "", "Product_name": "", "Normal_price": "", "Price1": "", "Range1_from": "",
@@ -166,7 +166,7 @@ export class AdminPage implements OnInit {
       Enabled: ['', [Validators.required]],
       Deleted: [false, [Validators.required]],
       Product_name: ['', [Validators.required]],
-      Product_id: ['', [Validators.required]],
+      Product_id: [this.max_id],
       sku: ['', [Validators.required]],
       Star: ['', [Validators.required]],
       Review: ['', [Validators.required]],
@@ -353,21 +353,23 @@ export class AdminPage implements OnInit {
   CreateProductDetails(){
     // window.location.reload();
     if(this.updateid=="save"){
+      if(this.productForm['SubCategory_id']!=null || this.productForm['SubCategory_id']!=undefined){
+      this.get_max_id();
       this.fireStoreService.create_Productdetails(this.productForm.value).then(resp => { 
-        this.get_max_id();
-        this.productForm['Product_id']=  this.max_id;
-        // this.prdt_id= this.max_id;
-        console.log(this.prdt_id);
         console.log(this.productForm.value);
         this.productForm.reset(); 
+        this.ngOnInit();
       })
         .catch(error => {
           console.log(error);
         }); 
+      }
+      else{
+        alert('Enter Required Details');
+      }
     }   
     else if(this.updateid=="update"){
       this.UpdateRecord(this.Productdata);
-      this.prdt_id= this.Productdata.Product_id;
       this.productForm.reset();
       this.navCtrl.navigateForward("/admin");
       // console.log(this.prdt_id);
@@ -382,7 +384,10 @@ export class AdminPage implements OnInit {
 
   get_max_id(){
     var maxid =Math.max.apply(Math, this.ProductviewList.map(function(o) { return o.Product_id; }));
-    this.max_id = maxid+1;
-    console.log(this.max_id);
+    if(maxid<= 0 || maxid==NaN) {
+      this.max_id = 1;
+    } else {
+      this.max_id = maxid+1;
+    }
   }
 }

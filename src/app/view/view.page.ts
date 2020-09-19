@@ -69,6 +69,7 @@ export class ViewPage {
           SubCategory: e.payload.doc.data()['SubCategory'],
         };
       })
+      console.log(this.SubCategoryList);
       this.cat_name();
       this.get_max_id();
     })
@@ -80,9 +81,10 @@ export class ViewPage {
 }
   CreateSubCategory() {
     console.log(this.SubCategoryform.value);
+    this.get_max_id();
     this.fireStoreService.create_subcategory(this.SubCategoryform.value).then(resp => {
       this.SubCategoryform.reset();
-      this.get_max_id();
+      this.ngOnInit();
     })
       .catch(error => {
         console.log(error);

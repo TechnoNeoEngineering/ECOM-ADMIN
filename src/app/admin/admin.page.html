@@ -31,10 +31,10 @@
   </ion-item>
 
   <!-- <input type="hidden"  [(ngModel)]="Productdata.Product_id" formControlName="Product_id"> -->
-
   <ion-item disabled="true">
-    <ion-label  position="floating">Product Id</ion-label>
-    <ion-input  [(ngModel)]="Productdata.Product_id" formControlName="Product_id"></ion-input>
+    <ion-label position="floating">Product Id</ion-label>
+    <ion-input *ngIf="updateid == 'save'"  [(ngModel)]="max_id" formControlName="Product_id"></ion-input>
+    <ion-input *ngIf ="updateid == 'update'" [(ngModel)]="Productdata.Product_id" formControlName="Product_id"></ion-input>
   </ion-item> 
  
   <ion-item>
@@ -407,8 +407,8 @@
   <ion-select-option value="Female">Female</ion-select-option>
   </ion-select>
   </ion-item>
-
-  <ion-button [ngStyle]="{'color':updateid ? 'Add Product Details' : 'Update'} " (click)="CreateProductDetails()" >
+  <!-- [disabled]="productForm.invalid" -->
+  <ion-button [ngStyle]="{'color':updateid ? 'Add Product Details' : 'Update'} " (click)="CreateProductDetails()" > 
     <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
     {{updateid}}
   </ion-button>

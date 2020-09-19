@@ -20,6 +20,7 @@
       <ion-input formControlName="Category"></ion-input>
     </ion-item>
     <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="cat_id">
+    
     <ion-item>
       <ion-button (click)="CreateRecord()" [disabled]="categoryForm.invalid">
         <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
