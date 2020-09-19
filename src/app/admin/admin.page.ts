@@ -254,7 +254,6 @@ export class AdminPage implements OnInit {
       })
       this.get_max_id();
     });
-
   }
   
   ionViewWillEnter(){
@@ -283,7 +282,7 @@ export class AdminPage implements OnInit {
           SubCategory: e.payload.doc.data()['SubCategory'],
         };
       })
-      this.cat_name;
+      this.cat_name();
       // console.log(this.Productdata['SubCategory_id']);
       if(this.Productdata['SubCategory_id']!=""){
       var scat_index = -1; 
