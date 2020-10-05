@@ -11,6 +11,7 @@ export class FireStoreService {
   collectionNameProduct = 'viewProducts_Table';
   collectionUserSpecial = 'UserSpecial';
   collectiondiscount = 'discountdetail';
+  collectionorder = 'orderdetails';
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -63,7 +64,7 @@ export class FireStoreService {
   }
 
   read_Productdetails() {
-    return this.firestore.collection(this.collectionNameProduct).snapshotChanges();
+    return this.firestore.collection(this.collectionNameProduct,ref=>ref.orderBy('Product_id','asc')).snapshotChanges();
   }
 
   update_Productdetails(recordID, record) {
@@ -108,6 +109,22 @@ export class FireStoreService {
 
   delete_discount(record_id) {
     this.firestore.doc(this.collectiondiscount + '/' + record_id).delete();
+  }
+
+  create_orderdetails(record) {
+    return this.firestore.collection(this.collectionorder).add(record);
+  }
+
+  read_orderdetails() {
+    return this.firestore.collection(this.collectionorder).snapshotChanges();
+  }
+
+  update_orderdetails(recordID, record) {
+    this.firestore.doc(this.collectionorder + '/' + recordID).update(record);
+  }
+
+  delete_orderdetails(record_id) {
+    this.firestore.doc(this.collectionorder + '/' + record_id).delete();
   }
 
   search(coll, record, field, opr, value) {

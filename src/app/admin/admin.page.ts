@@ -251,7 +251,7 @@ export class AdminPage implements OnInit {
         Product_id: e.payload.doc.data()['Product_id'],
         Deleted: e.payload.doc.data()['Deleted'],
         };
-      })
+      });
       this.get_max_id();
     });
   }

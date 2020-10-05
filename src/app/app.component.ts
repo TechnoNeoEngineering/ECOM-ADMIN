@@ -56,6 +56,11 @@ export class AppComponent {
 	discountdetails() {
 		this.nav.navigateForward('/discountdetails');
 	}
+	
+	ordertracking() {
+		this.nav.navigateForward('/ordertracking');
+	}
+	
 	Logout() {
 		this.storage.remove('email').then(k => {
 			this.storage.remove('logged').then(k1 => {

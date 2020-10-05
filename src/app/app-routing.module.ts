@@ -54,6 +54,10 @@ const routes: Routes = [
     path: 'discountdetails',
     loadChildren: () => import('./discountdetails/discountdetails.module').then( m => m.DiscountdetailsPageModule)
   },
+  {
+    path: 'ordertracking',
+    loadChildren: () => import('./ordertracking/ordertracking.module').then( m => m.OrdertrackingPageModule)
+  },
 
 ];
 
