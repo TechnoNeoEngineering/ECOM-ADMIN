@@ -125,7 +125,6 @@
   <!-- ----------------- Ordered ------------------------- -->
 
   <div *ngSwitchCase = "'Ordered'">
-    <div (click)="order_track()">  
       <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
         <div *ngIf="orderdata.deliverstatus == 'Ordered'">
         <ion-row class="back_order">
@@ -146,6 +145,7 @@
           </ion-col>
           <ion-col>
             <ion-label class="labelsize">ORDER DETAILS</ion-label>
+            <p class="amtsize">{{orderdata.orderid}}</p>
             <p class="amtsize"></p>
           </ion-col>
         </ion-row>
@@ -169,10 +169,134 @@
             </p>
           </ion-col>
         </ion-row>
+        <button ion-button (click)="inprogress(orderdata.id)" >Inprogress</button>
       </div>
       </ion-grid>
-    </div>
   </div>
+
+   <!-- --------------------- In Progress ------------------------- -->
+
+   <div *ngSwitchCase = "'In Progress'"> 
+    <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+      <div *ngIf="orderdata.deliverstatus == 'In Progress'" >
+      <ion-row class="back_order">
+        <ion-col>
+          <ion-label class="labelsize">ORDER PLACED</ion-label>
+          <p class="amtsize">{{orderdata.product_orderdate}}</p>
+        </ion-col>
+
+        <ion-col>
+          <ion-label class="labelsize">TOTAL</ion-label>
+          <p class="amtsize">₹ {{orderdata.Quantity * orderdata.Price}}</p>
+        </ion-col>
+
+        <ion-col>
+          <ion-label class="labelsize">SHIP TO</ion-label>
+          <p class="amtsize">{{orderdata.userid}}</p>
+          <p class="amtsize"></p>
+        </ion-col>
+        <ion-col>
+          <ion-label class="labelsize">ORDER DETAILS</ion-label>
+          <p class="amtsize">{{orderdata.orderid}}</p>
+          <p class="amtsize"></p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="hist_border">
+        <ion-col size="3">   
+          <img [src]="orderdata.image" class="imgwidth">
+        </ion-col>
+        <ion-col size="8">
+          <p>
+              <ion-label class="des_color">{{orderdata.Description}}</ion-label>
+          </p>
+          <p>
+              <ion-label class="des_color">Price: ₹<span class="amt_color">{{orderdata.Price}}</span></ion-label>
+          </p>
+          <p>
+            <ion-label class="des_color">Quantity: {{orderdata.Quantity}}</ion-label>
+          </p>
+          <p>
+            <ion-label class="des_color">Deliver Status: {{orderdata.deliverstatus}}</ion-label>
+          </p>
+          <p>
+            <ion-label class="des_color">Shipped Date: {{orderdata.shipmentdate}}</ion-label>
+          </p>
+          <p>
+            <ion-label class="des_color">Shipped Id: {{orderdata.shipmentid}}</ion-label>
+          </p>
+          <ion-item>
+            <ion-label>Shipment Id</ion-label>
+          <ion-input [(ngModel)]="shipid"></ion-input>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+      <button ion-button (click)="packed(orderdata.id)" >packed</button>
+    </div>
+    </ion-grid>
+</div>
+
+<!-- --------------------- Packed ------------------------- -->
+
+<div *ngSwitchCase = "'Packed'"> 
+  <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+    <div *ngIf="orderdata.deliverstatus == 'Packed'" >
+    <ion-row class="back_order">
+      <ion-col>
+        <ion-label class="labelsize">ORDER PLACED</ion-label>
+        <p class="amtsize">{{orderdata.product_orderdate}}</p>
+      </ion-col>
+
+      <ion-col>
+        <ion-label class="labelsize">TOTAL</ion-label>
+        <p class="amtsize">₹ {{orderdata.Quantity * orderdata.Price}}</p>
+      </ion-col>
+
+      <ion-col>
+        <ion-label class="labelsize">SHIP TO</ion-label>
+        <p class="amtsize">{{orderdata.userid}}</p>
+        <p class="amtsize"></p>
+      </ion-col>
+      <ion-col>
+        <ion-label class="labelsize">ORDER DETAILS</ion-label>
+        <p class="amtsize">{{orderdata.orderid}}</p>
+        <p class="amtsize"></p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="hist_border">
+      <ion-col size="3">   
+        <img [src]="orderdata.image" class="imgwidth">
+      </ion-col>
+      <ion-col size="8">
+        <p>
+            <ion-label class="des_color">{{orderdata.Description}}</ion-label>
+        </p>
+        <p>
+            <ion-label class="des_color">Price: ₹<span class="amt_color">{{orderdata.Price}}</span></ion-label>
+        </p>
+        <p>
+          <ion-label class="des_color">Quantity: {{orderdata.Quantity}}</ion-label>
+        </p>
+        <p>
+          <ion-label class="des_color">Deliver Status: {{orderdata.deliverstatus}}</ion-label>
+        </p>
+        <p>
+          <ion-label class="des_color">Shipped Date: {{orderdata.shipmentdate}}</ion-label>
+        </p>
+        <p>
+          <ion-label class="des_color">Shipped Id: {{orderdata.shipmentid}}</ion-label>
+        </p>
+        <ion-item>
+          <ion-label>Shipment Id</ion-label>
+        <ion-input [(ngModel)]="shipid"></ion-input>
+      </ion-item>
+      </ion-col>
+      <ion-button (click)="shipped(orderdata.id)">Shipped</ion-button>
+    </ion-row>
+  </div>
+  </ion-grid>
+</div>
 
     <!-- --------------------- Shipped ------------------------- -->
     <div *ngSwitchCase = "'Shipped'"> 
@@ -220,13 +344,12 @@
               <p>
                 <ion-label class="des_color">Shipped Date: {{orderdata.shipmentdate}}</ion-label>
               </p>
-              <ion-item>
-                <ion-label>Shipment Id</ion-label>
-              <ion-input [(ngModel)]="shipid"></ion-input>
-            </ion-item>
+              <p>
+                <ion-label class="des_color">Shipped Id: {{orderdata.shipmentid}}</ion-label>
+              </p>
             </ion-col>
-            <ion-button (click)="shipped(orderdata.id)">Shipped</ion-button>
           </ion-row>
+          <button ion-button (click)="delivered(orderdata.id)" >Delivered</button>
         </div>
         </ion-grid>
     </div>
@@ -253,6 +376,7 @@
           </ion-col>
           <ion-col>
             <ion-label class="labelsize">ORDER DETAILS</ion-label>
+            <p class="amtsize">{{orderdata.orderid}}</p>
             <p class="amtsize"></p>
           </ion-col>
         </ion-row>
@@ -280,8 +404,5 @@
       </ion-grid>
   </div>
     <!-- ----------------- third closed ------------------------- -->
-
-
-
 </div>
 </ion-content>

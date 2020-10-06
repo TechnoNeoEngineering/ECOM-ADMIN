@@ -22,14 +22,7 @@ export class OrdertrackingPage implements OnInit {
   read_cart(){
     return this.firestore.collection('CartListtNew133').snapshotChanges();
   }
-  shipped(data){
-    let record = {}
-    record['deliverstatus'] = 'Shipped';
-    record['shipmentid'] = this.shipid;
-    record['shipmentdate'] = new Date().toLocaleString();
-    this.firestore.doc('orderdetails' + '/' + data).update(record);
-    alert(data);
-  }
+
   ngOnInit() {
     this.fireStoreService.read_orderdetails().subscribe((data) => {
 			this.orderdetails = data.map((e) => {
@@ -131,6 +124,36 @@ export class OrdertrackingPage implements OnInit {
   ProductviewList:any;
   // ngOnInit() {
   // }
+
+  inprogress(data){
+      let record = {}
+      record['deliverstatus'] = 'In Progress';
+      this.firestore.doc('orderdetails' + '/' + data).update(record);
+      alert(data);
+  }
+
+  packed(data){
+    let record = {}
+    record['deliverstatus'] = 'Packed';
+    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    alert(data);
+  }
+
+  shipped(data){
+    let record = {}
+    record['deliverstatus'] = 'Shipped';
+    record['shipmentid'] = this.shipid;
+    record['shipmentdate'] = new Date().toLocaleString();
+    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    alert(data);
+  }
+
+  delivered(data){
+    let record = {}
+    record['deliverstatus'] = 'Delivered';
+    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    alert(data);
+  }
 
   placed(mth) {
     localStorage.setItem('months', mth);
