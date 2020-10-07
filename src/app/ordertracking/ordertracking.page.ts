@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-ordertracking',
   templateUrl: './ordertracking.page.html',
@@ -12,12 +13,16 @@ export class OrdertrackingPage implements OnInit {
   cre:any[];
   order: string = "All";
   orderarr:any;
+  orderdate:any;
   mnts: any;
   shipid:any;
   ordercount : boolean;
+  totalcount : number;
+  selectedOrderid: any[];
   constructor(private fireStoreService:FireStoreService,
      private firestore:AngularFirestore,
-     public nav: NavController) { }
+     public nav: NavController,
+     public datepipe: DatePipe) { }
 
   read_cart(){
     return this.firestore.collection('CartListtNew133').snapshotChanges();
@@ -48,7 +53,9 @@ export class OrdertrackingPage implements OnInit {
           deliverstatus: e.payload.doc.data()['deliverstatus'],
           deliverdate: e.payload.doc.data()['deliverdate'],
 				};
-			});
+      });
+      this.selectedOrderid = this.orderdetails;
+      this.totalcount = this.selectedOrderid.length;
       console.log(this.orderdetails);	
       // this.firestore.doc('CartListtNew133' + '/' + "ZTQmGSza7nWfS9fv3vUi").delete();
       // this.firestore.doc('CartListtNew133' + '/' + "h18KL6y3wc6bGs1TLjHL").delete();
@@ -161,5 +168,22 @@ export class OrdertrackingPage implements OnInit {
   order_track(){
     this.nav.navigateForward('/ordertrack');
   }
-
+  setOrderDateValues(orderdate) {
+    let  orderdate1= orderdate.toLocaleString();
+    orderdate =this.datepipe.transform(orderdate1, 'MM/dd/yyyy');
+    alert(orderdate); 
+    this.selectedOrderid = this.orderdetails.filter(orderarr =>this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy')==orderdate);
+    this.totalcount = this.selectedOrderid.length;
+    console.log(this.selectedOrderid);
+  }
+  itemcount(event: any){
+    var count = event.detail.value;
+    if(event.detail.value != 'All'){
+      var selectedOrder = this.orderdetails.filter(orderarr =>orderarr.deliverstatus==count);
+      this.totalcount = selectedOrder.length;
+    }
+    else{
+      this.totalcount = this.selectedOrderid.length;
+    }
+  }
 }

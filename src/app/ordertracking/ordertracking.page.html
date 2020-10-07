@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-{{orderdetails|json}}
+<!-- {{orderdetails|json}} -->
 
   <ion-grid>
     <ion-row>
@@ -22,7 +22,8 @@
               <ion-label position="floating">Filter by Date</ion-label>
           </ion-col>
           <ion-col size="5">
-            <ion-datetime min="2020" max="2040" value="10-03-2020" placeholder="Select Date"></ion-datetime>
+            <!-- <ion-datetime min="2020" max="2040" value="10-03-2020" placeholder="Select Date"></ion-datetime> -->
+            <ion-datetime min="2020" max="2040" displayFormat="MM/DD/YYYY" value="03/20/2000"  [(ngModel)]='orderdate'  (ionChange)="setOrderDateValues(orderdate)" placeholder="Select Date"></ion-datetime>
           </ion-col>
         </ion-row>
       </ion-col>
@@ -30,10 +31,10 @@
       <ion-col size="4">
         <ion-grid>
           <ion-row>
-            <ion-col size="4" style="margin-top: 10px;">
-              <ion-label>10 orders placed in</ion-label>
+            <ion-col size="6" style="margin-top: 10px;">
+              <ion-label>{{order}} : {{totalcount}} Orders</ion-label>
             </ion-col>
-            <ion-col size="4">
+            <!-- <ion-col size="4">
                 <ion-select value="past 1 months" interface="popover" class="dropdown_mon">
                   <ion-select-option value="past 1 months">past 1 months</ion-select-option>
                   <ion-select-option value="past 3 months">past 3 months</ion-select-option>
@@ -42,14 +43,14 @@
                   <ion-select-option value="past 2 years">past 2 year</ion-select-option>
                   <ion-select-option value="past 3 years">past 3 year</ion-select-option>
                 </ion-select>
-            </ion-col>
+            </ion-col> -->
           </ion-row>
         </ion-grid>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-segment [(ngModel)] = "order">
+      <ion-segment (ionChange)="itemcount($event)" [(ngModel)] = "order">
         <ion-segment-button value="All">
           <ion-label>All</ion-label>
         </ion-segment-button>
@@ -73,9 +74,8 @@
   </ion-grid>
 
 <div [ngSwitch]="order">
-    <div *ngSwitchCase = "'All'">
-      <div (click)="order_track()">  
-        <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+    <div *ngSwitchCase = "'All'"> 
+        <ion-grid *ngFor="let orderdata of selectedOrderid" class="ion_size">
           <ion-row class="back_order">
             <ion-col>
               <ion-label class="labelsize">ORDER PLACED</ion-label>
@@ -120,12 +120,11 @@
           </ion-row>
         </ion-grid>
       </div>
-    </div>
 
   <!-- ----------------- Ordered ------------------------- -->
 
   <div *ngSwitchCase = "'Ordered'">
-      <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" class="ion_size">
         <div *ngIf="orderdata.deliverstatus == 'Ordered'">
         <ion-row class="back_order">
           <ion-col>
@@ -177,9 +176,12 @@
    <!-- --------------------- In Progress ------------------------- -->
 
    <div *ngSwitchCase = "'In Progress'"> 
-    <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+    <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" class="ion_size">
+     <!-- {{(orderdata.deliverstatus == 'In Progress').length}} -->
       <div *ngIf="orderdata.deliverstatus == 'In Progress'" >
-      <ion-row class="back_order">
+        <!-- {{(orderdata|filter:{available:true}).length}}   -->
+      <ion-row class="back_order" >
+       
         <ion-col>
           <ion-label class="labelsize">ORDER PLACED</ion-label>
           <p class="amtsize">{{orderdata.product_orderdate}}</p>
@@ -219,16 +221,6 @@
           <p>
             <ion-label class="des_color">Deliver Status: {{orderdata.deliverstatus}}</ion-label>
           </p>
-          <p>
-            <ion-label class="des_color">Shipped Date: {{orderdata.shipmentdate}}</ion-label>
-          </p>
-          <p>
-            <ion-label class="des_color">Shipped Id: {{orderdata.shipmentid}}</ion-label>
-          </p>
-          <ion-item>
-            <ion-label>Shipment Id</ion-label>
-          <ion-input [(ngModel)]="shipid"></ion-input>
-        </ion-item>
         </ion-col>
       </ion-row>
       <button ion-button (click)="packed(orderdata.id)" >packed</button>
@@ -239,7 +231,7 @@
 <!-- --------------------- Packed ------------------------- -->
 
 <div *ngSwitchCase = "'Packed'"> 
-  <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+  <ion-grid *ngFor="let orderdata of selectedOrderid" class="ion_size">
     <div *ngIf="orderdata.deliverstatus == 'Packed'" >
     <ion-row class="back_order">
       <ion-col>
@@ -281,12 +273,6 @@
         <p>
           <ion-label class="des_color">Deliver Status: {{orderdata.deliverstatus}}</ion-label>
         </p>
-        <p>
-          <ion-label class="des_color">Shipped Date: {{orderdata.shipmentdate}}</ion-label>
-        </p>
-        <p>
-          <ion-label class="des_color">Shipped Id: {{orderdata.shipmentid}}</ion-label>
-        </p>
         <ion-item>
           <ion-label>Shipment Id</ion-label>
         <ion-input [(ngModel)]="shipid"></ion-input>
@@ -300,7 +286,7 @@
 
     <!-- --------------------- Shipped ------------------------- -->
     <div *ngSwitchCase = "'Shipped'"> 
-        <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+        <ion-grid *ngFor="let orderdata of selectedOrderid" class="ion_size">
           <div *ngIf="orderdata.deliverstatus == 'Shipped'" >
           <ion-row class="back_order">
             <ion-col>
@@ -320,6 +306,7 @@
             </ion-col>
             <ion-col>
               <ion-label class="labelsize">ORDER DETAILS</ion-label>
+              <p class="amtsize">{{orderdata.orderid}}</p>
               <p class="amtsize"></p>
             </ion-col>
           </ion-row>
@@ -356,7 +343,7 @@
 
     <!-- --------------------- Delivered ------------------------- -->
     <div *ngSwitchCase = "'Delivered'"> 
-      <ion-grid *ngFor="let orderdata of orderdetails" class="ion_size">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" class="ion_size">
         <div *ngIf="orderdata.deliverstatus == 'Delivered'" >
         <ion-row class="back_order">
           <ion-col>

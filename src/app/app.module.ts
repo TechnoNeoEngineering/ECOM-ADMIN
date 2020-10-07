@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 import { FireStoreService } from './service/fire-store.service';
 import * as firebase from 'firebase/app';
 import { NavParams, NavController } from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 
 // import { MatPaginator } from '@angular/material';
 
@@ -42,6 +43,7 @@ import { NavParams, NavController } from '@ionic/angular';
 		SplashScreen,
 		NavController,
 		NavParams,
+		DatePipe,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 	],
 	bootstrap: [AppComponent],
