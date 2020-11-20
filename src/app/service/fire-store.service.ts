@@ -116,7 +116,7 @@ export class FireStoreService {
   }
 
   read_orderdetails() {
-    return this.firestore.collection(this.collectionorder).snapshotChanges();
+    return this.firestore.collection(this.collectionorder,ref=>ref.orderBy('orderid','asc')).snapshotChanges();
   }
 
   update_orderdetails(recordID, record) {

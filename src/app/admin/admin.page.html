@@ -9,410 +9,420 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <form [formGroup]="productForm" (ngSubmit)="CreateProductDetails()">
-
-  <ion-item>
-     <ion-label>Select Category</ion-label>
-      <ion-select interface="popover" [value]="c1" [selected]="c1" (ionChange)="setCategoryValues(sCat)" [(ngModel)]="sCat" formControlName="Category_name">
-           <ion-select-option [value]="sCat.cat_id" *ngFor ="let sCat of categoryList">{{sCat.Category}} </ion-select-option> 
-     </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Select sub-category</ion-label>
-    <ion-select interface="popover" [value]="s1" [selected]="s1" [(ngModel)]="sSubCat" formControlName="SubCategory_id">
-        <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor ="let sSubCat of selectedCategory">{{sSubCat.SubCategory}}</ion-select-option>
-    </ion-select>
-  </ion-item>
- 
-  <!-- {{ProductviewList|json}} -->
-  <ion-item>
-    <ion-label position="floating"> Product Name</ion-label>
-    <ion-input [(ngModel)]="Productdata.Product_name" formControlName="Product_name"></ion-input>
-  </ion-item>
-
-  <!-- <input type="hidden"  [(ngModel)]="Productdata.Product_id" formControlName="Product_id"> -->
-  <ion-item disabled="true">
-    <ion-label position="floating">Product Id</ion-label>
-    <ion-input *ngIf="updateid == 'save'"  [(ngModel)]="max_id" formControlName="Product_id"></ion-input>
-    <ion-input *ngIf ="updateid == 'update'" [(ngModel)]="Productdata.Product_id" formControlName="Product_id"></ion-input>
-  </ion-item> 
- 
-  <ion-item>
-    <ion-label position="floating">SKU</ion-label>
-    <ion-input [(ngModel)]="Productdata.sku" formControlName="sku"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Star</ion-label>
-    <ion-input [(ngModel)]="Productdata.Star" formControlName="Star"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Review</ion-label>
-    <ion-input [(ngModel)]="Productdata.Review" formControlName="Review"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price for Normal user</ion-label>
-    <ion-input [(ngModel)]="Productdata.Normal_price" formControlName="Normal_price"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range1 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range1_from" formControlName="Range1_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range1 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range1_to" formControlName="Range1_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price1</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price1" formControlName="Price1"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Range2 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range2_from" formControlName="Range2_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range2 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range2_to" formControlName="Range2_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price2</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price2" formControlName="Price2"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range3 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range3_from" formControlName="Range3_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range3 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range3_to" formControlName="Range3_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price3</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price3" formControlName="Price3"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range4 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range4_from" formControlName="Range4_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range4 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range4_to" formControlName="Range4_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price4</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price4" formControlName="Price4"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range5 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range5_from" formControlName="Range5_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range5 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range5_to" formControlName="Range5_to"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Price5</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price5" formControlName="Price5"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range6 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range6_from" formControlName="Range6_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range6 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range6_to" formControlName="Range6_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price6</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price6" formControlName="Price6"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range7 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range7_from" formControlName="Range7_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range7 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range7_to" formControlName="Range7_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price7</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price7" formControlName="Price7"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range8 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range8_from" formControlName="Range8_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range8 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range8_to" formControlName="Range8_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price8</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price8" formControlName="Price8"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range9 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range9_from" formControlName="Range9_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range9 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range9_to" formControlName="Range9_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price9</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price9" formControlName="Price9"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range10 From</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range10_from" formControlName="Range10_from"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Range10 To</ion-label>
-    <ion-input [(ngModel)]="Productdata.Range10_to" formControlName="Range10_to"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Price10</ion-label>
-    <ion-input [(ngModel)]="Productdata.Price10" formControlName="Price10"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Offer</ion-label>
-    <ion-input [(ngModel)]="Productdata.Offer" formControlName="Offer"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">GST</ion-label>
-    <ion-input [(ngModel)]="Productdata.gst" formControlName="gst"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">MRP</ion-label>
-    <ion-input [(ngModel)]="Productdata.Mrp" formControlName="Mrp"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">EMI</ion-label>
-    <ion-input [(ngModel)]="Productdata.Emi" formControlName="Emi"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features1</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features1" formControlName="Key_Features1"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features2</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features2" formControlName="Key_Features2"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features3</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features3" formControlName="Key_Features3"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features4</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features4" formControlName="Key_Features4"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features5</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features5" formControlName="Key_Features5"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Key Features6</ion-label>
-    <ion-input [(ngModel)]="Productdata.Key_Features6" formControlName="Key_Features6"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Cashback1</ion-label>
-    <ion-input [(ngModel)]="Productdata.Cashback1" formControlName="Cashback1"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Cashback2</ion-label>
-    <ion-input [(ngModel)]="Productdata.Cashback2" formControlName="Cashback2"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Itemdetail Name</ion-label>
-    <ion-input [(ngModel)]="Productdata.Itemdetail_name" formControlName="Itemdetail_name"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Category Name</ion-label>
-    <ion-input [(ngModel)]="Productdata.Id" formControlName="Id"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Category1</ion-label>
-    <ion-input [(ngModel)]="Productdata.Category1" formControlName="Category1"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Category2</ion-label>
-    <ion-input [(ngModel)]="Productdata.Category2" formControlName="Category2"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Category3</ion-label>
-    <ion-input [(ngModel)]="Productdata.Category3" formControlName="Category3"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Item Usage</ion-label>
-    <ion-input [(ngModel)]="Productdata.item_usage" formControlName="item_usage"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Pack Size</ion-label>
-    <ion-input [(ngModel)]="Productdata.pack_size" formControlName="pack_size"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Unit</ion-label>
-    <ion-input [(ngModel)]="Productdata.unit" formControlName="unit"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Composition</ion-label>
-    <ion-input [(ngModel)]="Productdata.composition" formControlName="composition"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">How to use</ion-label>
-    <ion-input [(ngModel)]="Productdata.howtouse" formControlName="howtouse"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Application</ion-label>
-    <ion-input [(ngModel)]="Productdata.application" formControlName="application"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Package Contents</ion-label>
-    <ion-input [(ngModel)]="Productdata.packagecontents" formControlName="packagecontents"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Description Name</ion-label>
-    <ion-input [(ngModel)]="Productdata.Description_name" formControlName="Description_name"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Description</ion-label>
-    <ion-input [(ngModel)]="Productdata.Description" formControlName="Description"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Review Name</ion-label>
-    <ion-input [(ngModel)]="Productdata.Review_name" formControlName="Review_name"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Review Des</ion-label>
-    <ion-input [(ngModel)]="Productdata.Review_des" formControlName="Review_des"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Brand</ion-label>
-    <ion-input [(ngModel)]="Productdata.Brand" formControlName="Brand"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Make</ion-label>
-    <ion-input [(ngModel)]="Productdata.Make" formControlName="Make"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Model</ion-label>
-    <ion-input [(ngModel)]="Productdata.Model" formControlName="Model"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Year of manufacture</ion-label>
-    <ion-datetime [(ngModel)]="Productdata.YearOfManufacture" formControlName="YearOfManufacture" min="2010" max="2025" value="1990-02-20" placeholder="Select Date"></ion-datetime>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Year of Expiry</ion-label>
-    <ion-datetime [(ngModel)]="Productdata.Expiry" formControlName="Expiry" min="2010" max="2025" value="1990-02-19" placeholder="Select Date"></ion-datetime>
-  </ion-item>
-
-  <ion-item>
-    <ion-label position="floating">Age Group</ion-label>
-    <ion-input [(ngModel)]="Productdata.AgeGroup" formControlName="AgeGroup"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Weight</ion-label>
-    <ion-input [(ngModel)]="Productdata.Weight" formControlName="Weight"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Dimensions</ion-label>
-    <ion-input [(ngModel)]="Productdata.Dimensions" formControlName="Dimensions"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Product photos</ion-label>
-    <ion-input [(ngModel)]="Productdata.Url" formControlName="Url" placeholder="top view"></ion-input>
-    <ion-input [(ngModel)]="Productdata.Urlimage_view1" formControlName="Urlimage_view1" placeholder="front view"></ion-input>
-    <ion-input [(ngModel)]="Productdata.Urlimage_view2" formControlName="Urlimage_view2" placeholder="rear view"></ion-input>
-    <ion-input [(ngModel)]="Productdata.Urlimage_view3" formControlName="Urlimage_view3" placeholder="side view"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label position="floating">Colour</ion-label>
-    <ion-input [(ngModel)]="Productdata.Color" formControlName="Color"></ion-input>
-  </ion-item>
-  
-  <ion-item>
-    <ion-label>Select target gender</ion-label>
-  <ion-select class="custom-options" interface="popover">
-  <ion-select-option value="Male" >Male</ion-select-option>
-  <ion-select-option value="Female">Female</ion-select-option>
-  </ion-select>
-  </ion-item>
-  <!-- [disabled]="productForm.invalid" -->
-  <ion-button [ngStyle]="{'color':updateid ? 'Add Product Details' : 'Update'} " (click)="CreateProductDetails()" > 
-    <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-    {{updateid}}
-  </ion-button>
-  <ion-button (click)="cancel()">Cancel</ion-button>
-   
-</form>
+    <!-- {{Productdata | json}} -->
+    <ion-item>
+      <ion-label>Select Category</ion-label>
+      <ion-select interface="popover" [value]="c1" [selected]="c1" (ionChange)="setCategoryValues(sCat)"
+        [(ngModel)]="sCat" formControlName="Category_name">
+        <ion-select-option [value]="sCat.cat_id" *ngFor="let sCat of categoryList">{{sCat.Category}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select sub-category</ion-label>
+      <ion-select interface="popover" [value]="s1" [selected]="s1" [(ngModel)]="sSubCat"
+        formControlName="SubCategory_id">
+        <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
+          {{sSubCat.SubCategory}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- {{ProductviewList|json}} -->
+    <ion-item>
+      <ion-label position="floating"> Product Name</ion-label>
+      <ion-input [(ngModel)]="Productdata.Product_name" formControlName="Product_name"></ion-input>
+    </ion-item>
+
+    <!-- <input type="hidden"  [(ngModel)]="Productdata.Product_id" formControlName="Product_id"> -->
+    <ion-item disabled="true">
+      <ion-label position="floating">Product Id</ion-label>
+      <ion-input *ngIf="updateid == 'save'" [(ngModel)]="max_id" formControlName="Product_id"></ion-input>
+      <ion-input *ngIf="updateid == 'update'" [(ngModel)]="Productdata.Product_id" formControlName="Product_id">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">SKU</ion-label>
+      <ion-input [(ngModel)]="Productdata.sku" formControlName="sku"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Star</ion-label>
+      <ion-input [(ngModel)]="Productdata.Star" formControlName="Star"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Review</ion-label>
+      <ion-input [(ngModel)]="Productdata.Review" formControlName="Review"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price for Normal user</ion-label>
+      <ion-input [(ngModel)]="Productdata.Normal_price" formControlName="Normal_price"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range1 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range1_from" formControlName="Range1_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range1 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range1_to" formControlName="Range1_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price1</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price1" formControlName="Price1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range2 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range2_from" formControlName="Range2_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range2 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range2_to" formControlName="Range2_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price2</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price2" formControlName="Price2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range3 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range3_from" formControlName="Range3_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range3 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range3_to" formControlName="Range3_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price3</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price3" formControlName="Price3"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range4 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range4_from" formControlName="Range4_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range4 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range4_to" formControlName="Range4_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price4</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price4" formControlName="Price4"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range5 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range5_from" formControlName="Range5_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range5 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range5_to" formControlName="Range5_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price5</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price5" formControlName="Price5"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range6 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range6_from" formControlName="Range6_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range6 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range6_to" formControlName="Range6_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price6</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price6" formControlName="Price6"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range7 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range7_from" formControlName="Range7_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range7 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range7_to" formControlName="Range7_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price7</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price7" formControlName="Price7"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range8 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range8_from" formControlName="Range8_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range8 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range8_to" formControlName="Range8_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price8</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price8" formControlName="Price8"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range9 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range9_from" formControlName="Range9_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range9 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range9_to" formControlName="Range9_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price9</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price9" formControlName="Price9"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range10 From</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range10_from" formControlName="Range10_from"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Range10 To</ion-label>
+      <ion-input [(ngModel)]="Productdata.Range10_to" formControlName="Range10_to"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Price10</ion-label>
+      <ion-input [(ngModel)]="Productdata.Price10" formControlName="Price10"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Offer</ion-label>
+      <ion-input [(ngModel)]="Productdata.Offer" formControlName="Offer"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">GST</ion-label>
+      <ion-input [(ngModel)]="Productdata.gst" formControlName="gst"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">MRP</ion-label>
+      <ion-input [(ngModel)]="Productdata.Mrp" formControlName="Mrp"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">EMI</ion-label>
+      <ion-input [(ngModel)]="Productdata.Emi" formControlName="Emi"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features1</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features1" formControlName="Key_Features1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features2</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features2" formControlName="Key_Features2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features3</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features3" formControlName="Key_Features3"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features4</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features4" formControlName="Key_Features4"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features5</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features5" formControlName="Key_Features5"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Key Features6</ion-label>
+      <ion-input [(ngModel)]="Productdata.Key_Features6" formControlName="Key_Features6"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cashback1</ion-label>
+      <ion-input [(ngModel)]="Productdata.Cashback1" formControlName="Cashback1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Cashback2</ion-label>
+      <ion-input [(ngModel)]="Productdata.Cashback2" formControlName="Cashback2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Itemdetail Name</ion-label>
+      <ion-input [(ngModel)]="Productdata.Itemdetail_name" formControlName="Itemdetail_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category Name</ion-label>
+      <ion-input [(ngModel)]="Productdata.Id" formControlName="Id"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category1</ion-label>
+      <ion-input [(ngModel)]="Productdata.Category1" formControlName="Category1"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category2</ion-label>
+      <ion-input [(ngModel)]="Productdata.Category2" formControlName="Category2"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category3</ion-label>
+      <ion-input [(ngModel)]="Productdata.Category3" formControlName="Category3"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Item Usage</ion-label>
+      <ion-input [(ngModel)]="Productdata.item_usage" formControlName="item_usage"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Pack Size</ion-label>
+      <ion-input [(ngModel)]="Productdata.pack_size" formControlName="pack_size"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Unit</ion-label>
+      <ion-input [(ngModel)]="Productdata.unit" formControlName="unit"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Composition</ion-label>
+      <ion-input [(ngModel)]="Productdata.composition" formControlName="composition"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">How to use</ion-label>
+      <ion-input [(ngModel)]="Productdata.howtouse" formControlName="howtouse"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Application</ion-label>
+      <ion-input [(ngModel)]="Productdata.application" formControlName="application"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Package Contents</ion-label>
+      <ion-input [(ngModel)]="Productdata.packagecontents" formControlName="packagecontents"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description Name</ion-label>
+      <ion-input [(ngModel)]="Productdata.Description_name" formControlName="Description_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input [(ngModel)]="Productdata.Description" formControlName="Description"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Review Name</ion-label>
+      <ion-input [(ngModel)]="Productdata.Review_name" formControlName="Review_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Review Des</ion-label>
+      <ion-input [(ngModel)]="Productdata.Review_des" formControlName="Review_des"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Brand</ion-label>
+      <ion-input [(ngModel)]="Productdata.Brand" formControlName="Brand"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Make</ion-label>
+      <ion-input [(ngModel)]="Productdata.Make" formControlName="Make"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Model</ion-label>
+      <ion-input [(ngModel)]="Productdata.Model" formControlName="Model"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Year of manufacture</ion-label>
+      <ion-datetime [(ngModel)]="Productdata.YearOfManufacture" formControlName="YearOfManufacture" min="2010"
+        max="2025" value="1990-02-20" placeholder="Select Date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Year of Expiry</ion-label>
+      <ion-datetime [(ngModel)]="Productdata.Expiry" formControlName="Expiry" min="2010" max="2025" value="1990-02-19"
+        placeholder="Select Date"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Age Group</ion-label>
+      <ion-input [(ngModel)]="Productdata.AgeGroup" formControlName="AgeGroup"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Weight</ion-label>
+      <ion-input [(ngModel)]="Productdata.Weight" formControlName="Weight"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Dimensions</ion-label>
+      <ion-input [(ngModel)]="Productdata.Dimensions" formControlName="Dimensions"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Product photos</ion-label>
+      <ion-input [(ngModel)]="Productdata.Url" formControlName="Url" placeholder="top view"></ion-input>
+      <ion-input [(ngModel)]="Productdata.Urlimage_view1" formControlName="Urlimage_view1" placeholder="front view">
+      </ion-input>
+      <ion-input [(ngModel)]="Productdata.Urlimage_view2" formControlName="Urlimage_view2" placeholder="rear view">
+      </ion-input>
+      <ion-input [(ngModel)]="Productdata.Urlimage_view3" formControlName="Urlimage_view3" placeholder="side view">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Colour</ion-label>
+      <ion-input [(ngModel)]="Productdata.Color" formControlName="Color"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select target gender</ion-label>
+      <ion-select class="custom-options" interface="popover">
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="Female">Female</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <!-- [disabled]="productForm.invalid" -->
+    <ion-button [ngStyle]="{'color':updateid ? 'Add Product Details' : 'Update'} " (click)="CreateProductDetails()">
+      <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+      {{updateid}}
+    </ion-button>
+    <ion-button (click)="cancel()">Cancel</ion-button>
+
+  </form>
 </ion-content>

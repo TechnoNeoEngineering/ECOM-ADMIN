@@ -3,46 +3,51 @@ import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-ordertracking',
   templateUrl: './ordertracking.page.html',
   styleUrls: ['./ordertracking.page.scss'],
 })
-export class OrdertrackingPage implements OnInit {
-  orderdetails:any[];
-  cre:any[];
-  order: string = "All";
-  orderarr:any;
-  orderdate:any;
-  mnts: any;
-  shipid:any;
-  ordercount : boolean;
-  totalcount : number;
-  selectedOrderid: any[];
-  constructor(private fireStoreService:FireStoreService,
-     private firestore:AngularFirestore,
-     public nav: NavController,
-     public datepipe: DatePipe) { }
 
-  read_cart(){
+export class OrdertrackingPage implements OnInit {
+  orderdetails: any[];
+  cre: any[];
+  order: string = "All";
+  orderarr: any;
+  orderdate: any;
+  mnts: any;
+  shipid: any;
+  ordercount: boolean;
+  totalcount: number;
+  selectedOrderid: any[];
+  orderdropdown: any[] = [];
+  unique_orderid: any[] = [];
+
+  constructor(private fireStoreService: FireStoreService,
+    private firestore: AngularFirestore,
+    public nav: NavController,
+    public datepipe: DatePipe) { }
+
+  read_cart() {
     return this.firestore.collection('CartListtNew133').snapshotChanges();
   }
 
   ngOnInit() {
     this.fireStoreService.read_orderdetails().subscribe((data) => {
-			this.orderdetails = data.map((e) => {
-				return {
-					id: e.payload.doc.id,
-					isEdit: false,
-					userid: e.payload.doc.data()['userid'],
-					Productid: e.payload.doc.data()['Productid'],
+      this.orderdetails = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          userid: e.payload.doc.data()['userid'],
+          Productid: e.payload.doc.data()['Productid'],
           Quantity: e.payload.doc.data()['Quantity'],
           Price: e.payload.doc.data()['Price'],
-					totalamount: e.payload.doc.data()['totalamount'],
+          totalamount: e.payload.doc.data()['totalamount'],
           product_orderdate: e.payload.doc.data()['product_orderdate'],
           image: e.payload.doc.data()['image'],
           address: e.payload.doc.data()['address'],
-					phoneno: e.payload.doc.data()['phoneno'],
+          phoneno: e.payload.doc.data()['phoneno'],
           orderid: e.payload.doc.data()['orderid'],
           paymentid: e.payload.doc.data()['paymentid'],
           shipmentid: e.payload.doc.data()['shipmentid'],
@@ -52,11 +57,19 @@ export class OrdertrackingPage implements OnInit {
           trackmentid: e.payload.doc.data()['trackmentid'],
           deliverstatus: e.payload.doc.data()['deliverstatus'],
           deliverdate: e.payload.doc.data()['deliverdate'],
-				};
+          returnstatus: e.payload.doc.data()['returnstatus'],
+          returndate: e.payload.doc.data()['returndate'],
+        };
       });
       this.selectedOrderid = this.orderdetails;
       this.totalcount = this.selectedOrderid.length;
-      console.log(this.orderdetails);	
+      console.log(this.orderdetails);
+      for (var i = 0; i < this.orderdetails.length; i++) {
+        this.orderdropdown.push(this.orderdetails[i]['orderid']);
+      }
+      this.unique_orderid = this.orderdropdown.filter(function (elem, index, self) {
+        return index === self.indexOf(elem);
+      })
       // this.firestore.doc('CartListtNew133' + '/' + "ZTQmGSza7nWfS9fv3vUi").delete();
       // this.firestore.doc('CartListtNew133' + '/' + "h18KL6y3wc6bGs1TLjHL").delete();
       // this.firestore.doc('CartListtNew133' + '/' + "hfOcRUDahGNwgLy23OXC").delete();
@@ -70,7 +83,7 @@ export class OrdertrackingPage implements OnInit {
       // this.firestore.doc('orderdetails' + '/' + 'p06BHamonrGWhYOEY91g').delete();
       // this.firestore.doc('orderdetails' + '/' + 'rXeWO36j5X8xPavLKn5g').delete();
     });
-    
+
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
 
@@ -85,68 +98,68 @@ export class OrdertrackingPage implements OnInit {
     });
 
     this.read_cartlist().subscribe((data) => {
-			this.cre = data.map((e) => {
+      this.cre = data.map((e) => {
         // if((e.payload.doc.data()['product_orderdate']) != null){
-          return {
-            id: e.payload.doc.id,
-            isEdit: false,
-            userid: e.payload.doc.data()['userid'],
-            Productid: e.payload.doc.data()['Productid'],
-            Description: e.payload.doc.data()['Description'],
-            Quantity: e.payload.doc.data()['Quantity'],
-            Price: e.payload.doc.data()['Price'],
-            product_orderdate: e.payload.doc.data()['product_orderdate'],
-            image: e.payload.doc.data()['image']
-          }
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          userid: e.payload.doc.data()['userid'],
+          Productid: e.payload.doc.data()['Productid'],
+          Description: e.payload.doc.data()['Description'],
+          Quantity: e.payload.doc.data()['Quantity'],
+          Price: e.payload.doc.data()['Price'],
+          product_orderdate: e.payload.doc.data()['product_orderdate'],
+          image: e.payload.doc.data()['image']
+        }
         // }
       });
       console.log(this.cre);
       // this.orderarr=this.cre.filter(function(item){
       //       return item != undefined;         
       //     });
-      this.orderarr=this.cre.filter(cre => cre.product_orderdate != null);
+      this.orderarr = this.cre.filter(cre => cre.product_orderdate != null);
       console.log(this.orderarr);
-      if(this.orderarr == ''){
+      if (this.orderarr == '') {
         this.ordercount = true;
       }
-      else{
+      else {
         this.ordercount = false;
-         }
-          console.log(this.orderarr);
+      }
+      console.log(this.orderarr);
     });
 
-    this.mnts = localStorage.getItem('months')
+    this.mnts = localStorage.getItem('months');
   }
- 
+
   read_cartlist() {
     const user = localStorage.getItem('email');
-    	console.log(user);
+    console.log(user);
     return this.firestore.collection('CartListtNew133').snapshotChanges();
     // return this.firestore.collection('CartListtNew133',(ref) => ref.where('userid', '==',user).where('product_orderdate', '==',null)).snapshotChanges();
     // && ref.where('product_orderdate', '!=',null)
-	}
+  }
   read_Productdetails() {
     return this.firestore.collection('viewProducts_Table').snapshotChanges();
   }
-  ProductviewList:any;
+  ProductviewList: any;
   // ngOnInit() {
   // }
 
-  inprogress(data){
-      let record = {}
-      record['deliverstatus'] = 'In Progress';
-      this.firestore.doc('orderdetails' + '/' + data).update(record);
-      alert(data);
+  inprogress(data) {
+    let record = {}
+    record['deliverstatus'] = 'In Progress';
+    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    alert(data);
   }
 
-  packed(data){
+  packed(data) {
     let record = {}
     record['deliverstatus'] = 'Packed';
     this.firestore.doc('orderdetails' + '/' + data).update(record);
     alert(data);
   }
 
-  shipped(data){
+  shipped(data) {
     let record = {}
     record['deliverstatus'] = 'Shipped';
     record['shipmentid'] = this.shipid;
@@ -155,9 +168,10 @@ export class OrdertrackingPage implements OnInit {
     alert(data);
   }
 
-  delivered(data){
+  delivered(data) {
     let record = {}
     record['deliverstatus'] = 'Delivered';
+    record['deliverdate'] = new Date().toLocaleString();
     this.firestore.doc('orderdetails' + '/' + data).update(record);
     alert(data);
   }
@@ -165,24 +179,35 @@ export class OrdertrackingPage implements OnInit {
   placed(mth) {
     localStorage.setItem('months', mth);
   }
-  order_track(){
+  order_track() {
     this.nav.navigateForward('/ordertrack');
   }
   setOrderDateValues(orderdate) {
-    let  orderdate1= orderdate.toLocaleString();
-    orderdate =this.datepipe.transform(orderdate1, 'MM/dd/yyyy');
-    alert(orderdate); 
-    this.selectedOrderid = this.orderdetails.filter(orderarr =>this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy')==orderdate);
+    let orderdate1 = orderdate.toLocaleString();
+    orderdate = this.datepipe.transform(orderdate1, 'MM/dd/yyyy');
+    alert(orderdate);
+    this.selectedOrderid = this.orderdetails.filter(orderarr => this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy') == orderdate);
     this.totalcount = this.selectedOrderid.length;
     console.log(this.selectedOrderid);
   }
-  itemcount(event: any){
+  itemcount(event: any) {
     var count = event.detail.value;
-    if(event.detail.value != 'All'){
-      var selectedOrder = this.orderdetails.filter(orderarr =>orderarr.deliverstatus==count);
+    if (event.detail.value != 'All') {
+      var selectedOrder = this.orderdetails.filter(orderarr => orderarr.deliverstatus == count);
       this.totalcount = selectedOrder.length;
     }
-    else{
+    else {
+      this.totalcount = this.selectedOrderid.length;
+    }
+  }
+  setOrderIdValues(unique_orderid) {
+    alert(unique_orderid);
+    if (unique_orderid == 'all') {
+      this.selectedOrderid = this.orderdetails;
+      this.totalcount = this.selectedOrderid.length;
+    }
+    else {
+      this.selectedOrderid = this.orderdetails.filter(orderarr => orderarr.orderid === unique_orderid);
       this.totalcount = this.selectedOrderid.length;
     }
   }

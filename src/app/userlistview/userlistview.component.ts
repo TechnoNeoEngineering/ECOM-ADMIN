@@ -82,7 +82,7 @@ export class UserlistviewComponent {
   }
   setSubCategoryValues() {
 
-    this.ProductList = this.ProductviewList.filter(SubCatvalue => SubCatvalue.SubCategory_id == this.sSub.SubCategory_id);
+    this.ProductList = this.ProductviewList.filter(SubCatvalue => SubCatvalue.SubCategory_id === this.sSub.SubCategory_id);
     this.first = 0;
     this.drawn = false;
     console.log(this.ProductList);

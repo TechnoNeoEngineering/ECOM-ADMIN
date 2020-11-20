@@ -8,7 +8,7 @@ interface CategoryData {
   Category: string;
   Age: number;
   Address: string;
-  id:number;
+  id: number;
 }
 
 @Component({
@@ -26,12 +26,11 @@ export class CategoryPage implements OnInit {
   constructor(private fireStoreService: FireStoreService,
     public fb: FormBuilder,
     public navCtrl: NavController,
-    private router: Router,) 
-    {
-      this.categorydata = {} as CategoryData;
-    }
+    private router: Router,) {
+    this.categorydata = {} as CategoryData;
+  }
 
-  SubCategory(){
+  SubCategory() {
     this.navCtrl.navigateForward('/view');
   }
 
@@ -39,9 +38,9 @@ export class CategoryPage implements OnInit {
 
     this.categoryForm = this.fb.group({
       Category: ['', [Validators.required]],
-      cat_id: [this.max_id,[Validators.required]],
+      cat_id: [this.max_id, [Validators.required]],
     })
-  
+
     this.fireStoreService.read_category().subscribe(data => {
 
       this.categoryList = data.map(e => {
@@ -64,9 +63,9 @@ export class CategoryPage implements OnInit {
       this.categoryForm.reset();
       this.ngOnInit();
     })
-    .catch(error => {
-      console.log(error);
-    });
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   RemoveRecord(rowID) {
@@ -86,12 +85,12 @@ export class CategoryPage implements OnInit {
     recordRow.isEdit = false;
   }
 
-  get_max_id(){
-    var maxid =Math.max.apply(Math, this.categoryList.map(function(o) { return o.cat_id; }));
-    if(maxid<= 0 || maxid==NaN) {
+  get_max_id() {
+    var maxid = Math.max.apply(Math, this.categoryList.map(function (o) { return o.cat_id; }));
+    if (maxid <= 0 || maxid == NaN) {
       this.max_id = 1;
     } else {
-      this.max_id = maxid+1;
+      this.max_id = maxid + 1;
     }
     // this.max_id = maxid+1;
     console.log(this.max_id);

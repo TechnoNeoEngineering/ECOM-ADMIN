@@ -50,13 +50,16 @@ const routes: Routes = [
     path: 'specialuser',
     loadChildren: () => import('./specialuser/specialuser.module').then(m => m.SpecialuserPageModule),
     canActivate: [AuthGuardService]
-  },  {
+  },
+  {
     path: 'discountdetails',
-    loadChildren: () => import('./discountdetails/discountdetails.module').then( m => m.DiscountdetailsPageModule)
+    loadChildren: () => import('./discountdetails/discountdetails.module').then( m => m.DiscountdetailsPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'ordertracking',
-    loadChildren: () => import('./ordertracking/ordertracking.module').then( m => m.OrdertrackingPageModule)
+    loadChildren: () => import('./ordertracking/ordertracking.module').then( m => m.OrdertrackingPageModule),
+    canActivate: [AuthGuardService]
   },
 
 ];
