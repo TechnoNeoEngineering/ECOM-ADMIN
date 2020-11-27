@@ -7,6 +7,8 @@ import * as firebase from 'firebase/app';
 import { environment } from '../environments/environment';
 import { Storage } from '@ionic/storage';
 import { NavParams, NavController } from '@ionic/angular';
+import { HTTP } from '@ionic-native/http/ngx';
+
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
@@ -17,16 +19,21 @@ export class AppComponent {
 	rootPage: any = 'viewproduct';
 
 	constructor(private platform: Platform, private splashScreen: SplashScreen,
-		private statusBar: StatusBar, public nav: NavController, public navParams: NavParams, private storage: Storage) {
+		private statusBar: StatusBar,private http:HTTP, public nav: NavController, public navParams: NavParams, private storage: Storage) {
 		this.initializeApp();
 	}
 
 	initializeApp() {
 		this.platform.ready().then(() => {
 			firebase.initializeApp(environment.firebaseConfig);
+			this.http.setServerTrustMode('pinned'); 
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
 		});
+	}
+
+	push(){
+		this.nav.navigateForward('/pushnotification')
 	}
 
 	Productpage() {

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Notification</ion-title>
+    <ion-back-button slot="start">
+      <ion-icon nmae="arrow-back"></ion-icon>
+    </ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="row">
+    <div class="container">
+      <ion-grid>
+        <ion-row>
+          <ion-col size-md="6" offset-md="3"size-sm="12">
+          
+                <div class="border">
+                  <div class="text-center p-1"><h4>Title</h4></div>
+                    <div class="p-2">
+                      <div class="input-group border">
+                    <ion-input [(ngModel)]="title"></ion-input>
+                      </div>
+                    </div>
+              
+
+                <div class="border">
+                  
+                    <ion-card-title> <div class="text-center p-1"><h4>Description</h4></div> </ion-card-title>
+                  
+                      <div class="p-2">
+                        <div class="input-group">
+                          <ion-textarea [(ngModel)]="body" class="form-control" aria-label="With textarea" style="height: 6rem;"></ion-textarea>
+                        </div>
+                      </div>
+                    
+                </div>  
+
+                <div class="text-center p-2">
+                  <ion-button (click)="send()">Send</ion-button>
+                </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+    </div>
+  </div>
+      
+</ion-content>

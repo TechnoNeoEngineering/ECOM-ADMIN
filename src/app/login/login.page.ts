@@ -116,29 +116,21 @@ export class LoginPage implements OnInit {
           UId: e.payload.doc.data()['UId'],
           email: e.payload.doc.data()['email'],
           password: e.payload.doc.data()['password'],
-
         };
-
       });
       //  console.log(JSON.stringify(this.cre));
       if (credentials.email === this.cre[0].email.trim() && credentials.password === this.cre[0].password) {
         this.storage.set('logged', 'true');
         this.storage.set('email', this.email);
-
         this.navCtrl.navigateForward('/home');
-
       } else {
         alert('Username or Password is wrong')
       }
-
     });
-
-
   }
 
 
   goToRegisterPage() {
-
     this.navCtrl.navigateForward('/register');
   }
 
@@ -147,9 +139,7 @@ export class LoginPage implements OnInit {
   }
 
   phonenumber() {
-
     this.navCtrl.navigateForward('/mobileotp');
-
   }
 
 
@@ -293,7 +283,4 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateRoot('/home');
     console.log(err);
   }
-
-
-
 }

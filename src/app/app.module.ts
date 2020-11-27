@@ -14,12 +14,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { HttpClientModule } from '@angular/common/http';
 
 import { environment } from '../environments/environment';
 import { FireStoreService } from './service/fire-store.service';
 import * as firebase from 'firebase/app';
 import { NavParams, NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
+import { HTTP } from '@ionic-native/http/ngx';
 
 // import { MatPaginator } from '@angular/material';
 
@@ -35,6 +37,7 @@ import { DatePipe } from '@angular/common';
 		AngularFireModule.initializeApp(environment.firebaseConfig),
 		AngularFireAuthModule,
 		AngularFireDatabaseModule,
+		HttpClientModule,
 		IonicStorageModule.forRoot()
 	],
 	providers: [
@@ -44,6 +47,7 @@ import { DatePipe } from '@angular/common';
 		NavController,
 		NavParams,
 		DatePipe,
+		HTTP,
 		{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 	],
 	bootstrap: [AppComponent],

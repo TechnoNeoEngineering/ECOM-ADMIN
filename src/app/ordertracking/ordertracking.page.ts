@@ -18,6 +18,7 @@ export class OrdertrackingPage implements OnInit {
   orderdate: any;
   mnts: any;
   shipid: any;
+  orderid : any;
   ordercount: boolean;
   totalcount: number;
   selectedOrderid: any[];
@@ -70,6 +71,7 @@ export class OrdertrackingPage implements OnInit {
       this.unique_orderid = this.orderdropdown.filter(function (elem, index, self) {
         return index === self.indexOf(elem);
       })
+      console.log(this.unique_orderid);
       // this.firestore.doc('CartListtNew133' + '/' + "ZTQmGSza7nWfS9fv3vUi").delete();
       // this.firestore.doc('CartListtNew133' + '/' + "h18KL6y3wc6bGs1TLjHL").delete();
       // this.firestore.doc('CartListtNew133' + '/' + "hfOcRUDahGNwgLy23OXC").delete();

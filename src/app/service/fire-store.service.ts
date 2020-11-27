@@ -12,10 +12,28 @@ export class FireStoreService {
   collectionUserSpecial = 'UserSpecial';
   collectiondiscount = 'discountdetail';
   collectionorder = 'orderdetails';
-
+  // collectiondevice = 'devicetokens';
+  // collectionoriginaltoken = 'originaltoken';
+  collectiondevice1 = 'newtoken';
   constructor(private firestore: AngularFirestore) { }
 
   //-----------------------Category--------------------------
+
+  // create_originaltoken(record) {
+  //   return this.firestore.collection(this.collectionoriginaltoken).add(record);
+  // }
+
+  // read_originaltoken() {
+  //   return this.firestore.collection(this.collectionoriginaltoken).snapshotChanges();
+  // }
+
+  // update_originaltoken(recordID, record) {
+  //   this.firestore.doc(this.collectionoriginaltoken + '/' + recordID).update(record);
+  // }
+
+  // delete_originaltoken(record_id) {
+  //   this.firestore.doc(this.collectionoriginaltoken + '/' + record_id).delete();
+  // }
 
   create_category(record) {
     return this.firestore.collection(this.collectionName).add(record);
@@ -31,6 +49,38 @@ export class FireStoreService {
 
   delete_category(record_id) {
     this.firestore.doc(this.collectionName + '/' + record_id).delete();
+  }
+
+  // create_device(record) {
+  //   return this.firestore.collection(this.collectiondevice).add(record);
+  // }
+
+  // read_device() {
+  //   return this.firestore.collection(this.collectiondevice).snapshotChanges();
+  // }
+
+  // update_device(recordID, record) {
+  //   this.firestore.doc(this.collectiondevice + '/' + recordID).update(record);
+  // }
+
+  // delete_device(record_id) {
+  //   this.firestore.doc(this.collectiondevice + '/' + record_id).delete();
+  // }
+
+  create_token(record) {
+    return this.firestore.collection(this.collectiondevice1).add(record);
+  }
+
+  read_token() {
+    return this.firestore.collection(this.collectiondevice1).snapshotChanges();
+  }
+
+  update_token(recordID, record) {
+    this.firestore.doc(this.collectiondevice1 + '/' + recordID).update(record);
+  }
+
+  delete_token(record_id) {
+    this.firestore.doc(this.collectiondevice1 + '/' + record_id).delete();
   }
 
   // -------------------------Sub-Category-----------------------
@@ -227,4 +277,5 @@ export class FireStoreService {
       })
       .snapshotChanges();
   }
+  
 }

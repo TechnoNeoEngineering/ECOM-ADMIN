@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "861256537618",
+    "firebase_url": "https://mindmaxecommerce-2a890.firebaseio.com",
+    "project_id": "mindmaxecommerce-2a890",
+    "storage_bucket": "mindmaxecommerce-2a890.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861256537618:android:05231afc6103756648aacb",
+        "android_client_info": {
+          "package_name": "io.ionic.mindmax"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861256537618-vtn6svasqe9cfmkm3imqlamtrb1ju1js.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.mindmax",
+            "certificate_hash": "27f9991091860eb6680a0c2041dd81000f68ccf3"
+          }
+        },
+        {
+          "client_id": "861256537618-80glofc3et13b60t5kjrm6c51lundgn6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg_PYsoQ_0gnMVSpt6uidVMLKR0gKk7NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861256537618-otgrl4ff43vlpcrlultg7ku7kvdn3ca4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
