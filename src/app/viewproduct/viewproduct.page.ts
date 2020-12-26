@@ -31,12 +31,8 @@ export class ViewproductPage {
 	  
 	//   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private navCtrl: NavController, 
-	private fireStoreService: FireStoreService,public navParams: NavParams)
-	// public fb: FormBuilder) 
-	{ 
-    // console.log(this.companies);
-  }
+  constructor(private navCtrl: NavController,private fireStoreService: FireStoreService,public navParams: NavParams)
+	{   }
 
   switchStyle() {
 		if (this.tableStyle === 'dark') {
@@ -79,6 +75,8 @@ export class ViewproductPage {
 				Star: e.payload.doc.data()['Star'],
 				Review: e.payload.doc.data()['Review'],
 				// Range: e.payload.doc.data()['Range'],
+				stock: e.payload.doc.data()['stock'],
+				addstock: e.payload.doc.data()['addstock'],
 				Normal_price: e.payload.doc.data()['Normal_price'],
 				Price1: e.payload.doc.data()['Price1'],
 				Range1_from: e.payload.doc.data()['Range1_from'],

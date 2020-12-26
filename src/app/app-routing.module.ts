@@ -60,9 +60,16 @@ const routes: Routes = [
     path: 'ordertracking',
     loadChildren: () => import('./ordertracking/ordertracking.module').then( m => m.OrdertrackingPageModule),
     canActivate: [AuthGuardService]
-  },  {
+  },
+  {
     path: 'pushnotification',
-    loadChildren: () => import('./pushnotification/pushnotification.module').then( m => m.PushnotificationPageModule)
+    loadChildren: () => import('./pushnotification/pushnotification.module').then( m => m.PushnotificationPageModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'stockdetails',
+    loadChildren: () => import('./stockdetails/stockdetails.module').then( m => m.StockdetailsPageModule),
+    canActivate: [AuthGuardService]
   },
 
 

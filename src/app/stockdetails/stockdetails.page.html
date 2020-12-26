@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Stock Details</ion-title>
+    <ion-button slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+    <ion-item>
+      <ion-label>Select Category</ion-label>
+      <ion-select interface="popover" [value]="c1" [selected]="c1" (ionChange)="setCategoryValues(sCat)"
+        [(ngModel)]="sCat">
+        <ion-select-option [value]="sCat.cat_id" *ngFor="let sCat of categoryList">{{sCat.Category}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select sub-category</ion-label>
+      <ion-select interface="popover" [value]="s1" [selected]="s1" (ionChange)="setSubCategoryValues(sSubCat)"
+	  [(ngModel)]="sSubCat">
+        <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
+          {{sSubCat.SubCategory}}</ion-select-option>
+      </ion-select>
+	</ion-item>
+	
+  <ngx-datatable
+	class="material" 
+	[rows]="selectedSubCategory" 
+	[columnMode]="'force'"
+	[headerHeight]="50" 
+	[footerHeight]="50"
+	[rowHeight]="50" 
+	[limit]="10"
+	[sorts]="[{prop: 'name', dir: 'desc'}]"	>
+
+	<ngx-datatable-column name="Product Id" prop="Product_id"></ngx-datatable-column>
+	<ngx-datatable-column name="Product Name" prop="Product_name"></ngx-datatable-column>
+	<ngx-datatable-column name="Stock" prop="stock"></ngx-datatable-column>
+
+    <ngx-datatable-column name="Add stock">
+		<ng-template ngx-datatable-cell-template>
+			<ion-input [(ngModel)]='add' placeholder="Enter stock value" id="stockvalue"></ion-input>
+		</ng-template>
+	</ngx-datatable-column>
+	
+	<ngx-datatable-column name="Submit" [sortable]="false">
+		<ng-template let-row="row" ngx-datatable-cell-template>
+			<ion-button size="small" fill="outline"  (click)="addstock(row)"
+				slot="end">Submit</ion-button>
+		</ng-template>
+	</ngx-datatable-column>
+  
+  </ngx-datatable>
+
+</ion-content>

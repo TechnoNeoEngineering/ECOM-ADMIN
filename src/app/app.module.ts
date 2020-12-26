@@ -23,6 +23,8 @@ import { NavParams, NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { HTTP } from '@ionic-native/http/ngx';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
 // import { MatPaginator } from '@angular/material';
 
 
@@ -38,7 +40,8 @@ import { HTTP } from '@ionic-native/http/ngx';
 		AngularFireAuthModule,
 		AngularFireDatabaseModule,
 		HttpClientModule,
-		IonicStorageModule.forRoot()
+		IonicStorageModule.forRoot(),
+		NgxDatatableModule
 	],
 	providers: [
 		StatusBar,

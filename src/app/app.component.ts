@@ -52,6 +52,10 @@ export class AppComponent {
 		this.nav.navigateForward('/viewproduct');
 	}
 
+	stockdetails() {
+		this.nav.navigateForward('/stockdetails');
+	}
+
 	Productrecovery() {
 		this.nav.navigateForward('/productrecovery');
 	}

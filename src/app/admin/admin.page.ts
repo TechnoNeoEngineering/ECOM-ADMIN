@@ -126,8 +126,8 @@ export class AdminPage implements OnInit {
   max_id: any;
   Productdata = {
     "Id": "", "isEdit": false, "SubCategory_id": "", "Enabled": true,
-    "Category_name": "", "Product_name": "", "Normal_price": "", "Price1": "", "Range1_from": "",
-    "Range1_to": "", "Price2": "", "Range2_from": "", "Range2_to": "", "Price3": "", "Range3_from": "",
+    "Category_name": "", "Product_name": "","stock": "","addstock": "", "Normal_price": "", "Price1": "",
+    "Range1_from": "","Range1_to": "", "Price2": "", "Range2_from": "", "Range2_to": "", "Price3": "", "Range3_from": "",
     "Range3_to": "", "Price4": "", "Range4_from": "", "Range4_to": "", "Price5": "", "Range5_from": "",
     "Range5_to": "", "Price6": "", "Range6_from": "", "Range6_to": "", "Price7": "", "Range7_from": "",
     "Range7_to": "", "Price8": "", "Range8_from": "", "Range8_to": "", "Price9": "", "Range9_from": "",
@@ -167,6 +167,8 @@ export class AdminPage implements OnInit {
       Deleted: [false, [Validators.required]],
       Product_name: ['', [Validators.required]],
       Product_id: [this.max_id],
+      stock: ['', [Validators.required]],
+      addstock: ['', [Validators.required]],
       sku: ['', [Validators.required]],
       Star: ['', [Validators.required]],
       Review: ['', [Validators.required]],
