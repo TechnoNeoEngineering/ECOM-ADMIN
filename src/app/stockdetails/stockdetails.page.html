@@ -21,8 +21,9 @@
     <ion-item>
       <ion-label>Select sub-category</ion-label>
       <ion-select interface="popover" [value]="s1" [selected]="s1" (ionChange)="setSubCategoryValues(sSubCat)"
-	  [(ngModel)]="sSubCat">
-        <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
+      [(ngModel)]="sSubCat">
+      <!-- <ion-select-option value='all' [selected]>ALL</ion-select-option> -->
+      <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
           {{sSubCat.SubCategory}}</ion-select-option>
       </ion-select>
 	</ion-item>
@@ -42,14 +43,14 @@
 	<ngx-datatable-column name="Stock" prop="stock"></ngx-datatable-column>
 
     <ngx-datatable-column name="Add stock">
-		<ng-template ngx-datatable-cell-template>
-			<ion-input [(ngModel)]='add' placeholder="Enter stock value" id="stockvalue"></ion-input>
+		<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+			<ion-input [(ngModel)]='add[rowIndex]' placeholder="Enter stock value" type="number"></ion-input>
 		</ng-template>
 	</ngx-datatable-column>
 	
 	<ngx-datatable-column name="Submit" [sortable]="false">
-		<ng-template let-row="row" ngx-datatable-cell-template>
-			<ion-button size="small" fill="outline"  (click)="addstock(row)"
+		<ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+			<ion-button size="small" fill="outline"  (click)="addstock(row, rowIndex)"
 				slot="end">Submit</ion-button>
 		</ng-template>
 	</ngx-datatable-column>

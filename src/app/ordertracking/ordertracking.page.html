@@ -50,16 +50,6 @@
             <ion-col size="6" style="margin-top: 10px;">
               <ion-label>{{order}} : {{totalcount}} Orders</ion-label>
             </ion-col>
-            <!-- <ion-col size="4">
-                <ion-select value="past 1 months" interface="popover" class="dropdown_mon">
-                  <ion-select-option value="past 1 months">past 1 months</ion-select-option>
-                  <ion-select-option value="past 3 months">past 3 months</ion-select-option>
-                  <ion-select-option value="past 6 months">past 6 months</ion-select-option>
-                  <ion-select-option value="past 1 years">past 1 year</ion-select-option>
-                  <ion-select-option value="past 2 years">past 2 year</ion-select-option>
-                  <ion-select-option value="past 3 years">past 3 year</ion-select-option>
-                </ion-select>
-            </ion-col> -->
           </ion-row>
         </ion-grid>
       </ion-col>
@@ -125,7 +115,7 @@
           <ion-col size="3">
             <img [src]="orderdata.image" class="imgwidth">
           </ion-col>
-          <ion-col size="8">
+          <ion-col size="3">
             <p>
               <ion-label>{{orderdata.Description}}</ion-label>
             </p>
@@ -139,6 +129,15 @@
               <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
             </p>
           </ion-col>
+          <ion-col size="4">
+            <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+            <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </div>
@@ -146,7 +145,7 @@
     <!-- ----------------- Ordered ------------------------- -->
 
     <div *ngSwitchCase="'Ordered'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'Ordered'">
           <ion-row class="back_order">
             <ion-col>
@@ -175,7 +174,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -189,6 +188,15 @@
                 <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
               </p>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
           </ion-row>
           <button ion-button (click)="inprogress(orderdata.id)">Inprogress</button>
         </div>
@@ -198,7 +206,7 @@
     <!-- --------------------- In Progress ------------------------- -->
 
     <div *ngSwitchCase="'In Progress'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count">
+      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'In Progress'">
           <ion-row class="back_order">
             <ion-col>
@@ -227,7 +235,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -241,6 +249,15 @@
                 <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
               </p>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
           </ion-row>
           <button ion-button (click)="packed(orderdata.id)">packed</button>
         </div>
@@ -250,7 +267,7 @@
     <!-- --------------------- Packed ------------------------- -->
 
     <div *ngSwitchCase="'Packed'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'Packed'">
           <ion-row class="back_order">
             <ion-col>
@@ -279,7 +296,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -297,6 +314,15 @@
                 <ion-input [(ngModel)]="shipid"></ion-input>
               </ion-item>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
             <ion-button (click)="shipped(orderdata.id)">Shipped</ion-button>
           </ion-row>
         </div>
@@ -305,7 +331,7 @@
 
     <!-- --------------------- Shipped ------------------------- -->
     <div *ngSwitchCase="'Shipped'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'Shipped'">
           <ion-row class="back_order">
             <ion-col>
@@ -334,7 +360,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -354,6 +380,15 @@
                 <ion-label>Shipped Id: {{orderdata.shipmentid}}</ion-label>
               </p>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
           </ion-row>
           <button ion-button (click)="delivered(orderdata.id)">Delivered</button>
         </div>
@@ -362,7 +397,7 @@
 
     <!-- --------------------- Delivered ------------------------- -->
     <div *ngSwitchCase="'Delivered'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid">
+      <ion-grid *ngFor="let orderdata of selectedOrderid" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'Delivered'">
           <ion-row class="back_order">
             <ion-col>
@@ -391,7 +426,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -405,6 +440,15 @@
                 <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
               </p>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
           </ion-row>
         </div>
       </ion-grid>
@@ -412,7 +456,7 @@
      <!-- --------------------- Cancelled ------------------------- -->
 
      <div *ngSwitchCase="'Cancelled'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" style="padding: 0;">
+      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'cancel'">
           <ion-row class="back_order">
             <ion-col>
@@ -441,7 +485,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -455,6 +499,15 @@
                 <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
               </p>
             </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
+            </ion-col>
           </ion-row>
           <!-- <button ion-button (click)="packed(orderdata.id)">packed</button> -->
         </div>
@@ -464,7 +517,7 @@
      <!-- --------------------- Returned ------------------------- -->
 
      <div *ngSwitchCase="'Returned'">
-      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count">
+      <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'returned'">
           <ion-row class="back_order">
             <ion-col>
@@ -493,7 +546,7 @@
             <ion-col size="3">
               <img [src]="orderdata.image" class="imgwidth">
             </ion-col>
-            <ion-col size="8">
+            <ion-col size="3">
               <p>
                 <ion-label>{{orderdata.Description}}</ion-label>
               </p>
@@ -512,6 +565,15 @@
               <p>
                 <ion-label>Return Date: {{orderdata.returndate}}</ion-label>
               </p>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_city}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_district}} - {{orderdata.deliveraddress.addr_pincode}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
+              <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
             </ion-col>
           </ion-row>
           <!-- <button ion-button (click)="packed(orderdata.id)">packed</button> -->

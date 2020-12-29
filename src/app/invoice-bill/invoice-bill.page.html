@@ -1,0 +1,122 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Invoice Bill</ion-title>
+    <ion-button slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <div class="d-flex justify-content-between">
+              <div>
+                <img src="../../assets/img/explora.png" class="img-responsive imgcss">
+              </div>
+              <div style="text-align: end">
+                <h2>Tax Invoice/Bill of supply/Cash Memo</h2>
+                <h3>(Original for Recipient)</h3>
+              </div> 
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div style="line-height:0.5;">
+              <p>Digitally Signed by Explora</p>
+              <p>Date: 15/01/2021</p>
+              <p>Reason: Invoice</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <div style="line-height: 1;">
+              <h2>Sold By:</h2>
+              <h3>Neo Max Hub</h3>
+              <p>No- 111/112, Basement Floor, Ra-Gem Plaza,</p> 
+              <p>Azhagar Kovil Road, Tallakulam,</p>
+              <p>Madurai, Tamil Nadu, India - 625 002.</p>
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div style="text-align: end;line-height: 1;">
+              <h2>Shipping Address:</h2>
+              <h3>Ranjankumar</h3>
+              <p>No- 111/112, Basement Floor, Ra-Gem Plaza,</p> 
+              <p>Azhagar Kovil Road, Tallakulam,</p>
+              <p>Madurai, Tamil Nadu, India - 625 002.</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col class="ion-align-self-center">
+            <div>
+              <p><span class="fw-bolder">Order Number:</span> 1609-217593-8201</p>
+              <p><span class="fw-bolder">Order Date:</span> 29-12-2020</p>
+            </div>
+          </ion-col>
+
+          <ion-col>
+            <div style="text-align: end;line-height: 1;">
+              <p><span class="fw-bolder">Invoice Number:</span> 1609-217593-8201</p>
+              <p><span class="fw-bolder">Invoice Details:</span> 1609-217593-8201</p>
+              <p><span class="fw-bolder">Invoice Date:</span> 29-12-2020</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col>
+            <table class="table table-bordered">
+              <thead class="bg-info">
+                <tr>
+                  <th scope="col">Sl.NO</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Unit Price</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Net Amt</th>
+                  <th scope="col">Delivery Fee</th>
+                  <th scope="col">Total Amt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Chemtex Alstasan Handrub (Alc. based Handrub)</td>
+                  <td>₹ 1380</td>
+                  <td>1</td>
+                  <td>₹ 1380</td>
+                  <td>₹ 25</td>
+                  <td>₹ 1405</td>
+                </tr>
+                <tr>
+                  <td colspan="12">Amount in Words:
+                    <p>One Thousand Four hundred and Five only/</p>
+                  </td>
+                </tr>
+                <tr style="text-align: end;">
+                  <td colspan="12">
+                    <p>For Explora:</p>
+                    <p>
+                      <img src="../../assets/img/sign.png">
+                    </p>
+                    <p>Authorized Signatory</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <button onclick="window.print()">Print this page</button>
+</ion-content>

@@ -71,6 +71,10 @@ export class AppComponent {
 	ordertracking() {
 		this.nav.navigateForward('/ordertracking');
 	}
+
+	invoicebill() {
+		this.nav.navigateForward('/invoice-bill');
+	}
 	
 	Logout() {
 		this.storage.remove('email').then(k => {

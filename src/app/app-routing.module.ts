@@ -70,7 +70,11 @@ const routes: Routes = [
     path: 'stockdetails',
     loadChildren: () => import('./stockdetails/stockdetails.module').then( m => m.StockdetailsPageModule),
     canActivate: [AuthGuardService]
+  },  {
+    path: 'invoice-bill',
+    loadChildren: () => import('./invoice-bill/invoice-bill.module').then( m => m.InvoiceBillPageModule)
   },
+
 
 
 ];

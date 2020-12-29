@@ -14,11 +14,11 @@ export class StockdetailsPage implements OnInit {
   public selectedCategory: any[];
   public selectedSubCategory: any[];
 
-  public sCat: any;
-  public sSubCat: any;
+  // public sCat: any;
+  public sSubCat: any='';
   c1: any;
   s1: any;
-  add:string;
+  add = [];
   categoryList = [];
   SubCategoryList = [];
   quantity:any
@@ -27,7 +27,7 @@ export class StockdetailsPage implements OnInit {
   ProductviewList :any[]=[];
 
   constructor(public navCtrl: NavController, private fireStoreService: FireStoreService,
-    public fb: FormBuilder,private firestore:AngularFirestore) { }
+    public fb: FormBuilder,private firestore:AngularFirestore) {  }
 
   ionViewWillEnter() {
     this.fireStoreService.read_category().subscribe(data => {
@@ -58,8 +58,13 @@ export class StockdetailsPage implements OnInit {
     })
   }
 
+  sCat: string = '';
+
   setCategoryValues(sCat) {
+
+    this.sCat = sCat;
     this.selectedCategory = this.SubCategoryList.filter(Categoryvalue => Categoryvalue.cat_id == sCat);
+    this.selectedSubCategory = this.ProductviewList.filter(SubCategoryvalue => SubCategoryvalue.Category_name == sCat);
     this.sSubCat = null;
   }
 
@@ -73,8 +78,8 @@ export class StockdetailsPage implements OnInit {
   }
 
   setSubCategoryValues(sSubCat) {
+    this.sSubCat=sSubCat;
     this.selectedSubCategory = this.ProductviewList.filter(SubCategoryvalue => SubCategoryvalue.SubCategory_id == sSubCat);
-    // alert(sSubCat);
   }
 
   ngOnInit() {
@@ -87,29 +92,47 @@ export class StockdetailsPage implements OnInit {
           Product_name: e.payload.doc.data()['Product_name'],
           Product_id: e.payload.doc.data()['Product_id'],
           SubCategory_id: e.payload.doc.data()['SubCategory_id'],
+          Category_name: e.payload.doc.data()['Category_name'],
           stock: e.payload.doc.data()['stock'],
-				  addstock: e.payload.doc.data()['addstock'],
-			  }
-			});
-		});
+          addstock: e.payload.doc.data()['addstock'], 
+        }
+      });
+
+      console.log(this.ProductviewList);
+      
+      if(this.sSubCat!=null &&this.sSubCat.toString()!=''){
+        this.setSubCategoryValues(this.sSubCat);
+      }
+    
+      if(this.sCat!='' && this.sSubCat==null){
+      this.setCategoryValues(this.sCat);
+      }
+    });
+    
   }
   
 
-  addstock(row){
+  addstock(row, i){
+    // alert(this.add[i]);
     console.log(row);
-
-    if(row.stock == NaN || row.stock == '' || row.stock == undefined) {
-       this.quantity = 0 + parseInt(this.add);
+    if(isNaN(row.stock) || row.stock == '' ) {
+       this.quantity = 0 + parseInt(this.add[i]);
        this.firestore.collection('viewProducts_Table').doc(row.id).update({
         stock:this.quantity
-      })
+      });
+
     }
     else
     {
-      let quantity = parseInt(row.stock) + parseInt(this.add);
+      let quantity = parseInt(row.stock) + parseInt(this.add[i]);
       this.firestore.collection('viewProducts_Table').doc(row.id).update({
       stock:quantity
-      })
+      });
+      
     }
+    this.add[i]='';
+    this.ngOnInit();
+    // this.ionViewWillEnter();
+   
   }
 }

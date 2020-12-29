@@ -60,6 +60,7 @@ export class OrdertrackingPage implements OnInit {
           deliverdate: e.payload.doc.data()['deliverdate'],
           returnstatus: e.payload.doc.data()['returnstatus'],
           returndate: e.payload.doc.data()['returndate'],
+          deliveraddress: e.payload.doc.data()['deliveraddress']
         };
       });
       this.selectedOrderid = this.orderdetails;
@@ -72,18 +73,7 @@ export class OrdertrackingPage implements OnInit {
         return index === self.indexOf(elem);
       })
       console.log(this.unique_orderid);
-      // this.firestore.doc('CartListtNew133' + '/' + "ZTQmGSza7nWfS9fv3vUi").delete();
-      // this.firestore.doc('CartListtNew133' + '/' + "h18KL6y3wc6bGs1TLjHL").delete();
-      // this.firestore.doc('CartListtNew133' + '/' + "hfOcRUDahGNwgLy23OXC").delete();
-      // this.firestore.doc('CartListtNew133' + '/' + "om3qGsNwKCQfpHWXDO5S").delete();
-      // this.firestore.doc('CartListtNew133' + '/' + "rHUtKGqRxVvviAVgAjpe").delete();
-      // this.firestore.doc('CartListtNew133' + '/' + "TVgBvJFNRkjDNB25E2tV").delete();
-      // this.firestore.doc('orderdetails' + '/' + '2O7feGnwewUVTGe7MI4O').delete();
-      // this.firestore.doc('orderdetails' + '/' + 'GcuBWRPghEx4UitWGGLx').delete();
-      // this.firestore.doc('orderdetails' + '/' + 'IIJ3iBmkOKARooiehdn1').delete();
-      // this.firestore.doc('orderdetails' + '/' + 'iSh782jkvwjrmhjjt3v6').delete();
-      // this.firestore.doc('orderdetails' + '/' + 'p06BHamonrGWhYOEY91g').delete();
-      // this.firestore.doc('orderdetails' + '/' + 'rXeWO36j5X8xPavLKn5g').delete();
+      // this.firestore.doc('CartListtNew133' + '/' + "srm9hnUyIVOpfL2mMFU").delete();
     });
 
     const user = JSON.parse(localStorage.getItem('user'));
