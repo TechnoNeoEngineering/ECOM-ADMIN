@@ -74,6 +74,10 @@ const routes: Routes = [
     path: 'invoice-bill',
     loadChildren: () => import('./invoice-bill/invoice-bill.module').then( m => m.InvoiceBillPageModule)
   },
+  {
+    path: 'specialuserrequest',
+    loadChildren: () => import('./specialuserrequest/specialuserrequest.module').then( m => m.SpecialuserrequestPageModule)
+  },
 
 
 

@@ -36,6 +36,10 @@ export class AppComponent {
 		this.nav.navigateForward('/pushnotification')
 	}
 
+	Home() {
+		this.nav.navigateForward('/home');
+	}
+
 	Productpage() {
 		this.nav.navigateForward('/admin');
 	}
@@ -58,6 +62,10 @@ export class AppComponent {
 
 	Productrecovery() {
 		this.nav.navigateForward('/productrecovery');
+	}
+
+	Specialuserrequest() {
+		this.nav.navigateForward('/specialuserrequest');
 	}
 
 	Specialuser() {

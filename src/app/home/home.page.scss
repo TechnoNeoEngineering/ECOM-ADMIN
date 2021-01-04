@@ -1,63 +1,56 @@
-#container {
-  text-align: center;
-
+.statis {
+  color: #EEE;
+  margin-top: 15px;
+}
+.statis .box {
+  position: relative;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 3px;
+  margin-bottom: 25px;
+}
+.statis .box h3:after {
+  content: "";
+  height: 2px;
+  width: 70%;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.12);
+  display: block;
+  margin-top: 10px;
+}
+.statis .box i {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 70px;
+  width: 70px;
+  font-size: 22px;
+  padding: 15px;
+  top: -25px;
+  left: -25px;
+  background-color: rgba(255, 255, 255, 0.15);
+  line-height: 60px;
+  text-align: right;
+  border-radius: 50%;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.warning {
+  background-color: #f0ad4e
+}
+.danger {
+  background-color: #d9534f
+}
+.success {
+  background-color: #5cb85c
+}
+.inf {
+  background-color: #5bc0de
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.doctor {
+  background-color: #002366
 }
 
-#container a {
-  text-decoration: none;
+.mentor {
+  background-color: #ff9900;
 }
 
-// .box{
-//   width: 250px;
-//   height: 40px;
-//   position: fixed;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   // background-color: gray;
-// }
 
-// ion-input {
-//   position: relative;
-//   width: 100%;
-//   border: none;
-//   border: 2px solid #03D392;
-// }
-
-// span {
-//  position: absolute;
-//   top: 50%;
-//   left: 15px;
-//   transform: translateY(-50%);
-//   transition: 0.5s;
-//   font-size: 20px;
-//   pointer-events: none;
-// }
-
-// ion-input:focus , span {
-//   top: 0%;
-//   left: 10px;
-//   font-size: 15px;
-//   color: #03D392;
-//   padding: 3px;
-//   background: white;
-// }

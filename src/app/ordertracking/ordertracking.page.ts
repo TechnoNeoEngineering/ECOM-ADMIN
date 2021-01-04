@@ -3,6 +3,10 @@ import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
+import { InputVal } from '../models/input-val';
+import { ReturnVal } from '../models/return-val';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-ordertracking',
@@ -11,6 +15,9 @@ import { DatePipe } from '@angular/common';
 })
 
 export class OrdertrackingPage implements OnInit {
+  base_path = 'https://cors-anywhere.herokuapp.com/https://fcm.googleapis.com/fcm/send';
+  data: InputVal;
+  outputdata:ReturnVal;
   orderdetails: any[];
   cre: any[];
   order: string = "All";
@@ -24,17 +31,69 @@ export class OrdertrackingPage implements OnInit {
   selectedOrderid: any[];
   orderdropdown: any[] = [];
   unique_orderid: any[] = [];
+  orderlength: any;
+  useridtokens: any;
+  userid: string;
 
   constructor(private fireStoreService: FireStoreService,
     private firestore: AngularFirestore,
     public nav: NavController,
-    public datepipe: DatePipe) { }
+    public datepipe: DatePipe,
+    private http: HttpClient) { }
+    httpOptions = {
+      headers: new HttpHeaders({          
+        'Content-Type': 'application/json',
+        'Authorization' : 'Bearer AAAAyIbj1hI:APA91bFm9qtzkEqNGMikySL2e4TNWFopu3Mo1OG10Zy3nFQvZc-wQAAFE4ZAeGyS6MMe1dFWGZ9kInrcj2CYcGA2tD_V7cLHkhvttHcajJ6TNsc8rVNjqXSDieFGoyzwnTqid9x0CvqQ',                  
+        'project_id' : 'mindmaxecommerce-2a890',         
+        "Access-Control-Allow-Headers":"x-requested-with, x-requested-by",
+      })
+    }
+    handleError(error: HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        // A client-side or network error occurred. Handle it accordingly.
+        console.error('An error occurred:', error.error.message);
+      } else {
+        // The backend returned an unsuccessful response code.
+        // The response body may contain clues as to what went wrong,
+        console.error(
+          `Backend returned code ${error.status}, ` +
+          `body was: ${error.error}`);
+      }
+      // return an observable with a user-facing error message
+      return throwError(
+        'Something bad happened; please try again later.');
+    };
+
+    
+    createItem(it): Observable<ReturnVal> {
+      it.notification.title = 'Your Order is Inprogress'
+      it.notification.body = ' As Soon As Shipping'
+       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
+          
+    }
 
   read_cart() {
     return this.firestore.collection('CartListtNew133').snapshotChanges();
   }
 
   ngOnInit() {
+    this.fireStoreService.read_useridToken().subscribe((data)=>{
+      this.useridtokens = data.map((e)=>{
+        return {
+          id: e.payload.doc.id,
+				isEdit: false,
+        userid: e.payload.doc.data()['userid'],
+        token: e.payload.doc.data()['token'],
+        }
+      });
+      console.log(this.useridtokens);
+  // this.firestore.doc('useridToken'+ '/' + 'fUUCVV6issHf7Q1ax8b2').delete();
+    });
+
+var use = localStorage.getItem('userid');
+this.userid = use
+
+
     this.fireStoreService.read_orderdetails().subscribe((data) => {
       this.orderdetails = data.map((e) => {
         return {
@@ -72,6 +131,8 @@ export class OrdertrackingPage implements OnInit {
       this.unique_orderid = this.orderdropdown.filter(function (elem, index, self) {
         return index === self.indexOf(elem);
       })
+
+      this.orderlength = this.orderdetails.filter(totalcount => totalcount.deliverstatus === 'Ordered').length;
       console.log(this.unique_orderid);
       // this.firestore.doc('CartListtNew133' + '/' + "srm9hnUyIVOpfL2mMFU").delete();
     });
@@ -140,9 +201,11 @@ export class OrdertrackingPage implements OnInit {
   inprogress(data) {
     let record = {}
     record['deliverstatus'] = 'In Progress';
-    this.firestore.doc('orderdetails' + '/' + data).update(record);
-    alert(data);
-  }
+    this.firestore.doc('orderdetails' + '/' + data.id).update(record);
+    console.log(data);
+   var user = data.userid;   
+   this.send(user);
+ }
 
   packed(data) {
     let record = {}
@@ -203,4 +266,20 @@ export class OrdertrackingPage implements OnInit {
       this.totalcount = this.selectedOrderid.length;
     }
   }
+  send(user){
+    var tok = this.useridtokens.filter(usertoken=>usertoken.userid === user);
+    console.log(tok);
+    let it = new InputVal();
+               let found =false;
+              for(var i=0;i<tok.length;i++){
+                it.to = tok[i].token;
+              // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
+                console.log(it.to);
+                this.createItem(it).subscribe(t =>{
+                  console.log(JSON.stringify(t));
+                  
+                });
+                
+              }
+}
 }

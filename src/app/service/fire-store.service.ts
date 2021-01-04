@@ -9,12 +9,16 @@ export class FireStoreService {
   collectionName = 'Category_Master';
   collectionNamesub = 'Sub_category';
   collectionNameProduct = 'viewProducts_Table';
+  collectionSpecialuserrequest = 'Specialuserrequest';
   collectionUserSpecial = 'UserSpecial';
   collectiondiscount = 'discountdetail';
   collectionorder = 'orderdetails';
   // collectiondevice = 'devicetokens';
   // collectionoriginaltoken = 'originaltoken';
   collectiondevice1 = 'newtoken';
+  collectionuseridToken = 'useridToken';
+
+
   constructor(private firestore: AngularFirestore) { }
 
   //-----------------------Category--------------------------
@@ -34,6 +38,23 @@ export class FireStoreService {
   // delete_originaltoken(record_id) {
   //   this.firestore.doc(this.collectionoriginaltoken + '/' + record_id).delete();
   // }
+  //service for push notification
+  create_useridToken(record) {
+    return this.firestore.collection(this.collectionuseridToken).add(record);
+  }
+
+  read_useridToken() {
+    return this.firestore.collection(this.collectionuseridToken).snapshotChanges();
+  }
+
+  update_useridToken(recordID, record) {
+    this.firestore.doc(this.collectionuseridToken + '/' + recordID).update(record);
+  }
+
+  delete_useridToken(record_id) {
+    this.firestore.doc(this.collectionuseridToken + '/' + record_id).delete();
+  }
+  // end of push notification
 
   create_category(record) {
     return this.firestore.collection(this.collectionName).add(record);
@@ -161,6 +182,8 @@ export class FireStoreService {
     this.firestore.doc(this.collectiondiscount + '/' + record_id).delete();
   }
 
+  //--------------------------Order Details-----------------------
+
   create_orderdetails(record) {
     return this.firestore.collection(this.collectionorder).add(record);
   }
@@ -175,6 +198,24 @@ export class FireStoreService {
 
   delete_orderdetails(record_id) {
     this.firestore.doc(this.collectionorder + '/' + record_id).delete();
+  }
+
+  //--------------------------Specialuser Request-----------------------
+
+  create_specialrequest(record) {
+    return this.firestore.collection(this.collectionSpecialuserrequest).add(record);
+  }
+
+  read_specialrequest() {
+    return this.firestore.collection(this.collectionSpecialuserrequest).snapshotChanges();
+  }
+
+  update_specialrequest(recordID, record) {
+    this.firestore.doc(this.collectionSpecialuserrequest + '/' + recordID).update(record);
+  }
+
+  delete_specialrequest(record_id) {
+    this.firestore.doc(this.collectionSpecialuserrequest + '/' + record_id).delete();
   }
 
   search(coll, record, field, opr, value) {

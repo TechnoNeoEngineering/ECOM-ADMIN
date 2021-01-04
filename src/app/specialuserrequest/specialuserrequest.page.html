@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Special User Request</ion-title>
+    <ion-button slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>Specail User Request Details</h2>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Mobile</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Product</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor ="let special of RequestForm">
+            <td>{{ special.Name }}</td>
+            <td>{{ special.Mobile }}</td>
+            <td>{{ special.Email }}</td>
+            <td>{{ special.Address }}</td>
+            <td>{{ special.Products }}</td>
+            <td>{{ special.Date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-row>
+  </ion-grid>
+</ion-content>

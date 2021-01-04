@@ -9,10 +9,54 @@
 
 <!-- <ion-button (click)="adminpanel()">Admin page</ion-button> -->
 
-<!-- <ion-content>
-  <div class="box">
-    <ion-input type="text" placeholder="" required="required">
-      <span>Email or Phone</span>
-    </ion-input>
-  </div>
-</ion-content> -->
+<ion-content>
+ 
+  <section class='statis text-center'>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="box bg-primary">
+            <i class="fas fa-crown"></i>
+            <h3>{{ specialuserocount }}</h3>
+            <p (click)="specialuser()" style="cursor: pointer;">Specialuser Request</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="box danger">
+            <i class='fas fa-cart-plus'></i>
+            <h3>{{totalcountorder }}</h3>
+            <p (click)="ordertracking()" style="cursor: pointer;">Order</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="box doctor">
+            <i class="fa fa-ban"></i>
+            <h3>{{ totalcountcancel }}</h3>
+            <p (click)="ordertracking()" style="cursor: pointer;">Cancel</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="box mentor">
+            <i class='fa fa-times'></i>
+            <h3>{{ totalcountreturn }}</h3>
+            <p (click)="ordertracking()" style="cursor: pointer;">Return</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="box success">
+            <i class='fab fa-product-hunt'></i>
+            <h3>{{ producttotalcount }}</h3>
+            <p (click)="productdetails()" style="cursor: pointer;">Product Details</p>
+          </div>
+        </div>
+        <!-- <div class="col-md-4">
+          <div class="box inf">
+            <i class='fas fa-walking'></i>
+            <h3>5</h3>
+            <p>Exercise</p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+</ion-content>
