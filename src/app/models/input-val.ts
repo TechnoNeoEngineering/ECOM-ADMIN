@@ -3,5 +3,6 @@ export class InputVal {
     notification:any={};    
     body :  string;
     title : string;
+    image: string;
     content_available : boolean;
 }

@@ -78,6 +78,10 @@ const routes: Routes = [
     path: 'specialuserrequest',
     loadChildren: () => import('./specialuserrequest/specialuserrequest.module').then( m => m.SpecialuserrequestPageModule)
   },
+  {
+    path: 'delivery-charges',
+    loadChildren: () => import('./delivery-charges/delivery-charges.module').then( m => m.DeliveryChargesPageModule)
+  },
 
 
 

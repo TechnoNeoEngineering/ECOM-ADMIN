@@ -72,6 +72,7 @@ body:any;
                                            
                it.notification.title = this.title;
                it.notification.body = this.body;
+               it.notification.image = "https://i.ibb.co/k50xvFL/icon.png"
                
                  return this.http
                   .post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)

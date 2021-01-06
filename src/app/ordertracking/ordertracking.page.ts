@@ -65,9 +65,31 @@ export class OrdertrackingPage implements OnInit {
     };
 
     
-    createItem(it): Observable<ReturnVal> {
-      it.notification.title = 'Your Order is Inprogress'
-      it.notification.body = ' As Soon As Shipping'
+    // createItem(it,product): Observable<ReturnVal> {
+    //   it.notification.title = 'Your Order is InProgress';
+    //   it.notification.body = product;
+        //  it.notification.image = image; 
+    //    return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
+          
+    // }
+    itempacked(it,product,image): Observable<ReturnVal> {
+      it.notification.title =  'Your Order is Packed';  
+      it.notification.body = product;
+      it.notification.image = image;
+       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
+          
+    }
+    itemshipped(it,product,image): Observable<ReturnVal> {
+      it.notification.title = 'Your Order is Shipped' ;
+      it.notification.body = product;
+      it.notification.image = image;
+       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
+          
+    }
+    itemdelivered(it,product,image): Observable<ReturnVal> {
+      it.notification.title = 'Your Order Has been Deliverd' ;
+      it.notification.body = product ;
+      it.notification.image = image;
        return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
           
     }
@@ -86,13 +108,12 @@ export class OrdertrackingPage implements OnInit {
         token: e.payload.doc.data()['token'],
         }
       });
-      console.log(this.useridtokens);
-  // this.firestore.doc('useridToken'+ '/' + 'fUUCVV6issHf7Q1ax8b2').delete();
+        console.log(this.useridtokens);
+        // this.firestore.doc('useridToken'+ '/' + 'fUUCVV6issHf7Q1ax8b2').delete();
     });
 
-var use = localStorage.getItem('userid');
-this.userid = use
-
+      var use = localStorage.getItem('userid');
+      this.userid = use;
 
     this.fireStoreService.read_orderdetails().subscribe((data) => {
       this.orderdetails = data.map((e) => {
@@ -148,8 +169,15 @@ this.userid = use
           Product_id: e.payload.doc.data()['Product_id'],
         }
       });
+        for (var j = 0; j < this.ProductviewList.length; j++) {
+          for (var i = 0; i < this.orderdetails.length; i++) {
+            if (this.orderdetails[i]['Productid'] == this.ProductviewList[j]['Product_id']) {
+              this.orderdetails[i]['Description'] = this.ProductviewList[j]['Product_name']
+            }
+          }
+        }
     });
-
+    
     this.read_cartlist().subscribe((data) => {
       this.cre = data.map((e) => {
         // if((e.payload.doc.data()['product_orderdate']) != null){
@@ -204,14 +232,24 @@ this.userid = use
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     console.log(data);
    var user = data.userid;   
-   this.send(user);
+   alert(user)
+   var product = data.Description;
+   alert(product)
+   alert(data.id)
+  //  this.send(user,product);
  }
 
   packed(data) {
     let record = {}
     record['deliverstatus'] = 'Packed';
-    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    // this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     alert(data);
+    var user = data.userid;  
+    alert(user) 
+    var product = data.Description;
+   alert(product)
+   var image = data.image
+   this.sendpacked(user,product,image);
   }
 
   shipped(data) {
@@ -219,17 +257,29 @@ this.userid = use
     record['deliverstatus'] = 'Shipped';
     record['shipmentid'] = this.shipid;
     record['shipmentdate'] = new Date().toLocaleString();
-    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     alert(data);
+    var user = data.userid;  
+    alert(user) 
+    var product = data.Description;
+    var image =data.image
+    this.sendshipped(user,product,image)
+    
   }
 
   delivered(data) {
     let record = {}
     record['deliverstatus'] = 'Delivered';
     record['deliverdate'] = new Date().toLocaleString();
-    this.firestore.doc('orderdetails' + '/' + data).update(record);
+    this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     alert(data);
+    var user = data.userid;  
+    alert(user) 
+    var product = data.Description;
+    var image = data.image
+    this.senddeliverd(user,product,image)
   }
+
 
   placed(mth) {
     localStorage.setItem('months', mth);
@@ -266,7 +316,23 @@ this.userid = use
       this.totalcount = this.selectedOrderid.length;
     }
   }
-  send(user){
+  // send(user,product){
+  //   var tok = this.useridtokens.filter(usertoken=>usertoken.userid === user);
+  //   console.log(tok);
+  //   let it = new InputVal();
+  //              let found =false;
+  //             for(var i=0;i<tok.length;i++){
+  //               it.to = tok[i].token;
+  //             // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
+  //               console.log(it.to);
+  //               this.createItem(it,product).subscribe(t =>{
+  //                 console.log(JSON.stringify(t));
+                  
+  //               });
+                
+  //             }
+  // }
+  sendpacked(user,product,image){
     var tok = this.useridtokens.filter(usertoken=>usertoken.userid === user);
     console.log(tok);
     let it = new InputVal();
@@ -275,11 +341,44 @@ this.userid = use
                 it.to = tok[i].token;
               // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
                 console.log(it.to);
-                this.createItem(it).subscribe(t =>{
+                this.itempacked(it,product,image).subscribe(t =>{
                   console.log(JSON.stringify(t));
                   
                 });
                 
               }
-}
+  }
+  sendshipped(user,product,image){
+    var tok = this.useridtokens.filter(usertoken=>usertoken.userid === user);
+    console.log(tok);
+    let it = new InputVal();
+               let found =false;
+              for(var i=0;i<tok.length;i++){
+                it.to = tok[i].token;
+              // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
+                console.log(it.to);
+                this.itemshipped(it,product,image).subscribe(t =>{
+                  console.log(JSON.stringify(t));
+                  
+                });
+                
+              }
+  }
+  senddeliverd(user,product,image){
+    var tok = this.useridtokens.filter(usertoken=>usertoken.userid === user);
+    console.log(tok);
+    let it = new InputVal();
+               let found =false;
+              for(var i=0;i<tok.length;i++){
+                it.to = tok[i].token;
+              // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
+                console.log(it.to);
+                this.itemdelivered(it,product,image).subscribe(t =>{
+                  console.log(JSON.stringify(t));
+                  
+                });
+                
+              }
+  }
+
 }

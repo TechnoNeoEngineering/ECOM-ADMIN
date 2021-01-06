@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Delivery Charges</ion-title>
+    <ion-button slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <form [formGroup]="deliveryForm" >
+
+    <ion-item>
+      <ion-label position="floating">Madurai City</ion-label>
+      <ion-input formControlName="maduraicity"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Tamilnadu</ion-label>
+      <ion-input formControlName="tamilnadu"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Kerala</ion-label>
+      <ion-input formControlName="kerala"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Karnataka</ion-label>
+      <ion-input formControlName="karnataka"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">AndhraPradesh</ion-label>
+      <ion-input formControlName="andhra"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Telangana</ion-label>
+      <ion-input formControlName="telangana"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">North</ion-label>
+      <ion-input formControlName="north"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Andaman</ion-label>
+      <ion-input formControlName="andaman"></ion-input>
+    </ion-item>
+    <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Delivery_id">
+    <ion-item>
+      <ion-button (click)="CreateRecord()" [disabled]="deliveryForm.invalid">
+        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+        &nbsp;Create Record
+      </ion-button>
+    </ion-item>
+  </form> 
+<!----------------------------------------------------------------------------------------->
+
+<ion-card color="medium">
+  <ion-card *ngFor="let item of deliverylist" color="primary">
+    <span *ngIf="!item.isEdit; else elseBlock">
+      <ion-card-header>
+        <ion-card-subtitle>Discount Id:₹ {{item.Delivery_id}}</ion-card-subtitle>
+        <ion-card-subtitle>Madurai City:₹ {{item.maduraicity}}</ion-card-subtitle>
+        <ion-card-subtitle>Tamilnadu:₹ {{item.tamilnadu}}</ion-card-subtitle>
+        <ion-card-subtitle>Kerala:₹ {{item.kerala}}</ion-card-subtitle>
+        <ion-card-subtitle>Karnataka:₹ {{item.karnataka}}</ion-card-subtitle>
+        <ion-card-subtitle>AndhraPradesh:₹ {{item.andhra}}</ion-card-subtitle>
+        <ion-card-subtitle>Telangana:₹ {{item.telangana}}</ion-card-subtitle>
+        <ion-card-subtitle>North:₹ {{item.north}}</ion-card-subtitle>
+        <ion-card-subtitle>Andaman:₹ {{item.andaman}}</ion-card-subtitle>
+      </ion-card-header>
+         
+      <ion-card-content>
+
+        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+
+        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </span>
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+              <ion-col>
+                <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancel
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
+                  Update
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating"><strong>Madurai City:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.maduraicity"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Tamilnadu:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.tamilnadu"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Kerala:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.kerala"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Karnataka:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.karnataka"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>AndhraPradesh:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.andhra"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Telangana:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.telangana"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>North:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.north"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Andaman:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.andaman"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+</ion-card>
+</ion-content>

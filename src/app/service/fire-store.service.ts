@@ -9,12 +9,11 @@ export class FireStoreService {
   collectionName = 'Category_Master';
   collectionNamesub = 'Sub_category';
   collectionNameProduct = 'viewProducts_Table';
+  collectionDelivery = 'deliverycharges';
   collectionSpecialuserrequest = 'Specialuserrequest';
   collectionUserSpecial = 'UserSpecial';
   collectiondiscount = 'discountdetail';
   collectionorder = 'orderdetails';
-  // collectiondevice = 'devicetokens';
-  // collectionoriginaltoken = 'originaltoken';
   collectiondevice1 = 'newtoken';
   collectionuseridToken = 'useridToken';
 
@@ -216,6 +215,24 @@ export class FireStoreService {
 
   delete_specialrequest(record_id) {
     this.firestore.doc(this.collectionSpecialuserrequest + '/' + record_id).delete();
+  }
+
+  //--------------------------Delivery Request-----------------------
+
+  create_Delivery(record) {
+    return this.firestore.collection(this.collectionDelivery).add(record);
+  }
+
+  read_Delivery() {
+    return this.firestore.collection(this.collectionDelivery,ref=>ref.orderBy('Delivery_id','asc')).snapshotChanges();
+  }
+
+  update_Delivery(recordID, record) {
+    this.firestore.doc(this.collectionDelivery + '/' + recordID).update(record);
+  }
+
+  delete_Delivery(record_id) {
+    this.firestore.doc(this.collectionDelivery + '/' + record_id).delete();
   }
 
   search(coll, record, field, opr, value) {

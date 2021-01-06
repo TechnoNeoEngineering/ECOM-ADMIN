@@ -60,6 +60,10 @@ export class AppComponent {
 		this.nav.navigateForward('/stockdetails');
 	}
 
+	deliverycharge() {
+		this.nav.navigateForward('/delivery-charges');
+	}
+
 	Productrecovery() {
 		this.nav.navigateForward('/productrecovery');
 	}
@@ -80,9 +84,9 @@ export class AppComponent {
 		this.nav.navigateForward('/ordertracking');
 	}
 
-	invoicebill() {
-		this.nav.navigateForward('/invoice-bill');
-	}
+	// invoicebill() {
+	// 	this.nav.navigateForward('/invoice-bill');
+	// }
 	
 	Logout() {
 		this.storage.remove('email').then(k => {
