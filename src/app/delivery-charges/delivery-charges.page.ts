@@ -46,7 +46,7 @@ export class DeliveryChargesPage implements OnInit {
       andhra: ['', [Validators.required]],
       telangana: ['', [Validators.required]],
       north:['', [Validators.required]],
-      andaman: ['', [Validators.required]],
+      // andaman: ['', [Validators.required]],
     })
 
     this.fireStoreService.read_Delivery().subscribe(data => {
@@ -63,7 +63,7 @@ export class DeliveryChargesPage implements OnInit {
           andhra: e.payload.doc.data()['andhra'],
           telangana: e.payload.doc.data()['telangana'],
           north: e.payload.doc.data()['north'],
-          andaman: e.payload.doc.data()['andaman']
+          // andaman: e.payload.doc.data()['andaman']
         };
       })
       this.get_max_id();
@@ -97,7 +97,7 @@ export class DeliveryChargesPage implements OnInit {
     record.Editandhra = record.andhra;
     record.Edittelangana = record.telangana;
     record.Editnorth = record.north;
-    record.Editandaman = record.andaman;
+    // record.Editandaman = record.andaman;
   }
 
   UpdateRecord(recordRow) {
@@ -109,7 +109,7 @@ export class DeliveryChargesPage implements OnInit {
     record['andhra'] = recordRow.Editandhra;
     record['telangana'] = recordRow.Edittelangana;
     record['north'] = recordRow.Editnorth;
-    record['andaman'] = recordRow.Editandaman;
+    // record['andaman'] = recordRow.Editandaman;
     this.fireStoreService.update_Delivery(recordRow.id, record);
     recordRow.isEdit = false;
   }

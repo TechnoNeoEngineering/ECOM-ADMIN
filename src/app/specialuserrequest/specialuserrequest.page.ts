@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FireStoreService } from '../service/fire-store.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { Platform,AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-specialuserrequest',
@@ -9,17 +10,27 @@ import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms'
 })
 export class SpecialuserrequestPage implements OnInit {
 
-  RequestForm: any[];
+  RequestForm1: any[];
+
+  user: any;
+
+  specialuserForm: FormGroup;
 
   constructor(private fireStoreService: FireStoreService,
-    public fb: FormBuilder,
+    public fb: FormBuilder,private AlertController: AlertController
     ) { }
 
   ngOnInit() {
 
+    this.specialuserForm = this.fb.group({
+      user_id: this.user,
+      include_gst: [false, [Validators.required]],
+      list: [[]],
+    });
+
     this.fireStoreService.read_specialrequest().subscribe(data => {
 
-      this.RequestForm = data.map(e => {
+      this.RequestForm1 = data.map(e => {
         return {
           id: e.payload.doc.id,
           isEdit: false,
@@ -31,8 +42,82 @@ export class SpecialuserrequestPage implements OnInit {
           Date: e.payload.doc.data()['date']
         };
       })
-      console.log(this.RequestForm);
+      console.log(this.RequestForm1);
     });
   }
+
+    async accept(special) {
+      const alert = await this.AlertController.create({
+        header: "Are you sure? Accept Specialuer",
+        inputs: [
+          {
+            // name: special.Email,
+            type: 'radio',
+            label: special.Email,
+            value: special.Email,
+            checked: true
+          },
+          {
+            // name:special.Mobile ,
+            type: 'radio',
+            label: special.Mobile,
+            value: special.Mobile,
+          },
+        ],
+        buttons: [
+          {
+            text:"cancel",
+            handler: () => {
+              console.log('Confirm cancel');
+            }
+          },
+          {
+            text: 'Okay',
+              handler: (special) => {
+                this.CreateRecord();
+                console.log(special);
+                this.user = special;
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
+  
+
+  async decline(rowID) {
+    const alert = await this.AlertController.create({
+      header: "Are you sure? If you want delete",
+      buttons: [
+        {
+          text:"cancel",
+          handler: () => {
+            console.log('Confirm cancel');
+          }
+        },
+        {
+          text: 'Okay',
+            handler: () => {
+              this.fireStoreService.delete_specialrequest(rowID);
+              console.log("hi");
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  CreateRecord() {
+    console.log(this.specialuserForm.value);
+    this.fireStoreService.create_userspecial(this.specialuserForm.value).then(resp => {
+      alert(this.user);
+      // user_id: this.user;
+      // this.ngOnInit;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
 
 }

@@ -44,15 +44,20 @@
               <p>Azhagar Kovil Road, Tallakulam,</p>
               <p>Madurai, Tamil Nadu, India - 625 002.</p>
             </div>
+
+            <div>
+              <p class="fw-bolder">PAN No: </p>
+              <p class="fw-bolder">GST Registration No: </p>
+            </div>
           </ion-col>
 
           <ion-col>
             <div style="text-align: end;line-height: 1;">
               <h2>Shipping Address:</h2>
-              <h3>Ranjankumar</h3>
-              <p>No- 111/112, Basement Floor, Ra-Gem Plaza,</p> 
-              <p>Azhagar Kovil Road, Tallakulam,</p>
-              <p>Madurai, Tamil Nadu, India - 625 002.</p>
+              <h3>{{invoice.deliveraddress.addr_name}}</h3>
+              <p>{{invoice.deliveraddress.addr_address}},{{invoice.deliveraddress.addr_lankmark}}</p> 
+              <p>{{invoice.deliveraddress.addr_city}},{{invoice.deliveraddress.addr_district}} - {{invoice.deliveraddress.addr_pincode}}</p>
+              <p>{{invoice.deliveraddress.addr_state}}.</p>
             </div>
           </ion-col>
         </ion-row>
@@ -60,16 +65,16 @@
         <ion-row>
           <ion-col class="ion-align-self-center">
             <div>
-              <p><span class="fw-bolder">Order Number:</span> 1609-217593-8201</p>
-              <p><span class="fw-bolder">Order Date:</span> 29-12-2020</p>
+              <p><span class="fw-bolder">Order Number:</span>{{invoice.orderid}}</p>
+              <p><span class="fw-bolder">Order Date:</span>{{invoice.product_orderdate}}</p>
             </div>
           </ion-col>
 
           <ion-col>
-            <div style="text-align: end;line-height: 1;">
-              <p><span class="fw-bolder">Invoice Number:</span> 1609-217593-8201</p>
-              <p><span class="fw-bolder">Invoice Details:</span> 1609-217593-8201</p>
-              <p><span class="fw-bolder">Invoice Date:</span> 29-12-2020</p>
+            <div style="text-align: end">
+              <p><span class="fw-bolder">Invoice Number:</span>{{ODID}}</p>
+              <!-- <p><span class="fw-bolder">Invoice Details:</span> 1609-217593-8201</p> -->
+              <p><span class="fw-bolder">Invoice Date:</span>{{invoice.product_orderdate}}</p>
             </div>
           </ion-col>
         </ion-row>
@@ -91,23 +96,23 @@
               <tbody>
                 <tr>
                   <th scope="row">1</th>
-                  <td>Chemtex Alstasan Handrub (Alc. based Handrub)</td>
-                  <td>₹ 1380</td>
-                  <td>1</td>
-                  <td>₹ 1380</td>
-                  <td>₹ 25</td>
-                  <td>₹ 1405</td>
+                  <td>{{invoice.Description}}</td>
+                  <td>₹{{invoice.Price}}</td>
+                  <td>{{invoice.Quantity}}</td>
+                  <td>₹{{netamount}}</td>
+                  <td>₹{{deliveryfee}}</td>
+                  <td>₹{{total}}</td>
                 </tr>
                 <tr>
-                  <td colspan="12">Amount in Words:
-                    <p>One Thousand Four hundred and Five only/</p>
+                  <td colspan="12" class="fw-bolder">Amount in Words:<br>
+                    <p class="fw-bolder">{{amount}}/-</p>
                   </td>
                 </tr>
                 <tr style="text-align: end;">
                   <td colspan="12">
                     <p>For Explora:</p>
                     <p>
-                      <img src="../../assets/img/sign.png">
+                      <img src="../../assets/img/explora.jpg">
                     </p>
                     <p>Authorized Signatory</p>
                   </td>
@@ -118,5 +123,5 @@
         </ion-row>
       </ion-grid>
 
-      <button onclick="window.print()">Print this page</button>
+      <button onclick="window.print()" >Print this page</button>
 </ion-content>

@@ -35,6 +35,8 @@ export class OrdertrackingPage implements OnInit {
   useridtokens: any;
   userid: string;
 
+  ODID: any;
+
   constructor(private fireStoreService: FireStoreService,
     private firestore: AngularFirestore,
     public nav: NavController,
@@ -102,7 +104,7 @@ export class OrdertrackingPage implements OnInit {
     this.fireStoreService.read_useridToken().subscribe((data)=>{
       this.useridtokens = data.map((e)=>{
         return {
-          id: e.payload.doc.id,
+        id: e.payload.doc.id,
 				isEdit: false,
         userid: e.payload.doc.data()['userid'],
         token: e.payload.doc.data()['token'],
@@ -155,6 +157,7 @@ export class OrdertrackingPage implements OnInit {
 
       this.orderlength = this.orderdetails.filter(totalcount => totalcount.deliverstatus === 'Ordered').length;
       console.log(this.unique_orderid);
+      this.firestore.doc('orderdetails' + '/' + 'id').delete();
       // this.firestore.doc('CartListtNew133' + '/' + "srm9hnUyIVOpfL2mMFU").delete();
     });
 
@@ -232,22 +235,22 @@ export class OrdertrackingPage implements OnInit {
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     console.log(data);
    var user = data.userid;   
-   alert(user)
+  //  alert(user)
    var product = data.Description;
-   alert(product)
-   alert(data.id)
+  //  alert(product)
+  //  alert(data.id)
   //  this.send(user,product);
  }
 
   packed(data) {
     let record = {}
     record['deliverstatus'] = 'Packed';
-    // this.firestore.doc('orderdetails' + '/' + data.id).update(record);
-    alert(data);
+    this.firestore.doc('orderdetails' + '/' + data.id).update(record);
+   
     var user = data.userid;  
-    alert(user) 
+    // alert(user) 
     var product = data.Description;
-   alert(product)
+  //  alert(product)
    var image = data.image
    this.sendpacked(user,product,image);
   }
@@ -258,9 +261,9 @@ export class OrdertrackingPage implements OnInit {
     record['shipmentid'] = this.shipid;
     record['shipmentdate'] = new Date().toLocaleString();
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
-    alert(data);
+   
     var user = data.userid;  
-    alert(user) 
+    // alert(user) 
     var product = data.Description;
     var image =data.image
     this.sendshipped(user,product,image)
@@ -272,9 +275,9 @@ export class OrdertrackingPage implements OnInit {
     record['deliverstatus'] = 'Delivered';
     record['deliverdate'] = new Date().toLocaleString();
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
-    alert(data);
+   
     var user = data.userid;  
-    alert(user) 
+    // alert(user) 
     var product = data.Description;
     var image = data.image
     this.senddeliverd(user,product,image)
@@ -290,7 +293,7 @@ export class OrdertrackingPage implements OnInit {
   setOrderDateValues(orderdate) {
     let orderdate1 = orderdate.toLocaleString();
     orderdate = this.datepipe.transform(orderdate1, 'MM/dd/yyyy');
-    alert(orderdate);
+    // alert(orderdate);
     this.selectedOrderid = this.orderdetails.filter(orderarr => this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy') == orderdate);
     this.totalcount = this.selectedOrderid.length;
     console.log(this.selectedOrderid);
@@ -306,7 +309,7 @@ export class OrdertrackingPage implements OnInit {
     }
   }
   setOrderIdValues(unique_orderid) {
-    alert(unique_orderid);
+    // alert(unique_orderid);
     if (unique_orderid == 'all') {
       this.selectedOrderid = this.orderdetails;
       this.totalcount = this.selectedOrderid.length;
@@ -380,5 +383,15 @@ export class OrdertrackingPage implements OnInit {
                 
               }
   }
+
+  invoice(orderdata){
+    console.log(orderdata);
+    this.nav.navigateForward('/invoice-bill');
+    localStorage.setItem('orderdata',JSON.stringify(orderdata));
+  }
+
+  
+
+  
 
 }

@@ -23,18 +23,23 @@
             <th scope="col">Mobile</th>
             <th scope="col">Email</th>
             <th scope="col">Address</th>
-            <th scope="col">Product</th>
+            <!-- <th scope="col">Product</th> -->
             <th scope="col">Date</th>
+            <th scope="col">Accept/Decline</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor ="let special of RequestForm">
+          <tr *ngFor ="let special of RequestForm1">
             <td>{{ special.Name }}</td>
             <td>{{ special.Mobile }}</td>
             <td>{{ special.Email }}</td>
             <td>{{ special.Address }}</td>
-            <td>{{ special.Products }}</td>
+            <!-- <td>{{ special.Products }}</td> -->
             <td>{{ special.Date }}</td>
+            <td>
+              <ion-button (click)="accept(special)">Accept</ion-button>
+              <ion-button (click)="decline(special.id)">Decline</ion-button>
+            </td>
           </tr>
         </tbody>
       </table>

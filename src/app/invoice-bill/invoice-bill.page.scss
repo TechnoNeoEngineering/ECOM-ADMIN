@@ -1,3 +1,11 @@
 .imgcss{
     width: 9em;
 }
+@media print{
+    ion-content{
+        margin: 0;
+    }
+    ion-header{
+        display: none;
+    }
+} 

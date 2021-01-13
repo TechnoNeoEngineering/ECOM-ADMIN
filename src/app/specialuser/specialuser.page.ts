@@ -87,7 +87,7 @@ export class SpecialuserPage implements OnInit {
   }
 
   RemoveRecord(rowID) {
-    // this.fireStoreService.delete_userspecial(rowID);
+    this.fireStoreService.delete_userspecial(rowID);
     alert("delete option disabled");
   }
 

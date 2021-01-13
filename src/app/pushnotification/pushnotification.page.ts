@@ -64,9 +64,8 @@ body:any;
                   });
                   
                  }
-                
-                // }
-              
+                 this.title = '';
+                 this.body = '';
               }
               createItem(it): Observable<ReturnVal> {
                                            
@@ -76,10 +75,6 @@ body:any;
                
                  return this.http
                   .post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
-                  
-              
-              //  console.log(it.to);               
-            
               }
  
   

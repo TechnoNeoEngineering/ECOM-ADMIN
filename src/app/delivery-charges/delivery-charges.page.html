@@ -39,10 +39,10 @@
       <ion-label position="floating">North</ion-label>
       <ion-input formControlName="north"></ion-input>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label position="floating">Andaman</ion-label>
       <ion-input formControlName="andaman"></ion-input>
-    </ion-item>
+    </ion-item> -->
     <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Delivery_id">
     <ion-item>
       <ion-button (click)="CreateRecord()" [disabled]="deliveryForm.invalid">
@@ -65,7 +65,7 @@
         <ion-card-subtitle>AndhraPradesh:₹ {{item.andhra}}</ion-card-subtitle>
         <ion-card-subtitle>Telangana:₹ {{item.telangana}}</ion-card-subtitle>
         <ion-card-subtitle>North:₹ {{item.north}}</ion-card-subtitle>
-        <ion-card-subtitle>Andaman:₹ {{item.andaman}}</ion-card-subtitle>
+        <!-- <ion-card-subtitle>Andaman:₹ {{item.andaman}}</ion-card-subtitle> -->
       </ion-card-header>
          
       <ion-card-content>
@@ -130,10 +130,10 @@
           <ion-label position="floating"><strong>North:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.north"></ion-input>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
           <ion-label position="floating"><strong>Andaman:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.andaman"></ion-input>
-        </ion-item>
+        </ion-item> -->
       </ion-card-content>
     </ng-template>
   </ion-card>
