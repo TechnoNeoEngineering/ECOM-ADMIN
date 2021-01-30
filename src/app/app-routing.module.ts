@@ -70,7 +70,8 @@ const routes: Routes = [
     path: 'stockdetails',
     loadChildren: () => import('./stockdetails/stockdetails.module').then( m => m.StockdetailsPageModule),
     canActivate: [AuthGuardService]
-  },  {
+  },
+  {
     path: 'invoice-bill',
     loadChildren: () => import('./invoice-bill/invoice-bill.module').then( m => m.InvoiceBillPageModule)
   },
@@ -81,8 +82,14 @@ const routes: Routes = [
   {
     path: 'delivery-charges',
     loadChildren: () => import('./delivery-charges/delivery-charges.module').then( m => m.DeliveryChargesPageModule)
+  },  {
+    path: 'queries',
+    loadChildren: () => import('./queries/queries.module').then( m => m.QueriesPageModule)
   },
-
+  {
+    path: 'lowerstocks',
+    loadChildren: () => import('./lowerstocks/lowerstocks.module').then( m => m.LowerstocksPageModule)
+  },
 
 
 ];

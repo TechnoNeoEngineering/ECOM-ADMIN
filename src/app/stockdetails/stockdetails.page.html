@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Stock Details</ion-title>
-    <ion-button slot="start">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Stock Details</ion-title>
+    <ion-button slot="start" class="color">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -11,7 +11,7 @@
 
     <ion-item>
       <ion-label>Select Category</ion-label>
-      <ion-select interface="popover" [value]="c1" [selected]="c1" (ionChange)="setCategoryValues(sCat)"
+      <ion-select interface="popover" (ionChange)="setCategoryValues(sCat)"
         [(ngModel)]="sCat">
         <ion-select-option [value]="sCat.cat_id" *ngFor="let sCat of categoryList">{{sCat.Category}}
         </ion-select-option>
@@ -20,7 +20,7 @@
 
     <ion-item>
       <ion-label>Select sub-category</ion-label>
-      <ion-select interface="popover" [value]="s1" [selected]="s1" (ionChange)="setSubCategoryValues(sSubCat)"
+      <ion-select interface="popover" (ionChange)="setSubCategoryValues(sSubCat)"
       [(ngModel)]="sSubCat">
       <!-- <ion-select-option value='all' [selected]>ALL</ion-select-option> -->
       <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">

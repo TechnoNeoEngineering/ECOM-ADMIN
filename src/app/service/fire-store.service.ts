@@ -16,6 +16,7 @@ export class FireStoreService {
   collectionorder = 'orderdetails';
   collectiondevice1 = 'newtoken';
   collectionuseridToken = 'useridToken';
+  collectionquery='Query';
 
 
   constructor(private firestore: AngularFirestore) { }
@@ -216,6 +217,23 @@ export class FireStoreService {
   delete_specialrequest(record_id) {
     this.firestore.doc(this.collectionSpecialuserrequest + '/' + record_id).delete();
   }
+
+  //-------------------------------- Query Review ------------------------
+create_Query(record) {
+  return this.firestore.collection(this.collectionquery).add(record);
+}
+
+read_Query() {
+  return this.firestore.collection(this.collectionquery).snapshotChanges();
+}
+
+update_Query(recordID, record) {
+  this.firestore.doc(this.collectionquery + '/' + recordID).update(record);
+}
+
+delete_Query(record_id) {
+  this.firestore.doc(this.collectionquery + '/' + record_id).delete();
+}
 
   //--------------------------Delivery Request-----------------------
 

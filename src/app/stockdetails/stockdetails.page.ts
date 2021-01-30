@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController,AlertController } from '@ionic/angular';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -26,8 +26,11 @@ export class StockdetailsPage implements OnInit {
 
   ProductviewList :any[]=[];
 
+  alert: any;
+
   constructor(public navCtrl: NavController, private fireStoreService: FireStoreService,
-    public fb: FormBuilder,private firestore:AngularFirestore) {  }
+    public fb: FormBuilder,private firestore:AngularFirestore,
+    private AlertController: AlertController) {  }
 
   ionViewWillEnter() {
     this.fireStoreService.read_category().subscribe(data => {
@@ -107,7 +110,24 @@ export class StockdetailsPage implements OnInit {
       if(this.sCat!='' && this.sSubCat==null){
       this.setCategoryValues(this.sCat);
       }
+      console.log(this.ProductviewList[2].stock);
+
+      // for(var i=0; i < this.ProductviewList.length; i++){
+      //   if(this.ProductviewList[i].stock < 10){
+      //     // alert(this.ProductviewList[i].stock);
+          
+      //     // this.showalert(('Product_id'+':'+this.ProductviewList[i].Product_id),
+      //     // ('Product Name'+':'+this.ProductviewList[i].Product_name),
+      //     // ('Stock'+':'+this.ProductviewList[i].stock));
+
+      //     this.alert = this.ProductviewList[i].Product_id
+      //     console.log(this.alert);
+      //     this.showalert();
+      //   }
+      // }
+
     });
+
     
   }
   
@@ -132,7 +152,17 @@ export class StockdetailsPage implements OnInit {
     }
     this.add[i]='';
     this.ngOnInit();
-    // this.ionViewWillEnter();
-   
   }
+
+  // async showalert(){	
+	//   const res = await this.AlertController.create({
+  //   header: '',
+  //   subHeader: '',
+  //   message: this.alert,
+  //   cssClass: 'stockdetailalert',
+	// 	buttons:[  {
+	// 		text: 'okay'}]
+	//   });
+  //   await res.present();
+  // }
 }

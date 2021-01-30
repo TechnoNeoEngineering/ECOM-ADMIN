@@ -24,8 +24,8 @@ import { DatePipe } from '@angular/common';
 import { HTTP } from '@ionic-native/http/ngx';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
 
-// import { MatPaginator } from '@angular/material';
 
 
 @NgModule({
@@ -41,7 +41,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 		AngularFireDatabaseModule,
 		HttpClientModule,
 		IonicStorageModule.forRoot(),
-		NgxDatatableModule
+		NgxDatatableModule,
+		FormsModule
 	],
 	providers: [
 		StatusBar,

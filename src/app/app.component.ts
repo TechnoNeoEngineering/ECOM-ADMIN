@@ -84,6 +84,10 @@ export class AppComponent {
 		this.nav.navigateForward('/ordertracking');
 	}
 
+	queries() {
+		this.nav.navigateForward('/queries');
+	}
+
 	// invoicebill() {
 	// 	this.nav.navigateForward('/invoice-bill');
 	// }

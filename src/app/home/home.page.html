@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Admin Panel</ion-title>
-    <ion-buttons slot="start" fill="clear">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Admin Panel</ion-title>
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
@@ -49,13 +49,13 @@
             <p (click)="productdetails()" style="cursor: pointer;">Product Details</p>
           </div>
         </div>
-        <!-- <div class="col-md-4">
+        <div class="col-md-4">
           <div class="box inf">
-            <i class='fas fa-walking'></i>
-            <h3>5</h3>
-            <p>Exercise</p>
+            <i class="fa fa-exclamation-triangle"></i>
+            <h3>{{ lowertotal }}</h3>
+            <p (click)="lowerstock()" style="cursor: pointer;">LowerStock Details</p>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </section>

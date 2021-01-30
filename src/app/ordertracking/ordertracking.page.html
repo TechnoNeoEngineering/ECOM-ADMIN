@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Order Tracking</ion-title>
-    <ion-button slot="start">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Order Tracking</ion-title>
+    <ion-button slot="start" class="color">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -31,21 +31,31 @@
           </ion-col>
         </ion-row>
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="6">
         <ion-row>
-          <ion-col size="4" style="margin-top: 10px;">
-            <ion-label position="floating">Filter by Date</ion-label>
+          <ion-col size="2" style="margin-top: 10px;">
+            <ion-label position="floating">From Date</ion-label>
           </ion-col>
-          <ion-col size="5">
+          <ion-col size="3">
             <!-- <ion-datetime min="2020" max="2040" value="10-03-2020" placeholder="Select Date"></ion-datetime> -->
             <!-- <ion-datetime min="2020" max="2040" displayFormat="MM/DD/YYYY" value="03/20/2000" [(ngModel)]='orderdate'
               (ionChange)="setOrderDateValues(orderdate)" placeholder="Select Date"></ion-datetime> -->
-              <ion-input type="date"  [(ngModel)]="orderdate"  (ionChange)="setOrderDateValues(orderdate)" placeholder="Select date"></ion-input>
+              <ion-input type="date" [(ngModel)]="orderdate"  (ionChange)="setOrderDateValues()" placeholder="Select date"></ion-input>
+          </ion-col>
+
+          <ion-col size="2" style="margin-top: 10px;">
+            <ion-label position="floating">To Date</ion-label>
+          </ion-col>
+          <ion-col size="3">
+            <!-- <ion-datetime min="2020" max="2040" value="10-03-2020" placeholder="Select Date"></ion-datetime> -->
+            <!-- <ion-datetime min="2020" max="2040" displayFormat="MM/DD/YYYY" value="03/20/2000" [(ngModel)]='orderdate'
+              (ionChange)="setOrderDateValues(orderdate)" placeholder="Select Date"></ion-datetime> -->
+              <ion-input type="date" [(ngModel)]="orderdate1"  (ionChange)="setOrderDateValues()" placeholder="Select date"></ion-input>
           </ion-col>
         </ion-row>
       </ion-col>
 
-      <ion-col size="4">
+      <ion-col size="2">
         <ion-grid>
           <ion-row>
             <ion-col size="6" style="margin-top: 10px;">
@@ -76,10 +86,10 @@
         <ion-segment-button value="Delivered">
           <ion-label>Delivered</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="Cancelled">
+        <ion-segment-button value="cancel">
           <ion-label>Cancelled</ion-label>
         </ion-segment-button>
-        <ion-segment-button value="Returned">
+        <ion-segment-button value="returned">
           <ion-label>Returned</ion-label>
         </ion-segment-button>
       </ion-segment>
@@ -189,7 +199,7 @@
                 <ion-label>Deliver Status: {{orderdata.deliverstatus}}</ion-label>
               </p>
             </ion-col>
-            <ion-col size="3">
+            <ion-col size="4">
               <ion-label>{{orderdata.deliveraddress.addr_name}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_address}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_lankmark}}</ion-label><br>
@@ -198,11 +208,13 @@
               <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
             </ion-col>
-            <ion-col size="2" class="ion-align-self-center">
-              <a (click)="invoice(orderdata)"><u>Invoice Bill</u></a>
-            </ion-col>
+             <ion-col size="2" class="ion-align-self-center">
+              <!-- <a (click)="invoice(orderdata)"><u>Invoice Bill</u></a>
+            </ion-col> -->
+            <ion-button (click)="inprogress(orderdata)">Inprogress</ion-button>
+          </ion-col> 
           </ion-row>
-          <button ion-button (click)="inprogress(orderdata)">Inprogress</button>
+          
         </div>
       </ion-grid>
     </div>
@@ -262,8 +274,12 @@
               <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
             </ion-col>
+
+            <ion-col size="2" class="ion-align-self-center">
+              <ion-button (click)="packed(orderdata)">packed</ion-button>
+            </ion-col>
           </ion-row>
-          <button ion-button (click)="packed(orderdata)">packed</button>
+          
         </div>
       </ion-grid>
     </div>
@@ -315,7 +331,7 @@
               </p>
               <ion-item>
                 <ion-label>Shipment Id</ion-label>
-                <ion-input  [(ngModel)]="shipid"></ion-input>
+                <ion-input (keypress)="numberOnlyValidation($event)" maxlength="12" [(ngModel)]="orderdata.shipid"></ion-input>
               </ion-item>
             </ion-col>
             <ion-col size="4">
@@ -327,7 +343,9 @@
               <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
             </ion-col>
-            <ion-button (click)="shipped(orderdata)">Shipped</ion-button>
+            <ion-col size="2" class="ion-align-self-center">
+              <ion-button (click)="shipped(orderdata,orderdata.shipid)">Shipped</ion-button>
+            </ion-col>
           </ion-row>
         </div>
       </ion-grid>
@@ -393,8 +411,11 @@
               <ion-label>{{orderdata.deliveraddress.addr_state}}</ion-label><br>
               <ion-label>{{orderdata.deliveraddress.addr_mobile}}</ion-label>
             </ion-col>
+
+            <ion-col size="2" class="ion-align-self-center">
+              <ion-button (click)="delivered(orderdata)">Delivered</ion-button>
+            </ion-col>
           </ion-row>
-          <button ion-button (click)="delivered(orderdata)">Delivered</button>
         </div>
       </ion-grid>
     </div>
@@ -459,7 +480,7 @@
     </div>
      <!-- --------------------- Cancelled ------------------------- -->
 
-     <div *ngSwitchCase="'Cancelled'">
+     <div *ngSwitchCase="'cancel'">
       <ion-grid *ngFor="let orderdata of selectedOrderid;" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'cancel'">
           <ion-row class="back_order">
@@ -520,7 +541,7 @@
 
      <!-- --------------------- Returned ------------------------- -->
 
-     <div *ngSwitchCase="'Returned'">
+     <div *ngSwitchCase="'returned'">
       <ion-grid *ngFor="let orderdata of selectedOrderid; let l = count" style="padding: 0">
         <div *ngIf="orderdata.deliverstatus == 'returned'">
           <ion-row class="back_order">

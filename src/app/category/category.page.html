@@ -1,10 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-
-    <ion-title>
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">
       Category
     </ion-title>
-    <ion-button slot="start">
+    <ion-button slot="start" class="color">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -18,6 +17,12 @@
       <ion-label position="floating">Category</ion-label>
       <ion-input formControlName="Category"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Category Image</ion-label>
+      <ion-input formControlName="cat_image"></ion-input>
+    </ion-item>
+
     <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="cat_id">
 
     <ion-item>
@@ -49,6 +54,7 @@
           <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
           <ion-card-subtitle>Id: {{item.cat_id}}</ion-card-subtitle>
           <ion-card-subtitle>{{item.Category}}</ion-card-subtitle>
+          <ion-card-subtitle>URL: {{item.cat_image}}</ion-card-subtitle>
         </ion-card-header>
         <!-- <ion-item>
     <ion-label>Category</ion-label>
@@ -95,6 +101,10 @@
           <ion-item>
             <ion-label><strong>Category</strong></ion-label>
             <ion-input type="text" [(ngModel)]="item.EditCategory"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Category Image</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.Editcat_image"></ion-input>
           </ion-item>
         </ion-card-content>
       </ng-template>

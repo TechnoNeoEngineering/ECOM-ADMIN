@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Invoice Bill</ion-title>
-    <ion-button slot="start">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Invoice Bill</ion-title>
+    <ion-button slot="start" class="color">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -44,7 +44,21 @@
               <p>Azhagar Kovil Road, Tallakulam,</p>
               <p>Madurai, Tamil Nadu, India - 625 002.</p>
             </div>
+          </ion-col>
 
+          <ion-col>
+            <div style="text-align: end;line-height: 1;">
+              <h2>Billing Address:</h2>
+              <h3>{{invoice.billingaddress.addr_name}}</h3>
+              <p>{{invoice.billingaddress.addr_address}},{{invoice.billingaddress.addr_lankmark}}</p> 
+              <p>{{invoice.billingaddress.addr_city}},{{invoice.billingaddress.addr_district}} - {{invoice.billingaddress.addr_pincode}}</p>
+              <p>{{invoice.billingaddress.addr_state}}.</p>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-align-items-center">
+          <ion-col>
             <div>
               <p class="fw-bolder">PAN No: </p>
               <p class="fw-bolder">GST Registration No: </p>
@@ -123,5 +137,16 @@
         </ion-row>
       </ion-grid>
 
-      <button onclick="window.print()" >Print this page</button>
+      <ion-gird>
+        <ion-row>
+          <ion-col>
+            <button onclick="window.print()" >Print this page</button>
+          </ion-col>
+
+          <ion-col>
+            <ion-button style="float: right;" fill="clear" (click)="done()">Done</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-gird>
+      
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
@@ -27,9 +27,12 @@ export class HomePage implements OnInit{
 	// Product Details
 	ProductviewList :any[]=[];
 	producttotalcount: any;
+	lower: any[];
+	lowertotal: number;
 
 	constructor(private navCtrl: NavController,private fireStoreService: FireStoreService,
-		private firestore: AngularFirestore,public datepipe: DatePipe,) {}
+		private firestore: AngularFirestore,public datepipe: DatePipe,
+		private AlertController : AlertController) {}
 
 	ngOnInit() {
 		this.fireStoreService.read_orderdetails().subscribe((data) => {
@@ -102,7 +105,7 @@ export class HomePage implements OnInit{
 		  });
 
 
-		//   
+		//  
 
 		this.fireStoreService.read_Productdetails().subscribe(data => {
 
@@ -198,7 +201,36 @@ export class HomePage implements OnInit{
 			  
 			});
 			this.producttotalcount = this.ProductviewList.length;
-		  });
+
+			this.lower = this.ProductviewList.filter(lower => lower.stock < 10);
+			this.lowertotal = this.lower.length;
+			for(var i=0; i < this.ProductviewList.length; i++){
+				if(this.ProductviewList[i].stock < 10){
+				  this.showalert();
+				}
+			  }
+		
+			console.log(this.lower);
+			
+		});
+		  
+		
+	}
+
+	async showalert(){	
+		const res = await this.AlertController.create({
+	  header: '',
+	  subHeader: '',
+	  message: 'Stock value are lower',
+		  buttons:[  
+			{
+			  text: 'Check',
+			  handler: () => {
+				this.navCtrl.navigateForward('/lowerstocks');
+			  }
+			}]
+		});
+	  await res.present();
 	}
 
 	specialuser() {
@@ -211,6 +243,10 @@ export class HomePage implements OnInit{
 
 	productdetails() {
 		this.navCtrl.navigateForward('/ordertracking');
+	}
+
+	lowerstock() {
+		this.navCtrl.navigateForward('/lowerstocks');
 	}
 			
 }

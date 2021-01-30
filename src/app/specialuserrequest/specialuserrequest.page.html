@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Special User Request</ion-title>
-    <ion-button slot="start">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Special User Request</ion-title>
+    <ion-button slot="start" class="color">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -23,7 +23,7 @@
             <th scope="col">Mobile</th>
             <th scope="col">Email</th>
             <th scope="col">Address</th>
-            <!-- <th scope="col">Product</th> -->
+            <th scope="col">Product</th>
             <th scope="col">Date</th>
             <th scope="col">Accept/Decline</th>
           </tr>
@@ -34,7 +34,7 @@
             <td>{{ special.Mobile }}</td>
             <td>{{ special.Email }}</td>
             <td>{{ special.Address }}</td>
-            <!-- <td>{{ special.Products }}</td> -->
+            <td>{{ special.Products }}</td>
             <td>{{ special.Date }}</td>
             <td>
               <ion-button (click)="accept(special)">Accept</ion-button>

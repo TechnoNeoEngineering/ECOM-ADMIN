@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { NavController } from '@ionic/angular';
+import { NavController,ToastController, AlertController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 import { InputVal } from '../models/input-val';
 import { ReturnVal } from '../models/return-val';
@@ -23,9 +23,10 @@ export class OrdertrackingPage implements OnInit {
   order: string = "All";
   orderarr: any;
   orderdate: any;
+  orderdate1: any;
   mnts: any;
   shipid: any;
-  orderid : any;
+  orderid : any = "all";
   ordercount: boolean;
   totalcount: number;
   selectedOrderid: any[];
@@ -36,10 +37,11 @@ export class OrdertrackingPage implements OnInit {
   userid: string;
 
   ODID: any;
+  invo: any;
 
   constructor(private fireStoreService: FireStoreService,
-    private firestore: AngularFirestore,
-    public nav: NavController,
+    private firestore: AngularFirestore,private toastcontroller : ToastController,
+    public nav: NavController,private AlertController: AlertController,
     public datepipe: DatePipe,
     private http: HttpClient) { }
     httpOptions = {
@@ -142,7 +144,8 @@ export class OrdertrackingPage implements OnInit {
           deliverdate: e.payload.doc.data()['deliverdate'],
           returnstatus: e.payload.doc.data()['returnstatus'],
           returndate: e.payload.doc.data()['returndate'],
-          deliveraddress: e.payload.doc.data()['deliveraddress']
+          deliveraddress: e.payload.doc.data()['deliveraddress'],
+          billingaddress: e.payload.doc.data()['billingaddress'],
         };
       });
       this.selectedOrderid = this.orderdetails;
@@ -157,7 +160,6 @@ export class OrdertrackingPage implements OnInit {
 
       this.orderlength = this.orderdetails.filter(totalcount => totalcount.deliverstatus === 'Ordered').length;
       console.log(this.unique_orderid);
-      this.firestore.doc('orderdetails' + '/' + 'id').delete();
       // this.firestore.doc('CartListtNew133' + '/' + "srm9hnUyIVOpfL2mMFU").delete();
     });
 
@@ -226,27 +228,31 @@ export class OrdertrackingPage implements OnInit {
     return this.firestore.collection('viewProducts_Table').snapshotChanges();
   }
   ProductviewList: any;
-  // ngOnInit() {
+
+  // invoice(){
+  //   // console.log(orderdata);
+  //    this.nav.navigateForward('/invoice-bill');
+  //   // localStorage.setItem('orderdata',JSON.stringify(orderdata));
   // }
 
   inprogress(data) {
-    let record = {}
-    record['deliverstatus'] = 'In Progress';
-    this.firestore.doc('orderdetails' + '/' + data.id).update(record);
-    console.log(data);
-   var user = data.userid;   
-  //  alert(user)
-   var product = data.Description;
+    // this.invo = JSON.parse(localStorage.getItem('orderdata'));
+    
+    this.invoice(data);  
+    
+  //  var user = data.userid;   
+  // //  alert(user)
+  //  var product = data.Description;
   //  alert(product)
   //  alert(data.id)
   //  this.send(user,product);
  }
 
-  packed(data) {
+  packed(data,i) {
+    this.showtoast('Item packed Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Packed';
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
-   
     var user = data.userid;  
     // alert(user) 
     var product = data.Description;
@@ -255,10 +261,11 @@ export class OrdertrackingPage implements OnInit {
    this.sendpacked(user,product,image);
   }
 
-  shipped(data) {
+  shipped(data,shipid) {
+    this.showtoast('Item Shipped Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Shipped';
-    record['shipmentid'] = this.shipid;
+    record['shipmentid'] = shipid;
     record['shipmentdate'] = new Date().toLocaleString();
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
    
@@ -267,10 +274,10 @@ export class OrdertrackingPage implements OnInit {
     var product = data.Description;
     var image =data.image
     this.sendshipped(user,product,image)
-    
   }
 
   delivered(data) {
+    this.showtoast('Item Delivery Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Delivered';
     record['deliverdate'] = new Date().toLocaleString();
@@ -290,14 +297,30 @@ export class OrdertrackingPage implements OnInit {
   order_track() {
     this.nav.navigateForward('/ordertrack');
   }
-  setOrderDateValues(orderdate) {
-    let orderdate1 = orderdate.toLocaleString();
-    orderdate = this.datepipe.transform(orderdate1, 'MM/dd/yyyy');
-    // alert(orderdate);
-    this.selectedOrderid = this.orderdetails.filter(orderarr => this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy') == orderdate);
+
+  setOrderDateValues() {
+    // let orderdate2 = orderdate.toLocaleString();
+    this.selectedOrderid = this.orderdetails;
+    var order1 = this.datepipe.transform(this.orderdate, 'M/d/yyyy');
+    var  order2 = this.datepipe.transform(this.orderdate1, 'M/d/yyyy');
+    if(order2 == null){
+      let currentdate = new Date();
+      order2 = this.datepipe.transform(currentdate, 'M/d/yyyy');
+    }
+    else{
+      order2 = this.datepipe.transform(this.orderdate1, 'M/d/yyyy');
+    }
+    // alert(order1);
+    this.selectedOrderid = this.orderdetails.filter((res)=>{
+    return res.product_orderdate.split(',')[0] >= order1 && res.product_orderdate.split(',')[0] <=order2;
+      //  console.log(res.product_orderdate.split(',')[0])
+    });
+    
+    // this.orderdetails.filter(orderarr => this.datepipe.transform(orderarr.product_orderdate, 'MM/dd/yyyy') == orderdate);
     this.totalcount = this.selectedOrderid.length;
     console.log(this.selectedOrderid);
   }
+
   itemcount(event: any) {
     var count = event.detail.value;
     if (event.detail.value != 'All') {
@@ -384,14 +407,53 @@ export class OrdertrackingPage implements OnInit {
               }
   }
 
-  invoice(orderdata){
-    console.log(orderdata);
-    this.nav.navigateForward('/invoice-bill');
-    localStorage.setItem('orderdata',JSON.stringify(orderdata));
+  async invoice(data) {
+    const alert = await this.AlertController.create({
+      header: 'Do you want to move?',
+     
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Confirm cancel');
+          }
+        },
+        {
+          text: 'Invoice',
+          handler: () => {
+            this.showtoast('Item Inprogress Sucessfully');
+            localStorage.setItem('orderdata',JSON.stringify(data));
+            // console.log(this.invo);
+            this.nav.navigateForward('/invoice-bill');
+            let record = {}
+            record['deliverstatus'] = 'In Progress';
+            this.firestore.doc('orderdetails' + '/' + data.id).update(record);
+            console.log(data);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
-  
+  async showtoast(message:string){
+    const res = await this.toastcontroller.create({
+      message,
+      position:'bottom',
+      duration:1000
+   
+    });
+    await res.present();   
+  }
 
-  
+  numberOnlyValidation(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
 
 }

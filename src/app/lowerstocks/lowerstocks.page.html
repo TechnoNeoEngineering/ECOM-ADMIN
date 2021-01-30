@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Lower stock Details</ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+<!-- 
+    <ion-item>
+      <ion-label>Select Category</ion-label>
+      <ion-select interface="popover" (ionChange)="setCategoryValues(sCat)"
+        [(ngModel)]="sCat">
+        <ion-select-option [value]="sCat.cat_id" *ngFor="let sCat of categoryList">{{sCat.Category}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select sub-category</ion-label>
+      <ion-select interface="popover" (ionChange)="setSubCategoryValues(sSubCat)"
+      [(ngModel)]="sSubCat">
+      <ion-select-option value='all' [selected]>ALL</ion-select-option> 
+      <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
+          {{sSubCat.SubCategory}}</ion-select-option>
+      </ion-select>
+	</ion-item> -->
+	
+  <ngx-datatable
+	class="material" 
+	[rows]="lower" 
+	[columnMode]="'force'"
+	[headerHeight]="50" 
+	[footerHeight]="50"
+	[rowHeight]="50" 
+	[limit]="10"
+	[sorts]="[{prop: 'name', dir: 'desc'}]"	>
+
+	<ngx-datatable-column name="Product Id" prop="Product_id"></ngx-datatable-column>
+	<ngx-datatable-column name="Product Name" prop="Product_name"></ngx-datatable-column>
+	<ngx-datatable-column name="Stock" prop="stock"></ngx-datatable-column>
+
+    <ngx-datatable-column name="Add stock">
+		<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex">
+			<ion-input [(ngModel)]='add[rowIndex]' placeholder="Enter stock value" type="number"></ion-input>
+		</ng-template>
+	</ngx-datatable-column>
+	
+	<ngx-datatable-column name="Submit" [sortable]="false">
+		<ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+			<ion-button size="small" fill="outline"  (click)="addstock(row, rowIndex)"
+				slot="end">Submit</ion-button>
+		</ng-template>
+	</ngx-datatable-column>
+  
+  </ngx-datatable>
+
+</ion-content>

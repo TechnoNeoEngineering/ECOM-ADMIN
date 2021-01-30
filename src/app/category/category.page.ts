@@ -23,6 +23,7 @@ export class CategoryPage implements OnInit {
   categorydata: CategoryData;
   categoryForm: FormGroup;
   max_id: any;
+  
   constructor(private fireStoreService: FireStoreService,
     public fb: FormBuilder,
     public navCtrl: NavController,
@@ -39,6 +40,7 @@ export class CategoryPage implements OnInit {
     this.categoryForm = this.fb.group({
       Category: ['', [Validators.required]],
       cat_id: [this.max_id, [Validators.required]],
+      cat_image: [],
     })
 
     this.fireStoreService.read_category().subscribe(data => {
@@ -49,6 +51,7 @@ export class CategoryPage implements OnInit {
           isEdit: false,
           cat_id: e.payload.doc.data()['cat_id'],
           Category: e.payload.doc.data()['Category'],
+          cat_image: e.payload.doc.data()['cat_image'],
         };
       })
       this.get_max_id();
@@ -76,11 +79,13 @@ export class CategoryPage implements OnInit {
   EditRecord(record) {
     record.isEdit = true;
     record.EditCategory = record.Category;
+    record.Editcat_image = record.cat_image;
   }
 
   UpdateRecord(recordRow) {
     let record = {};
     record['Category'] = recordRow.EditCategory;
+    record['cat_image'] = recordRow.Editcat_image;
     this.fireStoreService.update_category(recordRow.id, record);
     recordRow.isEdit = false;
   }

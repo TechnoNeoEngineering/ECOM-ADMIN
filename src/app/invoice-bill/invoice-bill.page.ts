@@ -27,6 +27,7 @@ export class InvoiceBillPage implements OnInit {
   ngOnInit() {
 
     this.invoice = JSON.parse(localStorage.getItem('orderdata'));
+    console.log(this.invoice);
     this.price = this.invoice.Price;
 
     this.netamount = this.invoice.Price * this.invoice.Quantity;
@@ -47,6 +48,8 @@ export class InvoiceBillPage implements OnInit {
 
     this.ODID = Math.floor(Math.random()*8+1)+Math.random().toString().slice(2,10);
     console.log(this.ODID);
+
+    localStorage.setItem('invoice', this.ODID);
 
   }
 
@@ -130,6 +133,10 @@ export class InvoiceBillPage implements OnInit {
         words_string = words_string.split("  ").join(" ");
     }
     return words_string + 'Rupees';
+}
+
+done() {
+    this.nav.navigateForward('/ordertracking');
 }
 
 }

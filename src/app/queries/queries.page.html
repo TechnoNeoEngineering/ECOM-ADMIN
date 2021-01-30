@@ -1,0 +1,97 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">
+      Queries
+    </ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-segment [(ngModel)]="queries">
+    <ion-segment-button value="question">
+      <ion-label>Question</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="answer">
+      <ion-label>Answer</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <!-- <form [formGroup]="queryForm"> -->
+
+    <div class="container ">
+      <div class="row">
+        <div [ngSwitch]="queries">
+          <div *ngSwitchCase="'question'">
+            <ion-card>
+              <ion-grid style="padding: 0">
+                <ion-row>
+                  <ion-col size="12">
+                    <div>
+                      <h2 class="text-center">Question</h2>
+                    </div>
+                  </ion-col>
+                  <ion-col size="12">
+                    <div *ngFor="let query of queryList">
+                      <!-- <ion-card *ngFor="let query of queryList"> -->
+                        <div *ngIf="query.answer == undefined">
+                          <ion-row>
+                            <ion-col class="ion-align-self-center">
+                              <h4><span class="fw-bold">Product_id:</span> {{query.Product_id}}</h4>
+                            </ion-col>
+                            <ion-col>
+                              <ion-button (click)="RemoveRecord(query.id)" style="float: right;" fill="clear"><ion-icon name="close-circle-outline"></ion-icon></ion-button>
+                            </ion-col>
+                          </ion-row>
+                          <h4><span class="fw-bold">User_id:</span> {{query.userid}}</h4>
+                          <h4><span class="fw-bold">Question:</span> {{query.query}}</h4>
+                          <ion-input [(ngModel)]="answer"><span class="fw-bold">Answer:</span> </ion-input>
+                          <ion-button (click)="update(query)">Submit</ion-button>
+                        </div>
+                      <!-- </ion-card> -->
+                      <!-- <hr> -->
+                    </div>
+                    <!-- <hr> -->
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card>
+          </div>
+
+          <div *ngSwitchCase="'answer'">
+            
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <div>
+                      <h2 class="text-center">Answer</h2>
+                    </div>
+                  </ion-col>
+                  <ion-col size="12">
+                    <ion-card *ngFor="let query of queryList" class="p-3">
+                      <div >
+                        <div *ngIf="query.answer != undefined">
+                          <h4><span class="fw-bold">Product_id:</span> {{query.Product_id}}</h4>
+                          <h4><span class="fw-bold">User_id:</span> {{query.userid}}</h4>
+                          <h4><span class="fw-bold">Question:</span> {{query.query}}</h4>
+                          <h4><span class="fw-bold">Answer:</span> {{query.answer}}</h4>
+                        </div>
+                      </div>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            <!-- </ion-card> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <!-- <ion-button (click)="update(row)">Submit</ion-button> -->
+  <!-- </form> -->
+
+</ion-content>
