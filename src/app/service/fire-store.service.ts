@@ -17,6 +17,8 @@ export class FireStoreService {
   collectiondevice1 = 'newtoken';
   collectionuseridToken = 'useridToken';
   collectionquery='Query';
+  collectiongst = 'Gst';
+  collectionName1 = 'Banner_Master';
 
 
   constructor(private firestore: AngularFirestore) { }
@@ -61,7 +63,7 @@ export class FireStoreService {
   }
 
   read_category() {
-    return this.firestore.collection(this.collectionName).snapshotChanges();
+    return this.firestore.collection(this.collectionName,ref => ref.orderBy('cat_id','asc')).snapshotChanges();
   }
 
   update_category(recordID, record) {
@@ -111,7 +113,7 @@ export class FireStoreService {
   }
 
   read_subcategory() {
-    return this.firestore.collection(this.collectionNamesub).snapshotChanges();
+    return this.firestore.collection(this.collectionNamesub,ref => ref.orderBy('SubCategory_id','asc')).snapshotChanges();
   }
 
   update_subcategory(recordID, record) {
@@ -171,7 +173,7 @@ export class FireStoreService {
   }
 
   read_discount() {
-    return this.firestore.collection(this.collectiondiscount).snapshotChanges();
+    return this.firestore.collection(this.collectiondiscount,ref => ref.orderBy('Discount_id','asc')).snapshotChanges();
   }
 
   update_discount(recordID, record) {
@@ -235,6 +237,23 @@ delete_Query(record_id) {
   this.firestore.doc(this.collectionquery + '/' + record_id).delete();
 }
 
+ //-------------------------------- GSt Review ------------------------
+ create_gst(record) {
+  return this.firestore.collection(this.collectiongst).add(record);
+}
+
+read_gst() {
+  return this.firestore.collection(this.collectiongst,ref=>ref.orderBy('gst_id','asc')).snapshotChanges();
+}
+
+update_gst(recordID, record) {
+  this.firestore.doc(this.collectiongst + '/' + recordID).update(record);
+}
+
+delete_gst(record_id) {
+  this.firestore.doc(this.collectiongst + '/' + record_id).delete();
+}
+
   //--------------------------Delivery Request-----------------------
 
   create_Delivery(record) {
@@ -251,6 +270,24 @@ delete_Query(record_id) {
 
   delete_Delivery(record_id) {
     this.firestore.doc(this.collectionDelivery + '/' + record_id).delete();
+  }
+
+  //--------------------------Banner-----------------------
+ 
+  create_banner(record) {
+    return this.firestore.collection(this.collectionName1).add(record);
+  }
+
+  read_banner() {
+    return this.firestore.collection(this.collectionName1,ref => ref.orderBy('ban_id','asc')).snapshotChanges();
+  }
+
+  update_banner(recordID, record) {
+    this.firestore.doc(this.collectionName1 + '/' + recordID).update(record);
+  }
+
+  delete_banner(record_id) {
+    this.firestore.doc(this.collectionName1 + '/' + record_id).delete();
   }
 
   search(coll, record, field, opr, value) {

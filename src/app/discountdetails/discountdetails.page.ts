@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 
 interface DiscountData {
   Discount_id: number;
-  Monthlyvolumeamt: string;
+  From: string;
+  To: string;
   Specialdiscount: string;
   Specialcontest: string;
 }
@@ -22,6 +23,7 @@ export class DiscountdetailsPage implements OnInit {
   discountdata: DiscountData;
   discountForm: FormGroup;
   max_id: any;
+
   constructor(private fireStoreService: FireStoreService,
     public fb: FormBuilder,
     public navCtrl: NavController,
@@ -38,7 +40,8 @@ export class DiscountdetailsPage implements OnInit {
 
         this.discountForm = this.fb.group({
           Discount_id: [, [Validators.required]],
-          Monthlyvolumeamt: ['', [Validators.required]],
+          From: ['', [Validators.required]],
+          To: ['', [Validators.required]],
           Specialdiscount: ['', [Validators.required]],
           Specialcontest: ['', [Validators.required]],
         })
@@ -50,7 +53,8 @@ export class DiscountdetailsPage implements OnInit {
               id: e.payload.doc.id,
               isEdit: false,
               Discount_id: e.payload.doc.data()['Discount_id'],
-              Monthlyvolumeamt: e.payload.doc.data()['Monthlyvolumeamt'],
+              From: e.payload.doc.data()['From'],
+              To: e.payload.doc.data()['To'],
               Specialdiscount: e.payload.doc.data()['Specialdiscount'],
               Specialcontest: e.payload.doc.data()['Specialcontest'],
             };
@@ -74,19 +78,21 @@ export class DiscountdetailsPage implements OnInit {
     
       RemoveRecord(rowID) {
         alert("Delete Disabled");
-        // this.fireStoreService.delete_discount(rowID);
+        this.fireStoreService.delete_discount(rowID);
       }
     
       EditRecord(record) {
         record.isEdit = true;
-        record.EditMonthlyvolumeamt = record.Monthlyvolumeamt;
+        record.EditFrom = record.From;
+        record.EditTo = record.To;
         record.EditSpecialdiscount = record.Specialdiscount;
         record.EditSpecialcontest = record.Specialcontest;
       }
     
       UpdateRecord(recordRow) {
         let record = {};
-        record['Monthlyvolumeamt'] = recordRow.EditMonthlyvolumeamt;
+        record['From'] = recordRow.EditFrom;
+        record['To'] = recordRow.EditTo;
         record['Specialdiscount'] = recordRow.EditSpecialdiscount;
         record['Specialcontest'] = recordRow.EditSpecialcontest;
         this.fireStoreService.update_discount(recordRow.id, record);

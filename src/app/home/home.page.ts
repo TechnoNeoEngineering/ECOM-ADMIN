@@ -242,7 +242,7 @@ export class HomePage implements OnInit{
 	}
 
 	productdetails() {
-		this.navCtrl.navigateForward('/ordertracking');
+		this.navCtrl.navigateForward('/viewproduct');
 	}
 
 	lowerstock() {

@@ -1,0 +1,113 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">
+      Banner
+    </ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <form [formGroup]="bannerForm">
+
+    <ion-item>
+      <ion-label position="floating">Banner</ion-label>
+      <ion-input formControlName="Banner"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Banner Image</ion-label>
+      <ion-input formControlName="ban_image"></ion-input>
+    </ion-item>
+
+    <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="ban_id">
+
+    <ion-item>
+      <ion-button (click)="CreateRecord()" [disabled]="bannerForm.invalid">
+        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+        &nbsp;Create Record
+      </ion-button>
+    </ion-item>
+  </form>
+
+  <!-- <ion-grid>
+    <ion-row>
+           <ion-col>
+            <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
+              Add Category
+            </ion-button>
+      </ion-col>
+      <ion-col >
+        <ion-searchbar></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <!----------------------------------------------------------------------------------------->
+
+  <ion-card color="medium">
+    <ion-card *ngFor="let item of bannerList" color="primary">
+      <span *ngIf="!item.isEdit; else elseBlock">
+        <ion-card-header>
+          <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
+          <ion-card-subtitle>Id: {{item.ban_id}}</ion-card-subtitle>
+          <ion-card-subtitle>Name: {{item.Banner}}</ion-card-subtitle>
+          <ion-card-subtitle>URL: {{item.ban_image}}</ion-card-subtitle>
+        </ion-card-header>
+        <!-- <ion-item>
+    <ion-label>Category</ion-label>
+    <ion-select (ionChange)="setDistrictValues(sState)" [(ngModel)]="sState">
+         <ion-select-option  *ngFor ="let item of studentList">{{item.Category}} </ion-select-option> 
+   </ion-select>
+         
+</ion-item> -->
+        <ion-card-content>
+
+          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+
+          </ion-button>
+          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+
+          </ion-button>
+        </ion-card-content>
+      </span>
+      <ng-template #elseBlock>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  Edit
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
+                    Cancel
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
+                    Update
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label><strong>Banner</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.EditBanner"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Banner Image</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.Editban_image"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ng-template>
+    </ion-card>
+  </ion-card>
+</ion-content>

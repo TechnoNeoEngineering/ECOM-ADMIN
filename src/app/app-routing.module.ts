@@ -6,8 +6,7 @@ const routes: Routes = [
 
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
-    ,
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule),
     pathMatch: 'full'
   },
   {
@@ -73,25 +72,37 @@ const routes: Routes = [
   },
   {
     path: 'invoice-bill',
-    loadChildren: () => import('./invoice-bill/invoice-bill.module').then( m => m.InvoiceBillPageModule)
+    loadChildren: () => import('./invoice-bill/invoice-bill.module').then( m => m.InvoiceBillPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'specialuserrequest',
-    loadChildren: () => import('./specialuserrequest/specialuserrequest.module').then( m => m.SpecialuserrequestPageModule)
+    loadChildren: () => import('./specialuserrequest/specialuserrequest.module').then( m => m.SpecialuserrequestPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'delivery-charges',
-    loadChildren: () => import('./delivery-charges/delivery-charges.module').then( m => m.DeliveryChargesPageModule)
-  },  {
+    loadChildren: () => import('./delivery-charges/delivery-charges.module').then( m => m.DeliveryChargesPageModule),
+    canActivate: [AuthGuardService]
+  },
+  {
     path: 'queries',
-    loadChildren: () => import('./queries/queries.module').then( m => m.QueriesPageModule)
+    loadChildren: () => import('./queries/queries.module').then( m => m.QueriesPageModule),
+    canActivate: [AuthGuardService]
   },
   {
     path: 'lowerstocks',
-    loadChildren: () => import('./lowerstocks/lowerstocks.module').then( m => m.LowerstocksPageModule)
+    loadChildren: () => import('./lowerstocks/lowerstocks.module').then( m => m.LowerstocksPageModule),
+    canActivate: [AuthGuardService]
   },
-
-
+  {
+    path: 'gst',
+    loadChildren: () => import('./gst/gst.module').then( m => m.GstPageModule)
+  },
+  {
+    path: 'banner',
+    loadChildren: () => import('./banner/banner.module').then( m => m.BannerPageModule)
+  },
 ];
 
 @NgModule({

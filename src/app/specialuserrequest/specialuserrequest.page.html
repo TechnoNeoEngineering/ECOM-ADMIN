@@ -14,7 +14,7 @@
         <h2>Specail User Request Details</h2>
       </ion-col>
     </ion-row>
-
+     <!-- {{ RequestForm1 | json}} -->
     <ion-row>
       <table class="table table-bordered">
         <thead>
@@ -34,7 +34,7 @@
             <td>{{ special.Mobile }}</td>
             <td>{{ special.Email }}</td>
             <td>{{ special.Address }}</td>
-            <td>{{ special.Products }}</td>
+            <td>{{ special.Products}}</td>
             <td>{{ special.Date }}</td>
             <td>
               <ion-button (click)="accept(special)">Accept</ion-button>

@@ -10,7 +10,7 @@ import { Platform,AlertController } from '@ionic/angular';
 })
 export class SpecialuserrequestPage implements OnInit {
 
-  RequestForm1: any[];
+  RequestForm1: any;
 
   user: any;
 
@@ -43,6 +43,9 @@ export class SpecialuserrequestPage implements OnInit {
         };
       })
       console.log(this.RequestForm1);
+
+      // var prod = JSON.stringify(this.RequestForm1.Products);
+      // console.log(prod);
     });
   }
 

@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">GST</ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <form [formGroup]="gstForm" >
+
+    <ion-item>
+      <ion-label position="floating">Tax Rates</ion-label>
+      <ion-input formControlName="taxrates"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Products</ion-label>
+      <ion-input formControlName="products"></ion-input>
+    </ion-item>
+
+    <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="gst_id">
+
+    <ion-item>
+      <ion-button (click)="CreateRecord()" [disabled]="gstForm.invalid">
+        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+        &nbsp;Create Record
+      </ion-button>
+    </ion-item>
+  </form> 
+ 
+<!----------------------------------------------------------------------------------------->
+
+<ion-card color="medium">
+  <ion-card *ngFor="let item of gstlist" color="primary">
+    <span *ngIf="!item.isEdit; else elseBlock">
+      <ion-card-header>
+        <ion-card-subtitle>GST_ID: {{item.gst_id}}</ion-card-subtitle>
+        <ion-card-subtitle>Tax Rates: {{item.taxrates}}</ion-card-subtitle>
+        <ion-card-subtitle>Products: {{item.products}}</ion-card-subtitle>
+      </ion-card-header>
+  
+      <ion-card-content>
+
+        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+
+        </ion-button>
+        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+
+        </ion-button>
+      </ion-card-content>
+    </span>
+    <ng-template #elseBlock>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                Edit
+              </ion-col>
+              <ion-col>
+                <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
+                  Cancel
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
+                  Update
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating"><strong>Tax Rates:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.Edittaxrates"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating"><strong>Products:</strong></ion-label>
+          <ion-input type="text" [(ngModel)]="item.Editproducts"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ng-template>
+  </ion-card>
+</ion-card>
+
+</ion-content>

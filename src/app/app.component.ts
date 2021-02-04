@@ -88,6 +88,14 @@ export class AppComponent {
 		this.nav.navigateForward('/queries');
 	}
 
+	gst() {
+		this.nav.navigateForward('/gst');
+	}
+
+	banner() {
+		this.nav.navigateForward('/banner');
+	}
+
 	// invoicebill() {
 	// 	this.nav.navigateForward('/invoice-bill');
 	// }
