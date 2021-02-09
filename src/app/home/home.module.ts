@@ -4,9 +4,10 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
+import { CountUpModule } from 'ngx-countup';
 
 @NgModule({
-	imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
+	imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule,CountUpModule],
 	declarations: [HomePage],
 })
 export class HomePageModule {}

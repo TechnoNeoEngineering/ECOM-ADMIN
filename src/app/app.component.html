@@ -1,8 +1,5 @@
-<!-- <ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app> -->
 
-<ion-app>
+<ion-app  (sendData)="receive($event)">
   <ion-menu content-id="main">
     <ion-header>
       <ion-toolbar translucent>
@@ -100,5 +97,15 @@
       </ion-list>
     </ion-content>
   </ion-menu>
+
   <ion-router-outlet id="main"></ion-router-outlet>
+
+  <div class="text-end pt-1" >
+    <ion-icon (sendData)="receive($event)" (click) ="blink($event)" (click) ="notifications($event)" style="vertical-align: middle;position: relative;right:5%;" color="light" size="large" name="notifications-circle"class="animate__animated animate__heartBeat pt-2"></ion-icon>
+      <ion-badge fill="clear" style="position: absolute; top: 0%; right: 5%; " >
+        {{4}}
+      </ion-badge>
+   
+  </div>
+
 </ion-app>

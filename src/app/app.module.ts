@@ -27,7 +27,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
 
 
-
 @NgModule({
 	declarations: [AppComponent],
 

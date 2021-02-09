@@ -18,7 +18,7 @@ export class OrdertrackingPage implements OnInit {
   base_path = 'https://cors-anywhere.herokuapp.com/https://fcm.googleapis.com/fcm/send';
   data: InputVal;
   outputdata:ReturnVal;
-  orderdetails: any[];
+  orderdetails: any=[];
   cre: any[];
   order: string = "All";
   orderarr: any;
@@ -38,6 +38,19 @@ export class OrdertrackingPage implements OnInit {
 
   ODID: any;
   invo: any;
+  districtval: any;
+  districtwise: any=[];
+
+  districtwiseorderid: any = "all";
+
+  pincodewiseorderid: any ="all";
+  pincodewise: any=[];
+  pincodeval: any;
+
+  specialuserList:any = [];
+  usersplit: any = [];
+  userspecialid: any;
+  specailid: any = "all";
 
   constructor(private fireStoreService: FireStoreService,
     private firestore: AngularFirestore,private toastcontroller : ToastController,
@@ -137,6 +150,7 @@ export class OrdertrackingPage implements OnInit {
           paymentid: e.payload.doc.data()['paymentid'],
           shipmentid: e.payload.doc.data()['shipmentid'],
           shipmentdate: e.payload.doc.data()['shipmentdate'],
+          packingdate: e.payload.doc.data()['packingdate'],
           paymentdetails: e.payload.doc.data()['paymentdetails'],
           paymentstatus: e.payload.doc.data()['paymentstatus'],
           trackmentid: e.payload.doc.data()['trackmentid'],
@@ -153,6 +167,7 @@ export class OrdertrackingPage implements OnInit {
       console.log(this.orderdetails);
       for (var i = 0; i < this.orderdetails.length; i++) {
         this.orderdropdown.push(this.orderdetails[i]['orderid']);
+        
       }
       this.unique_orderid = this.orderdropdown.filter(function (elem, index, self) {
         return index === self.indexOf(elem);
@@ -161,6 +176,22 @@ export class OrdertrackingPage implements OnInit {
       this.orderlength = this.orderdetails.filter(totalcount => totalcount.deliverstatus === 'Ordered').length;
       console.log(this.unique_orderid);
       // this.firestore.doc('CartListtNew133' + '/' + "srm9hnUyIVOpfL2mMFU").delete();
+
+      var districtvalue = [];
+      for(var d=0; d < this.orderdetails.length; d++){
+        districtvalue.push(this.orderdetails[d]['deliveraddress']['addr_district']);
+      }
+      console.log(districtvalue);
+      this.districtwise = districtvalue.filter((a, b) => districtvalue.indexOf(a) === b);
+      console.log(this.districtwise);
+
+      var pincodvalue = [];
+      for(var p=0; p < this.orderdetails.length; p++){
+        pincodvalue.push(this.orderdetails[p]['deliveraddress']['addr_pincode']);
+      }
+      console.log(pincodvalue);
+      this.pincodewise = pincodvalue.filter((a, b) => pincodvalue.indexOf(a) === b);
+      console.log(this.pincodewise);
     });
 
     const user = JSON.parse(localStorage.getItem('user'));
@@ -215,6 +246,30 @@ export class OrdertrackingPage implements OnInit {
     });
 
     this.mnts = localStorage.getItem('months');
+
+    // special user
+
+    this.fireStoreService.read_userspecial().subscribe(data => {
+
+      this.specialuserList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          user_id: e.payload.doc.data()['user_id'],
+          include_gst: e.payload.doc.data()['include_gst'],
+          list: e.payload.doc.data()['list'],
+        };
+      })
+      console.log(this.specialuserList);
+      // var usersplitph = [];
+      for(var s=0; s < this.specialuserList.length; s++){
+        this.usersplit.push(this.specialuserList[s]['user_id']);
+      }
+      console.log(this.usersplit);
+      // this.usersplit = usersplitph.filter((a, b) => usersplitph.indexOf(a) === b);
+      // console.log(this.usersplit);
+    });
+    
   }
 
   read_cartlist() {
@@ -456,4 +511,66 @@ export class OrdertrackingPage implements OnInit {
     }
   }
 
+  district(districtval){
+    console.log(districtval);
+    // alert(districtval);
+
+    if (districtval == 'all') {
+      this.selectedOrderid = this.orderdetails;
+      console.log(this.orderdetails);
+    }
+    else{
+      for(var d=0; d < this.orderdetails.length; d++){
+        this.selectedOrderid = this.orderdetails.filter(dis => dis.deliveraddress.addr_district == districtval);
+      } 
+    }
+  }
+
+  pincode(pincodeval){
+    console.log(pincodeval);
+    // alert(districtval);
+
+    if (pincodeval == 'all') {
+      this.selectedOrderid = this.orderdetails;
+      console.log(this.orderdetails);
+    }
+    else{
+      for(var p=0; p < this.orderdetails.length; p++){
+        this.selectedOrderid = this.orderdetails.filter(dis => dis.deliveraddress.addr_pincode == pincodeval);
+      } 
+    }
+  }
+
+  userspecial(userspecialid) {
+    console.log(userspecialid);
+
+    if (userspecialid == 'all') {
+      this.selectedOrderid = this.orderdetails;
+      console.log(this.selectedOrderid);
+    }
+    else if(userspecialid == 'special'){
+      for(var o=0; o < this.orderdetails.length; o++){
+        for(var s=0; s < this.specialuserList.length;s++){
+          if(this.orderdetails[o]['userid']==this.specialuserList[s]['user_id']  ){
+            this.orderdetails[o]['special']="special";
+          }
+        }
+      }
+      // console.log(this.selectedOrderid);
+      this.selectedOrderid=this.orderdetails.filter(cre => cre.special == "special");
+        console.log(this.selectedOrderid);
+    }
+    else if(userspecialid == 'normal'){
+      this.selectedOrderid=this.orderdetails;
+      // console.log(this.selectedOrderid);
+      for(var o=0; o < this.selectedOrderid.length; o++){
+        for(var s=0; s < this.specialuserList.length;s++){
+            this.selectedOrderid=this.selectedOrderid.filter(cre => cre.userid != this.specialuserList[s]['user_id']);
+            // console.log(this.selectedOrderid);
+        }
+        console.log(this.selectedOrderid);
+      }
+    
+    }
+  }
 }

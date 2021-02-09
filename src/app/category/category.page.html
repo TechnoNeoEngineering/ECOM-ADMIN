@@ -10,28 +10,41 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <form [formGroup]="categoryForm">
+          <ion-row>
+            <ion-col size="5">
+              <ion-item>
+                <ion-label position="floating">Category</ion-label>
+                <ion-input formControlName="Category"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="5">
+              <ion-item>
+                <ion-label position="floating">Category Image</ion-label>
+                <ion-input formControlName="cat_image"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2">
+              <div class="text-right">
+                <ion-button class="ion-text-right" color="tertiary" (click)="CreateRecord()"
+                  [disabled]="categoryForm.invalid">
+                  <ion-icon color="light" size="small" slot="icon-only" name="add"></ion-icon>
+                  &nbsp;Create Record
+                </ion-button>
+              </div>
+              <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="cat_id">
 
-  <form [formGroup]="categoryForm">
+            </ion-col>
+          </ion-row>
 
-    <ion-item>
-      <ion-label position="floating">Category</ion-label>
-      <ion-input formControlName="Category"></ion-input>
-    </ion-item>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-    <ion-item>
-      <ion-label position="floating">Category Image</ion-label>
-      <ion-input formControlName="cat_image"></ion-input>
-    </ion-item>
-
-    <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="cat_id">
-
-    <ion-item>
-      <ion-button (click)="CreateRecord()" [disabled]="categoryForm.invalid">
-        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-        &nbsp;Create Record
-      </ion-button>
-    </ion-item>
-  </form>
 
   <!-- <ion-grid>
     <ion-row>
@@ -46,68 +59,87 @@
     </ion-row>
   </ion-grid> -->
   <!----------------------------------------------------------------------------------------->
+  <ion-grid>
+    <ion-row style="background: #F4ECF7;">
+      <ion-col size="1" offset="1">
+        <div class="py-1">
+          ID
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <div class="py-1">
 
-  <ion-card color="medium">
-    <ion-card *ngFor="let item of categoryList" color="primary">
-      <span *ngIf="!item.isEdit; else elseBlock">
-        <ion-card-header>
-          <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
-          <ion-card-subtitle>Id: {{item.cat_id}}</ion-card-subtitle>
-          <ion-card-subtitle>{{item.Category}}</ion-card-subtitle>
-          <ion-card-subtitle>URL: {{item.cat_image}}</ion-card-subtitle>
-        </ion-card-header>
-        <!-- <ion-item>
-    <ion-label>Category</ion-label>
-    <ion-select (ionChange)="setDistrictValues(sState)" [(ngModel)]="sState">
-         <ion-select-option  *ngFor ="let item of studentList">{{item.Category}} </ion-select-option> 
-   </ion-select>
-         
-</ion-item> -->
-        <ion-card-content>
+        </div>
+        CATEGORY
+      </ion-col>
+      <ion-col size="3">
+        <div class="py-1">
 
+          URL
+        </div>
+      </ion-col>
+      <ion-col size="3">
+      </ion-col>
+    </ion-row>
+    <div *ngFor="let item of categoryList" class="py-1">
+      <ion-row *ngIf="!item.isEdit; else elseBlock" class="border">
+        <ion-col size="1" offset="1">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.cat_id}}
+          </h4>
+        </ion-col>
+
+        <ion-col size="4">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.Category}}
+          </h4>
+        </ion-col>
+
+        <ion-col size="3">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.cat_image}}
+          </h4>
+        </ion-col>
+        <ion-col size="3">
           <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
             <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
-
           </ion-button>
           <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
             <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
 
           </ion-button>
-        </ion-card-content>
-      </span>
+        </ion-col>
+      </ion-row>
       <ng-template #elseBlock>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  Edit
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
-                    Cancel
-                  </ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
-                    Update
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label><strong>Category</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.EditCategory"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label><strong>Category Image</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.Editcat_image"></ion-input>
-          </ion-item>
-        </ion-card-content>
+        <ion-row>
+          <ion-col size="4" offset="2">
+            <ion-item lines="none" style="--background: #F4ECF7;">
+              <ion-label position="stacked"><strong>Category</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.EditCategory"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item lines="none" style="--background: #F4ECF7;">
+              <ion-label position="stacked"><strong>Category Image</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.Editcat_image"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <div class="ion-text-end">
+              <ion-button fill="solid" color="tertiary" size="small" (click)="item.isEdit = false">
+                Cancel
+              </ion-button>
+              <ion-button fill="solid" color="tertiary" size="small" (click)="UpdateRecord(item)">
+                Update
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
       </ng-template>
-    </ion-card>
-  </ion-card>
+    </div>
+
+  </ion-grid>
 </ion-content>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="color">
     <ion-title style="color: white;">Notification</ion-title>
-    <ion-back-button slot="start" fill="clear" class="color">
+    <ion-back-button slot="start" fill="clear" class="color" color="light">
       <ion-icon nmae="arrow-back"></ion-icon>
     </ion-back-button>
   </ion-toolbar>
@@ -13,30 +13,29 @@
       <ion-grid>
         <ion-row>
           <ion-col size-md="6" offset-md="3"size-sm="12">
-          
-                <div class="border">
-                  <div class="text-center p-1"><h4>Title</h4></div>
+                <div class="border p-1">
+                  <div class="text-center text-uppercase py-1" style="background: #895194;color: #fff;">
+                    <h4 class="m-0 py-2">Title</h4>
+                  </div>
                     <div class="p-2">
                       <div class="input-group border">
-                    <ion-input [(ngModel)]="title"></ion-input>
+                    <ion-input [(ngModel)]="title" placeholder="Enter your title"></ion-input>
                       </div>
                     </div>
-              
-
-                <div class="border">
-                  
-                    <ion-card-title> <div class="text-center p-1"><h4>Description</h4></div> </ion-card-title>
-                  
+                                
+                    <ion-card-title>
+                       <div class="text-center p-1" style="background: #895194;color: #fff;">
+                        <h4 class="m-0 text-uppercase py-2">Description</h4></div> 
+                      </ion-card-title>
                       <div class="p-2">
                         <div class="input-group">
-                          <ion-textarea [(ngModel)]="body" class="form-control" aria-label="With textarea" style="height: 6rem;"></ion-textarea>
+                          <ion-textarea [(ngModel)]="body" placeholder="Enter your Description" class="form-control" aria-label="With textarea" style="height: 6rem;"></ion-textarea>
                         </div>
                       </div>
                     
-                </div>  
 
-                <div class="text-center p-2">
-                  <ion-button (click)="send()">Send</ion-button>
+                <div class="text-center p-2" >
+                  <ion-button (click)="send()"style="--background: #895194;color: #fff;">Send</ion-button >
                 </div>
             </div>
           </ion-col>

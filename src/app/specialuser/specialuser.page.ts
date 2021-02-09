@@ -5,6 +5,7 @@ import { NavController, IonInput, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserlistviewComponent } from '../userlistview/userlistview.component';
 import { UsercartComponent } from '../usercart/usercart.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 interface SpecialuserData {
   user_id: string;
@@ -26,17 +27,37 @@ export class SpecialuserPage implements OnInit {
   ProductviewList:any;
   productnamearr:any[]=[];
   cartprodname:any[]=[];
-  constructor(private fireStoreService: FireStoreService,
-  public fb: FormBuilder,
-  public navCtrl: NavController,
-  private router: Router,private modalCtrl: ModalController)
-  {
-  this.specialuserdata = {} as SpecialuserData;
-  }
+
+  // monthly reward
+
+  monthlyamount: any;
+  totaltotal: any =[];
+  orderarr: any;
+  reward: any;
+
+  discountlist = [];
+
+    constructor(private fireStoreService: FireStoreService,
+      public fb: FormBuilder,private firestore: AngularFirestore, 
+      public navCtrl: NavController,private ourFire: FireStoreService,
+      private router: Router,private modalCtrl: ModalController)
+      {
+      this.specialuserdata = {} as SpecialuserData;
+      }
 
   SubCategory(){
     this.navCtrl.navigateForward('/view');
   }
+
+  addDays(date: Date, days: number): Date {
+    date.setDate(date.getMonth() + days);
+    return date;
+  }
+
+  read_orderdetails(){
+    var user = localStorage.getItem('email');
+    return this.firestore.collection('orderdetails').snapshotChanges();
+   }
 
   ngOnInit() {
 
@@ -73,6 +94,102 @@ export class SpecialuserPage implements OnInit {
       this.cart_prodname();
       // console.log(this.categoryList);
     });
+
+    this.read_orderdetails().subscribe((data) => {
+      this.orderarr = data.map((e) => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          userid: e.payload.doc.data()['userid'],
+          Productid: e.payload.doc.data()['Productid'],
+          image: e.payload.doc.data()['image'],
+          Quantity: e.payload.doc.data()['Quantity'],
+          Price: e.payload.doc.data()['Price'],
+          totalamount: e.payload.doc.data()['totalamount'],
+          product_orderdate: e.payload.doc.data()['product_orderdate'],
+          address: e.payload.doc.data()['address'],
+          phoneno: e.payload.doc.data()['phoneno'],
+          orderid: e.payload.doc.data()['orderid'],
+          paymentid: e.payload.doc.data()['paymentid'],
+          shipmentid: e.payload.doc.data()['shipmentid'],
+          shipmentdate: e.payload.doc.data()['shipmentdate'],
+          paymentdetails: e.payload.doc.data()['paymentdetails'],
+          paymentstatus: e.payload.doc.data()['paymentstatus'],
+          trackmentid: e.payload.doc.data()['trackmentid'],
+          deliverstatus: e.payload.doc.data()['deliverstatus'],
+          deliverdate: e.payload.doc.data()['deliverdate'],
+          deliveraddress: e.payload.doc.data()['deliveraddress'],
+          returnstatus: e.payload.doc.data()['returnstatus'],
+          ordertotal: e.payload.doc.data()['ordertotal'],
+          delivery_date:e.payload.doc.data()['delivery_date'],
+          returndate: e.payload.doc.data()['returndate'],
+          product_canceldate: e.payload.doc.data()['product_canceldate']
+        }
+      });
+
+      // -------------------------------- monthly Bouns special user ----------------------
+
+      var currentdate = new Date();
+      var fromDate=this.addDays(currentdate,-30);
+
+      this.totaltotal = this.orderarr.filter(totalttm => totalttm.product_orderdate > fromDate);
+    
+      console.log(this.totaltotal);
+  
+      console.log(fromDate);
+      console.log(currentdate);
+      this.monthlyamount = 0;
+      // if(){
+        console.log(this.orderarr);
+        // for(var k=0; k < this.specialuserList.length; i++){
+        //  for(var i=0; i < this.orderarr.length; i++){
+        //     if(this.specialuserList[k].user_id == this.orderarr[i].userid){
+        //       for(var j=0; j < this.totaltotal.length; j++){
+        //         var totalamount2 = this.totaltotal[j].totalamount;
+        //         this.monthlyamount = +totalamount2 + +this.monthlyamount;
+        //       }
+        //       console.log(this.monthlyamount);
+        //       break;
+        //     }
+        //   }
+        // }
+    });
+
+    this.ourFire.read_discount().subscribe(data => {
+    
+      this.discountlist = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          isEdit: false,
+          userid: e.payload.doc.data()['user'],
+          Discount_id: e.payload.doc.data()['Discount_id'],
+          From: e.payload.doc.data()['From'],
+          To: e.payload.doc.data()['To'],
+          Specialdiscount: e.payload.doc.data()['Specialdiscount'],
+          Specialcontest: e.payload.doc.data()['Specialcontest'],
+        };
+      })
+      console.log(this.discountlist);
+      // ------------------------- reward --------------------------------
+
+      console.log(this.monthlyamount);
+      // for(var i=0; i < this.orderarr.length; i++){
+      //   for(var k=0; k < this.specialuserList.length; i++){
+      //     if(this.specialuserList[k].user_id == this.orderarr[i].userid){
+      //       for(var r=0; r < this.discountlist.length; r++){
+      //         if(this.monthlyamount > this.discountlist[r].From && this.monthlyamount < this.discountlist[r].To) {
+
+      //           this.reward = this.discountlist[r].Specialdiscount;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+      // console.log(this.reward);
+      // if(this.reward == null || this.reward == undefined || this.reward == NaN) {
+      //   this.reward = 0;
+      // }
+    });
   }
 
   CreateRecord() {
@@ -87,7 +204,7 @@ export class SpecialuserPage implements OnInit {
   }
 
   RemoveRecord(rowID) {
-    this.fireStoreService.delete_userspecial(rowID);
+    // this.fireStoreService.delete_userspecial(rowID);
     alert("delete option disabled");
   }
 

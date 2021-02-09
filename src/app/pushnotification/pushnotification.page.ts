@@ -8,6 +8,7 @@ import { ReturnVal } from '../models/return-val';
 
 // import * as cors from 'cors';
 import { HTTP } from '@ionic-native/http/ngx';
+import { AngularFirestore } from '@angular/fire/firestore';
 // const corsHandler = cors({origin: true});
   
 
@@ -26,7 +27,7 @@ body:any;
   
   data: InputVal;
   outputdata:ReturnVal;
-  constructor(private firebaseservice: FireStoreService,              
+  constructor(private firebaseservice: FireStoreService, private firestore: AngularFirestore,             
               private http: HttpClient) { this.data = new InputVal();}
 
               httpOptions = {

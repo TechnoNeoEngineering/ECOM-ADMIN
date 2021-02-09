@@ -3,7 +3,8 @@ import { AlertController, NavController } from '@ionic/angular';
 import { FireStoreService } from '../service/fire-store.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
-
+import {Chart} from 'node_modules/chart.js'
+import { CountUpModule } from 'ngx-countup';
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
@@ -11,6 +12,10 @@ import { DatePipe } from '@angular/common';
 })
 export class HomePage implements OnInit{
 	
+	option = {
+	  useEasing: true,
+	  duration: 2.5
+	}
 	// order Count
 	orderdetails: any[];
 	orderlength: any;
@@ -22,7 +27,7 @@ export class HomePage implements OnInit{
 
 	// specialuserrequest
 	RequestForm: any[];
-	specialuserocount: any;
+	specialusercount: any;
 
 	// Product Details
 	ProductviewList :any[]=[];
@@ -31,10 +36,47 @@ export class HomePage implements OnInit{
 	lowertotal: number;
 
 	constructor(private navCtrl: NavController,private fireStoreService: FireStoreService,
-		private firestore: AngularFirestore,public datepipe: DatePipe,
+		private firestore: AngularFirestore,public datepipe: DatePipe,countup:CountUpModule,
 		private AlertController : AlertController) {}
 
 	ngOnInit() {
+		var ctx:any = document.getElementById('myChart');
+var myChart = new Chart('myChart', {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {	
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 		this.fireStoreService.read_orderdetails().subscribe((data) => {
 			this.orderdetails = data.map((e) => {
 				// console.log( e.payload.doc.data()['product_orderdate']);
@@ -101,7 +143,7 @@ export class HomePage implements OnInit{
 				Date: e.payload.doc.data()['date']
 			  };
 			})
-			this.specialuserocount = this.RequestForm.length;
+			this.specialusercount = this.RequestForm.length;
 		  });
 
 
@@ -206,7 +248,7 @@ export class HomePage implements OnInit{
 			this.lowertotal = this.lower.length;
 			for(var i=0; i < this.ProductviewList.length; i++){
 				if(this.ProductviewList[i].stock < 10){
-				  this.showalert();
+				//   this.showalert();
 				}
 			  }
 		

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -8,6 +7,9 @@ import { environment } from '../environments/environment';
 import { Storage } from '@ionic/storage';
 import { NavParams, NavController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
+import { PopoverController } from '@ionic/angular';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'app-root',
@@ -17,10 +19,12 @@ import { HTTP } from '@ionic-native/http/ngx';
 export class AppComponent {
 
 	rootPage: any = 'viewproduct';
+	
+	constructor(private platform: Platform, private splashScreen: SplashScreen,public popoverCtrl: PopoverController,
+		private statusBar: StatusBar,private http:HTTP, public nav: NavController, public navParams: NavParams, 
+		private storage: Storage,private route: ActivatedRoute) {
 
-	constructor(private platform: Platform, private splashScreen: SplashScreen,
-		private statusBar: StatusBar,private http:HTTP, public nav: NavController, public navParams: NavParams, private storage: Storage) {
-		this.initializeApp();
+		this.initializeApp();	
 	}
 
 	initializeApp() {
@@ -31,6 +35,23 @@ export class AppComponent {
 			this.splashScreen.hide();
 		});
 	}
+
+	blink(ev:any){
+		ev.target.classList.add('class3'); // To ADD
+		ev.target.classList.remove('animate__heartBeat'); // To Remove
+		ev.target.classList.contains('animate__animated animate__heartBeat'); // To check
+		ev.target.classList.toggle('class4'); // To toggle
+	}
+	async notifications(ev:any) {  	
+		const popover = await this.popoverCtrl.create({  
+			component: NotificationsComponent,  
+			event: ev,  
+			animated: true,  
+			showBackdrop: false  
+		});  
+		return await popover.present();  
+
+	}  
 
 	push(){
 		this.nav.navigateForward('/pushnotification')

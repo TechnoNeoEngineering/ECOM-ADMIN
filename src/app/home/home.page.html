@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar class="color">
     <ion-title style="color: white;">Admin Panel</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+    <ion-buttons slot="start" >
+      <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -10,53 +10,62 @@
 <!-- <ion-button (click)="adminpanel()">Admin page</ion-button> -->
 
 <ion-content>
- 
+  
   <section class='statis text-center'>
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-4">
           <div class="box bg-primary">
             <i class="fas fa-crown"></i>
-            <h3>{{ specialuserocount }}</h3>
-            <p (click)="specialuser()" style="cursor: pointer;">Specialuser Request</p>
+            <h1 [countUp]="specialusercount" [options]="option">0</h1>
+            <h2 (click)="specialuser()" style="cursor: pointer;">Specialuser Request</h2>
           </div>
         </div>
         <div class="col-md-4">
           <div class="box danger">
             <i class='fas fa-cart-plus'></i>
-            <h3>{{totalcountorder }}</h3>
-            <p (click)="ordertracking()" style="cursor: pointer;">Order</p>
+            <!-- <h1>{{totalcountorder }}</h1> -->
+            <h1 [countUp]="totalcountorder" [options]="option">0</h1>
+            <h2 (click)="ordertracking()" style="cursor: pointer;">Order</h2>
           </div>
         </div>
         <div class="col-md-4">
           <div class="box doctor">
             <i class="fa fa-ban"></i>
-            <h3>{{ totalcountcancel }}</h3>
-            <p (click)="ordertracking()" style="cursor: pointer;">Cancel</p>
+            <!-- <h1>{{ totalcountcancel }}</h1> -->
+            <h1 [countUp]="totalcountcancel" [options]="option">0</h1>
+            <h2 (click)="ordertracking()" style="cursor: pointer;">Cancel</h2>
           </div>
         </div>
         <div class="col-md-4">
           <div class="box mentor">
             <i class='fa fa-times'></i>
-            <h3>{{ totalcountreturn }}</h3>
-            <p (click)="ordertracking()" style="cursor: pointer;">Return</p>
+            <!-- <h1>{{ totalcountreturn }}</h1> -->
+            <h1 [countUp]="totalcountreturn" [options]="option">0</h1>
+            <h2 (click)="ordertracking()" style="cursor: pointer;">Return</h2>
           </div>
         </div>
         <div class="col-md-4">
           <div class="box success">
             <i class='fab fa-product-hunt'></i>
-            <h3>{{ producttotalcount }}</h3>
-            <p (click)="productdetails()" style="cursor: pointer;">Product Details</p>
+            <!-- <h1>{{ producttotalcount }}</h1> -->
+            <h1 [countUp]="producttotalcount" [options]="option">0</h1>
+            <h2 (click)="productdetails()" style="cursor: pointer;">Product Details</h2>
           </div>
         </div>
         <div class="col-md-4">
           <div class="box inf">
             <i class="fa fa-exclamation-triangle"></i>
-            <h3>{{ lowertotal }}</h3>
-            <p (click)="lowerstock()" style="cursor: pointer;">LowerStock Details</p>
+            <!-- <h1>{{ lowertotal }}</h1> -->
+            <h1 [countUp]="lowertotal" [options]="option">0</h1>
+            <h2 (click)="lowerstock()" style="cursor: pointer;">LowerStock Details</h2>
           </div>
         </div>
       </div>
     </div>
   </section>
+<div id="divChart">
+<canvas id="myChart">
+</canvas>
+</div>
 </ion-content>

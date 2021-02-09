@@ -1,3 +1,190 @@
+:root {
+  --col-primary: #fff;
+  --col-secondary: #bcd9c9;
+  --col-background: #e8e8e8;
+  --col-light: #bcd9c9;
+  --col-dark: #70ab79;
+
+  
+}
+
+body {
+  font-size: 100%;
+  padding: 1em;
+  // background: var(--col-background);
+  font-family: "Impact", sans-serif;
+}
+
+.price_table {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  align-items: start;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  max-width: 80em;
+}
+
+.package {
+  border-radius: 100px 20px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color:white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+  h2 {
+    margin: 0;
+    padding: 1rem;
+    background: var(--col-primary);
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: normal;
+    color: black;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 0.4rem;
+      left: 0;
+      bottom: 0;
+    }
+  }
+  .price {
+    padding: 0.2rem 1rem;
+    background: linear-gradient(
+      45deg,
+      var(--col-secondary) 0%,
+      var(--col-dark) 100%
+    );
+    color: white;
+    text-shadow: 0 4px 0 var(--col-dark);
+  }
+  p {
+    padding: 1rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center; 
+    text-transform:uppercase;
+  }
+  .price {
+    font-size: 1.2em;
+    font-weight: normal;
+    text-align: center;
+    box-shadow: inset 0 10px 4px -6px rgba(0, 0, 0, 0.1);
+  }
+  .big {
+    display: inline;
+    font-size: 4em;
+    font-weight: 700;
+  }
+
+
+  ul {
+    list-style: none;
+    padding: 0 0 1rem 0;
+    margin: 0;
+    border-bottom: 1px solid var(--col-primary);
+  }
+  li {
+    padding: 0.8em 1em;
+    font-size: 0.9em;
+    text-align: center;
+    justify-content: center;
+    align-items: center; 
+    &:nth-child(odd) {
+    background: var(--col-light);
+ 
+    }
+  }
+
+  button {
+    font-family:Impact;
+    cursor: pointer;
+    padding: 1em 2em;
+    font-size: 1rem;
+    display: block;
+    color: black;
+    margin: 1rem auto ;
+    background: #bcd9c9;
+    border-radius: 15px;
+    text-align: center;
+    font-family: Proxima Nova;
+    font-weight: bold;
+    color:#7f7f7f;
+    text-decoration: none;
+    text-shadow:0px 1px 0px #fff;
+    border:1px solid #a7a7a7;
+    width: 200px;
+    box-shadow: 0px 2px 1px white inset, 0px -2px 8px white, 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1);
+    -webkit-transition:box-shadow 0.5s;
+    transition: all 0.2s;
+    &:hover,
+    &:focus {
+      background: linear-gradient(
+        0deg,
+        var(--col-secondary) 0%,
+        var(--col-dark) 100%
+      );
+      box-shadow: 0 0 0 4px white, 0 0 0 8px var(--col-primary);
+      outline: 0;
+    }
+  }
+ 
+
+.package h2::after {
+  background: var(--col-free);
+  background: linear-gradient(
+    90deg,
+    var(--col-free) 0%,
+    white 50%,
+    var(--col-free) 100%
+  );
+}
+  
+  .title h1{
+    
+    font-size: 2em;
+    text-align: center;
+    font-weight: normal;
+    color: black;
+    position: relative;
+    text-transform:uppercase;
+   
+    }
+  
+.footer{
+    
+    font-size: 1em;
+    text-align: center;
+    font-weight: normal;
+    color: black;
+    position: relative;
+    text-transform:uppercase;
+   
+    }
+  
+
+
+
+// rambabu changes
+
+
+
+
+
+
+
+
+
 .statis {
   color: #EEE;
   margin-top: 15px;
@@ -9,7 +196,7 @@
   border-radius: 3px;
   margin-bottom: 25px;
 }
-.statis .box h3:after {
+.statis .box h1:after {
   content: "";
   height: 2px;
   width: 70%;
@@ -17,6 +204,9 @@
   background-color: rgba(255, 255, 255, 0.12);
   display: block;
   margin-top: 10px;
+}
+.box h1{
+  font-size: 35px;
 }
 .statis .box i {
   position: absolute;
@@ -55,4 +245,21 @@
 
 .color {
   --background: #895194 !important;
+}
+
+
+// edited 
+.my-card
+{
+    position:absolute;
+    left:40%;
+    top:-20px;
+    border-radius:50%;
+}
+
+#divChart{
+  display: block;
+  width: 800px;
+  height: 450px;
+  margin: auto;
 }

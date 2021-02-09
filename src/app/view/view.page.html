@@ -8,31 +8,55 @@
     </ion-button>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding" >
-  <form [formGroup]="SubCategoryform">
-    <ion-item>
-      <ion-label>Category</ion-label>
-      <ion-select interface="popover" (ionChange)="setCategoryValues(sCat)" [(ngModel)]="sCat" formControlName="cat_id">
-           <ion-select-option [value]="sCat.cat_id" *ngFor ="let sCat of categoryList">{{sCat.Category}} </ion-select-option> 
-     </ion-select>  
-  </ion-item>
-  <!-- {{categoryList|json}} -->
-  <ion-item>
-    <ion-label position="floating">Sub Category</ion-label>
-    <ion-input formControlName="SubCategory"></ion-input>
-  </ion-item>
-  <!-- {{filtered|json}} -->
-<input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="SubCategory_id">
-<ion-item>
-  <ion-button (click)="CreateSubCategory()" [disabled]="SubCategoryform.invalid">
-    <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-    &nbsp;Create Record
-  </ion-button>
-</ion-item>
-</form>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" >
+        <form [formGroup]="SubCategoryform">
+          <ion-row>
+            <ion-col size="5">
+              <div class="mt-2">
+                <ion-item>
+                  <ion-label>Category</ion-label>
+                  <ion-select interface="popover" (ionChange)="setCategoryValues(sCat)" [(ngModel)]="sCat" formControlName="cat_id">
+                       <ion-select-option [value]="sCat.cat_id" *ngFor ="let sCat of categoryList">{{sCat.Category}} </ion-select-option> 
+                 </ion-select>  
+              </ion-item>
+              </div>
+            </ion-col>
+            <ion-col size="5" >
+              <div>
+                <ion-item>
+                  <ion-label position="floating">Sub Category</ion-label>
+                  <ion-input formControlName="SubCategory"></ion-input>
+                </ion-item>
+              </div>
+        </ion-col>
+        <ion-col size="2">
+          <div class="text=right">
+            <ion-button color="tertiary" (click)="CreateSubCategory()" [disabled]="SubCategoryform.invalid">
+              <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+              &nbsp;Create Record
+            </ion-button>
+          </div>
+          </ion-col>
+          <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="SubCategory_id">
 
-<ion-card color="medium">
+          </ion-row>
+      
+    </form>
+
+      </ion-col>
+   
+    </ion-row>
+  </ion-grid>
+
+  
+  <!-- {{categoryList|json}} -->
+ 
+  <!-- {{filtered|json}} -->
+
+<!-- <ion-card>
   <ion-card *ngFor="let item of filtered"  color="primary">
     <span *ngIf="!item.isEdit; else elseBlock">
       <ion-card-header>
@@ -78,5 +102,87 @@
       </ion-card-content>
     </ng-template>
   </ion-card>
-</ion-card>
+</ion-card> -->
+
+
+
+
+
+
+
+<ion-grid>
+  <ion-row style="background: #F4ECF7;">
+    <ion-col  size="1"offset="1">
+      <div class="py-1">
+        ID
+      </div>
+    </ion-col>
+    <ion-col size="4">
+      <div class="py-1">
+
+      </div>
+CATEGORY NAME
+    </ion-col>
+    <ion-col size="3">
+<div class="py-1">
+
+  NAME
+</div>
+    </ion-col>
+    <ion-col size="3">
+          </ion-col>
+  </ion-row>
+  <div *ngFor="let item of filtered" class="py-1">
+  <ion-row *ngIf="!item.isEdit; else elseBlock" class="border">
+    <ion-col size="1" offset="1">
+      <h4 style="vertical-align: middle;" class="py-1">
+        {{item.SubCategory_id}} 
+      </h4>
+       </ion-col>
+    
+    <ion-col size="4">
+      <h4 style="vertical-align: middle;" class="py-1">
+        {{item.Category}}      </h4>
+    </ion-col>
+    
+    <ion-col size="3">
+ <h4 style="vertical-align: middle;" class="py-1">
+  {{item.SubCategory}} </h4>
+          </ion-col>
+      <ion-col size="3">
+        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+
+        </ion-button>
+      </ion-col>
+  </ion-row>
+  <ng-template #elseBlock>
+    <ion-row>
+      <ion-col size="10"offset="1">             
+            <ion-item lines="none" style="--background: #F4ECF7;">
+              <ion-label position="stacked"><strong>Sub Category</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.EditSubCategory"></ion-input>
+            </ion-item>
+      </ion-col>
+
+<ion-col size="12">
+  <div class="ion-text-end">
+    <ion-button fill="solid" color="tertiary" size="small" (click)="item.isEdit = false">
+      Cancel
+    </ion-button>
+     <ion-button fill="solid" color="tertiary" size="small" (click)="UpdateRecord(item)">
+    Update
+  </ion-button>
+  </div>
+</ion-col>
+    </ion-row>
+ 
+      
+  </ng-template>
+</div>
+
+</ion-grid>
 </ion-content>
