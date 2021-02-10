@@ -102,7 +102,11 @@ const routes: Routes = [
   {
     path: 'banner',
     loadChildren: () => import('./banner/banner.module').then( m => m.BannerPageModule)
+  },  {
+    path: 'offers',
+    loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
   },
+
 ];
 
 @NgModule({

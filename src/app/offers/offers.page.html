@@ -1,0 +1,171 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">
+      Offers
+    </ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <form [formGroup]="OffersForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Select Category</ion-label>
+            <ion-select interface="popover" (ionChange)="setCategoryValues(sCat)" formControlName="cat_id"
+              [(ngModel)]="sCat">
+              <ion-select-option [value]="sCat.cat_id" *ngFor="let sCat of categoryList">{{sCat.Category}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Select sub-category</ion-label>
+            <ion-select interface="popover" (ionChange)="setSubCategoryValues(sSubCat)" formControlName="subcat_id"
+            [(ngModel)]="sSubCat">
+            <!-- <ion-select-option value='all' [selected]>ALL</ion-select-option> -->
+            <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
+                {{sSubCat.SubCategory}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Product Id</ion-label>
+            <ion-select interface="popover" (ionChange)="setproductid(pdtid)" formControlName="prdt_id"
+              [(ngModel)]="pdtid">
+              <ion-select-option [value]="pdtid.Product_id" *ngFor="let pdtid of selectedSubCategory">{{pdtid.Product_id}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Product Id</ion-label>
+            <ion-select interface="popover" [(ngModel)]="pdtiname" formControlName="prdt_name">
+              <ion-select-option [value]="pdtiname.Product_name" *ngFor="let pdtiname of selectproduct">{{pdtiname.Product_name}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label>Offers</ion-label>
+            <ion-select interface="popover" formControlName="offer_name">
+              <ion-select-option value="today">Todayoffer</ion-select-option>
+              <ion-select-option value="special">Specialoffer</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Offers Image</ion-label>
+            <ion-input formControlName="offer_image"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Offers_id">
+
+      <ion-item lines="none">
+        <ion-button (click)="CreateRecord()" [disabled]="OffersForm.invalid">
+          <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+          &nbsp;Create Record
+        </ion-button>
+      </ion-item>
+
+    </ion-grid>
+  </form>
+
+  <ion-card color="medium">
+    <ion-card *ngFor="let offer of Offerlist" color="primary">
+      <span *ngIf="!offer.isEdit; else elseBlock">
+        <ion-card-header>
+          <ion-card-subtitle>Offer Id: {{offer.Offers_id}}</ion-card-subtitle>
+          <ion-card-subtitle>Category Id: {{offer.cat_id}}</ion-card-subtitle>
+          <ion-card-subtitle>SubCategory Id: {{offer.subcat_id}}</ion-card-subtitle>
+          <ion-card-subtitle>Product Id: {{offer.prdt_id}}</ion-card-subtitle>
+          <ion-card-subtitle>Product Name: {{offer.prdt_name}}</ion-card-subtitle>
+          <ion-card-subtitle>Offer Name: {{offer.offer_name}}</ion-card-subtitle>
+          <ion-card-subtitle>Offer Image: {{offer.offer_image}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+  
+          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(offer)">
+            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+  
+          </ion-button>
+          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(offer.id)">
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+  
+          </ion-button>
+        </ion-card-content>
+      </span>
+      <ng-template #elseBlock>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  Edit
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="medium" size="small" (click)="offer.isEdit = false">
+                    Cancel
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(offer)">
+                    Update
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating"><strong>Category Name:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editcat_id"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>SubCategory Name:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editsubcat_id"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Product Id:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editprdt_id"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Product Name:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editprdt_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Offer Name:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editoffer_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Offer Image:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editoffer_image"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ng-template>
+    </ion-card>
+  </ion-card>
+</ion-content>

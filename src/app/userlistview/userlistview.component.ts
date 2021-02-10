@@ -127,7 +127,7 @@ export class UserlistviewComponent {
       context.first = 0;
       context.drawn = true;
     }
-      , 700);
+      , 200);
 
     if (this.listarray.includes(Product_id)) {
 

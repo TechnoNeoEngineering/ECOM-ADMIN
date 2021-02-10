@@ -19,6 +19,7 @@ export class FireStoreService {
   collectionquery='Query';
   collectiongst = 'Gst';
   collectionName1 = 'Banner_Master';
+  collectionoffers = 'Offers';
 
 
   constructor(private firestore: AngularFirestore) { }
@@ -288,6 +289,24 @@ delete_gst(record_id) {
 
   delete_banner(record_id) {
     this.firestore.doc(this.collectionName1 + '/' + record_id).delete();
+  }
+
+  //--------------------------offers-----------------------
+ 
+  create_offers(record) {
+    return this.firestore.collection(this.collectionoffers).add(record);
+  }
+
+  read_offers() {
+    return this.firestore.collection(this.collectionoffers,ref => ref.orderBy('Offers_id','asc')).snapshotChanges();
+  }
+
+  update_offers(recordID, record) {
+    this.firestore.doc(this.collectionoffers + '/' + recordID).update(record);
+  }
+
+  delete_offers(record_id) {
+    this.firestore.doc(this.collectionoffers + '/' + record_id).delete();
   }
 
   search(coll, record, field, opr, value) {

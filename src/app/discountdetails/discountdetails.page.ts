@@ -77,7 +77,7 @@ export class DiscountdetailsPage implements OnInit {
       }
     
       RemoveRecord(rowID) {
-        alert("Delete Disabled");
+        // alert("Delete Disabled");
         this.fireStoreService.delete_discount(rowID);
       }
     
@@ -106,6 +106,6 @@ export class DiscountdetailsPage implements OnInit {
           this.max_id = maxid+1;
         }
         console.log(this.max_id);
-    }
+      }
 
 }

@@ -117,6 +117,10 @@ export class AppComponent {
 		this.nav.navigateForward('/banner');
 	}
 
+	offers(){
+		this.nav.navigateForward('/offers');
+	}
+
 	// invoicebill() {
 	// 	this.nav.navigateForward('/invoice-bill');
 	// }

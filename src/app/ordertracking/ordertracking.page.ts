@@ -307,6 +307,7 @@ export class OrdertrackingPage implements OnInit {
     this.showtoast('Item packed Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Packed';
+    record['packingdate'] = new Date().toLocaleString();
     this.firestore.doc('orderdetails' + '/' + data.id).update(record);
     var user = data.userid;  
     // alert(user) 
