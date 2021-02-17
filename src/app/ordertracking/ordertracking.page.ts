@@ -466,7 +466,13 @@ export class OrdertrackingPage implements OnInit {
   async invoice(data) {
     const alert = await this.AlertController.create({
       header: 'Do you want to move?',
-     
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'write a place of address'
+        },
+      ],
       buttons: [
         {
           text: 'Cancel',

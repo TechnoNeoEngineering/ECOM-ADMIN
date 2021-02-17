@@ -136,6 +136,5 @@ export class UserlistviewComponent {
     else {
       return false;
     }
-
   }
 }

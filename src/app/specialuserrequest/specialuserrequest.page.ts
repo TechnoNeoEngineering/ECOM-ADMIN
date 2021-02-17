@@ -13,7 +13,7 @@ export class SpecialuserrequestPage implements OnInit {
   RequestForm1: any;
 
   user: any;
-
+  prdts: any;
   specialuserForm: FormGroup;
 
   constructor(private fireStoreService: FireStoreService,

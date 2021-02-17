@@ -57,7 +57,7 @@
       
       <ngx-datatable-column name="Submit" [sortable]="false">
         <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-          <ion-button size="small" fill="outline" (click)="addstock(row, rowIndex)"
+          <ion-button size="small" [disabled]="!add[rowIndex]" fill="outline" (click)="addstock(row, rowIndex)"
             slot="end">Submit</ion-button>
         </ng-template>
       </ngx-datatable-column>

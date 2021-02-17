@@ -29,12 +29,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor ="let special of RequestForm1">
+          <tr *ngFor ="let special of RequestForm1;let i =index">
             <td>{{ special.Name }}</td>
             <td>{{ special.Mobile }}</td>
             <td>{{ special.Email }}</td>
             <td>{{ special.Address }}</td>
-            <td>{{ special.Products}}</td>
+            <span *ngFor ="let child of special.Products">
+              <td>{{child.id}}</td>
+            </span>
             <td>{{ special.Date }}</td>
             <td>
               <ion-button (click)="accept(special)">Accept</ion-button>
@@ -43,6 +45,12 @@
           </tr>
         </tbody>
       </table>
+    </ion-row>
+    <ion-row *ngFor ="let special of RequestForm1;let i =index">
+      <ion-col>
+
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>

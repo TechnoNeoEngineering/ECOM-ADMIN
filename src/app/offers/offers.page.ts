@@ -133,7 +133,7 @@ export class OffersPage implements OnInit {
     this.get_max_id();
     this.fireStoreService.create_offers(this.OffersForm.value).then(resp => {
       this.OffersForm.reset();
-    })
+    })                                                  
       .catch(error => {
         console.log(error);
       });

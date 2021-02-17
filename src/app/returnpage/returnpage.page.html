@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Return Order Page</ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <table class="table table-bordered border-primary">
+    <thead>
+      <tr>
+        <!-- <th scope="col">S.No</th> -->
+        <th scope="col">Check</th>
+        <th scope="col">User Id</th>
+        <th scope="col">Product Id</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Image</th>
+        <th scope="col">Order Id</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let orderdata of selectedOrderid">
+      <tr>
+        <th>
+          <ion-checkbox (ionChange)="verifyEvent(orderdata.Productid, orderdata.orderid,orderdata.Quantity)"></ion-checkbox>
+        </th>
+        <!-- <td>{{}}</td> -->
+        <td>{{orderdata.userid}}</td>
+        <td>{{orderdata.Productid}}</td>
+        <td>{{orderdata.Quantity}}</td>
+        <td>{{orderdata.Description}}</td>
+        <td>{{orderdata.orderid}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center;">
+    <ion-button (click)="submit()">Submit</ion-button>
+  </div>
+
+</ion-content>

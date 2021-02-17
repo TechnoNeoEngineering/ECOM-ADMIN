@@ -106,6 +106,10 @@ const routes: Routes = [
     path: 'offers',
     loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
   },
+  {
+    path: 'returnpage',
+    loadChildren: () => import('./returnpage/returnpage.module').then( m => m.ReturnpagePageModule)
+  },
 
 ];
 
