@@ -13,7 +13,7 @@ export class QueriesPage implements OnInit {
   queries: string = 'question';
 
   queryForm: FormGroup;
-  queryList: any;
+  queryList: any[];
 
   answer: any;
 
@@ -28,10 +28,11 @@ export class QueriesPage implements OnInit {
 		// })
 
     this.fireStoreService.read_Query().subscribe(data => {
+      
 			this.queryList = data.map(e => {
 				return {
 					id: e.payload.doc.id,
-					isEdit: false,
+					isEdit: e.payload.doc.data()['isEdit'],
 					userid: e.payload.doc.data()['userid'],
 					query: e.payload.doc.data()['query'],
           Product_id: e.payload.doc.data()['Product_id'],
@@ -43,11 +44,10 @@ export class QueriesPage implements OnInit {
 
   }
 
-  update(query) {
-    
-    alert(this.answer);
+  update(query, answer) {
+    alert(answer);
 		this.firestore.collection('Query').doc(query.id).update({
-      answer: this.answer
+      answer: answer, isEdit: true
     });
     
     console.log(query);

@@ -35,9 +35,9 @@
                     </div>
                   </ion-col>
                   <ion-col size="12">
-                    <div *ngFor="let query of queryList">
+                    <div *ngFor="let query of queryList; let i = index;">
                       <!-- <ion-card *ngFor="let query of queryList"> -->
-                        <div *ngIf="query.answer == undefined">
+                        <div *ngIf="query.isEdit == false || query.isEdit == undefined">
                           <ion-row>
                             <ion-col class="ion-align-self-center">
                               <h4><span class="fw-bold">Product_id:</span> {{query.Product_id}}</h4>
@@ -48,11 +48,12 @@
                           </ion-row>
                           <h4><span class="fw-bold">User_id:</span> {{query.userid}}</h4>
                           <h4><span class="fw-bold">Question:</span> {{query.query}}</h4>
-                          <ion-input [(ngModel)]="answer"><span class="fw-bold">Answer:</span> </ion-input>
-                          <ion-button (click)="update(query)">Submit</ion-button>
+                          <ion-input [(ngModel)]="query.answer"><span class="fw-bold">Answer:</span> </ion-input>
+                          <ion-button (click)="update(query, query.answer)">Submit</ion-button>
                         </div>
                       <!-- </ion-card> -->
                       <!-- <hr> -->
+                      <!-- <ion-input [(ngModel)]="query.answer"><span class="fw-bold">Answer:</span> </ion-input> -->
                     </div>
                     <!-- <hr> -->
                   </ion-col>

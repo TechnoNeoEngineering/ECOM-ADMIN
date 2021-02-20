@@ -105,6 +105,10 @@ export class AppComponent {
 		this.nav.navigateForward('/ordertracking');
 	}
 
+	cancel() {
+		this.nav.navigateForward('/cancelpage');
+	}
+
 	return(){
 		this.nav.navigateForward('/returnpage');
 	}

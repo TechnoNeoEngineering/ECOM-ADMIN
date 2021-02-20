@@ -10,6 +10,8 @@ import { NavController, ToastController, AlertController } from '@ionic/angular'
 })
 export class ReturnpagePage implements OnInit {
 
+  return: string = 'Incompleted';
+
   selectedOrderid: any[];
   orderdropdown: any[] = [];
   orderdetails: any = [];
@@ -30,7 +32,11 @@ export class ReturnpagePage implements OnInit {
     return this.firestore.collection('viewProducts_Table').snapshotChanges();
   }
 
-  ngOnInit() {
+  ngOnInit(){
+    
+  }
+
+  ionViewWillEnter(){
 
     var use = localStorage.getItem('userid');
     this.userid = use;
@@ -63,6 +69,7 @@ export class ReturnpagePage implements OnInit {
           returndate: e.payload.doc.data()['returndate'],
           deliveraddress: e.payload.doc.data()['deliveraddress'],
           billingaddress: e.payload.doc.data()['billingaddress'],
+          stockadded: e.payload.doc.data()['stockadded']
         };
       });
       console.log(this.orderdetails);
@@ -95,13 +102,15 @@ export class ReturnpagePage implements OnInit {
 
   }
 
-  verifyEvent(Productid, orderid, Quantity) {
-    console.log(Productid, orderid, Quantity);
+  verifyEvent(Productid, orderid, Quantity,id) {
+    console.log(Productid, orderid, Quantity,id);
+    console.log(id);
 
     const name1 = {
       Product_id: Productid,
       order_id: orderid,
-      Quantity: Quantity
+      Quantity: Quantity,
+      id: id,
     };
 
     this.selectprdt = JSON.parse(localStorage.getItem('prdt')) || [];
@@ -125,8 +134,6 @@ export class ReturnpagePage implements OnInit {
 
         localStorage.setItem('prdt', JSON.stringify(favr));
         console.log(favr);
-        // this.prdtvalue = localStorage.getItem('prdt');
-        // console.log(this.prdtvalue);
       }
     }
   }
@@ -134,24 +141,20 @@ export class ReturnpagePage implements OnInit {
 
   submit() {
     this.stockdet = JSON.parse(localStorage.getItem('prdt'));
+    console.log(this.stockdet);
+    console.log(this.selectprdt);
     for (var p = 0; p < this.stockdet.length; p++) {
       for (var s = 0; s < this.ProductviewList.length; s++) {
         if (this.ProductviewList[s]['Product_id'] == this.stockdet[p]['Product_id']) {
           this.stockdetails = this.ProductviewList[s].stock + this.stockdet[p].Quantity;
-          alert(this.stockdetails);
           this.firestore.collection('viewProducts_Table').doc(this.ProductviewList[s].id).update({
             stock: this.stockdetails
           });
-          // console.log(this.ProductviewList[s].stock);
-          // this.st= this.stockdet[p].Quantity;
-          // var a= this.st ;
-          // console.log(this.st);
-          // // this.st.push(a);
-          // var c=4;
-          // var b= 5;
-          // let sum = c + b;
-          // console.log(sum);
-          // this.stockdetails = this.ProductviewList[s].stock + sum;
+          this.firestore.collection('orderdetails').doc(this.stockdet[p].id).update({
+            stockadded: 'StockAdded'
+          });
+          // console.log(stockadded)
+          console.log(this.selectedOrderid);
         }
       }
     }

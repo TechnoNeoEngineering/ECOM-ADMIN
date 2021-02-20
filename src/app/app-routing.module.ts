@@ -110,6 +110,10 @@ const routes: Routes = [
     path: 'returnpage',
     loadChildren: () => import('./returnpage/returnpage.module').then( m => m.ReturnpagePageModule)
   },
+  {
+    path: 'cancelpage',
+    loadChildren: () => import('./cancelpage/cancelpage.module').then( m => m.CancelpagePageModule)
+  },
 
 ];
 
