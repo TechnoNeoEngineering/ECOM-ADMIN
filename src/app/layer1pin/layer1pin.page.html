@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center" style="--background: #895194;">
+    <ion-title color='light'>Passcode</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  size='large' fill='clear' color='light' (click)='logout()'>
+        <ion-icon size='large' name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  
+<!-- <div class="container p-5"> -->
+ <!-- <ion-row>
+   <ion-col size-md='6' offset-md='3' >
+   <input maxlength="4" [(ngModel)]='password' style="height: 65px; width: 100%; font-size: large;" type="password" placeholder="Password">
+  </ion-col>
+ </ion-row>
+ <br>
+ <div class="ion-text-center">
+   <ion-button size='medium' style="--background: rgb(175, 21, 189); color: white;" (click)='submit()'>SUBMIT</ion-button>
+ </div>
+</div>
+
+<ion-fab vertical='bottom' horizontal='end'>
+  <ion-fab-button  fill='outline'  style="--background: rgb(175, 21, 189); color: white;" (click)='reset()'>
+    <ion-icon name="help-outline" style=" color: white;"></ion-icon>  </ion-fab-button>
+</ion-fab> -->
+<div class="container p-5" *ngIf='questionslength != 0'>
+  <ion-row>
+    <ion-col size-md='6' offset-md='3' >
+    <input maxlength="4" [(ngModel)]='password' style="height: 65px; width: 100%; font-size: large;" type="password" placeholder="Password">
+   </ion-col>
+  </ion-row>
+  <br>
+  <div class="ion-text-center">
+    <ion-button size='medium' style="--background: #895194;" (click)='submit()'>SUBMIT</ion-button>
+  </div>
+  <ion-fab vertical='bottom' horizontal='end'>
+   <ion-fab-button  fill='outline' style="--background: #895194;" (click)='reset()'>
+     <ion-icon name="help-outline" style=" color: white;"></ion-icon>  </ion-fab-button>
+ </ion-fab>
+ </div>
+ <div class="container" *ngIf='questionslength == 0'>
+   <div class="ion-text-center"><br>
+     <h3>Security Questions</h3>
+   </div>
+   <ion-list>
+       <ion-item>
+         <ion-label position='floating'>Enter Your PhoneNo</ion-label>
+         <ion-input [(ngModel)]='phoneno'></ion-input>
+       </ion-item><br>
+       <ion-item>
+       <ion-label position='floating'>What is Your favourite Color?</ion-label>
+       <ion-input [(ngModel)]='color'></ion-input>
+     </ion-item><br>
+     <ion-item>
+       <ion-label position='floating'>Which is Your Father's Native ?</ion-label>
+       <ion-input [(ngModel)]='native'></ion-input>
+     </ion-item><br>
+     <ion-item>
+       <ion-label position='floating'>Your primary School Name ?</ion-label>
+       <ion-input [(ngModel)]='school'></ion-input>
+     </ion-item><br>
+     <ion-item>
+       <ion-label position='floating'>Set your Passcode</ion-label>
+       <ion-input [(ngModel)]='password'></ion-input>
+     </ion-item><br>
+     <ion-item>
+       <ion-label position='floating'>Confirm Passcode</ion-label>
+       <ion-input [(ngModel)]='cpassword'></ion-input>
+     </ion-item>
+   </ion-list>
+   <div class="ion-text-center">
+     <ion-button style="--background: #895194;" (click)='qsubmit()'>Submit</ion-button>
+   </div>
+ </div>
+</ion-content>

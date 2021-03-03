@@ -1,0 +1,122 @@
+<ion-header >
+  <ion-toolbar class="ion-text-center" style="--background: #895194;">
+    <ion-title color='light'>layer1confirmation</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  size='large' fill='clear' color='light' (click)='logout()'>
+        <ion-icon size='large' name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" class="m-auto">
+        <mat-tab-group animationDuration="1000ms">
+          <mat-tab>
+            <ng-template mat-tab-label>
+              <mat-icon class="example-tab-icon"><ion-icon name="swap-vertical-outline"></ion-icon></mat-icon>New Request
+            </ng-template>
+             <div class="container" *ngFor='let item of RequestForm1'>
+                <ion-list *ngIf='item.layer1confirmation == null || undefined'>
+                  <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-label>{{item.Name}}</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                      Email
+                    </ion-label>
+                    <ion-label>{{item.Email}}</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>
+                      Mobile No
+                    </ion-label>
+                    <ion-label>{{item.Mobile}}</ion-label>
+                  </ion-item>
+                  <ion-button  expand="block"(click)='view(item)'style="--background: #895194;">
+                    View Details
+                  </ion-button>
+                  <span *ngIf='item.layer1confirmation == "Accept"' style="color: green;">{{item.layer1confirmation}}</span>
+                  <span *ngIf='item.layer1confirmation == "Decline"' style="color: red;">{{item.layer1confirmation}}</span>
+          
+                </ion-list>
+                <!-- <ion-list >  
+                  <div (click)='view(item)'>
+                    <ion-label>Name : &nbsp;</ion-label><br>
+                    <ion-label>Email: &nbsp;{{item.Email}}</ion-label><br>
+                    <ion-label>Mobile No: &nbsp;{{item.Mobile}}</ion-label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <span *ngIf='item.layer1confirmation == "Accept"' style="color: green;">{{item.layer1confirmation}}</span>
+                    <span *ngIf='item.layer1confirmation == "Decline"' style="color: red;">{{item.layer1confirmation}}</span>
+                  </div> 
+                </ion-list> -->
+            
+            </div>
+          </mat-tab>
+          <!-- <mat-tab label="New Request">
+       
+          </mat-tab> -->
+          <mat-tab >
+
+            <ng-template mat-tab-label>
+<mat-icon>
+  <ion-icon name="information-circle-outline"></ion-icon>
+</mat-icon>
+              Accept / Decline
+            </ng-template>
+            <div *ngFor='let item of RequestForm1'>
+    <ion-list *ngIf='item.layer1confirmation != null || undefined'>
+      <ion-item lines='none'>
+        <ion-label>
+          Name 
+        </ion-label>
+        <ion-label>
+          {{item.Name}}
+        </ion-label>
+      </ion-item>
+      <ion-item lines='none'>
+        <ion-label>Email</ion-label>
+        <ion-label>
+          {{item.Email}}
+        </ion-label>
+      </ion-item>
+      <ion-item lines='none'>
+        <ion-label>Mobile No</ion-label>
+<ion-label>{{item.Mobile}}</ion-label>
+      </ion-item>
+      <u>
+      <ion-item lines='none'>
+        <ion-label>Status</ion-label>
+<ion-label>
+  <span *ngIf='item.layer1confirmation == "Accept"' style="color: green;">{{item.layer1confirmation}}</span>
+  <span *ngIf='item.layer1confirmation == "Decline"' style="color: red;">{{item.layer1confirmation}}</span>  
+</ion-label>
+      </ion-item></u>
+    </ion-list>  
+  </div>
+            <!-- <div class="container" >
+              <ion-list >   
+                <div (click)='view(item)'>
+                  <ion-label>: &nbsp;</ion-label><br>
+                  <ion-label>Email: &nbsp;</ion-label><br>
+                  <ion-label>Mobile No: &nbsp;</ion-label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                  <span *ngIf='item.layer1confirmation == "Accept"' style="color: green;">{{item.layer1confirmation}}</span>
+                  <span *ngIf='item.layer1confirmation == "Decline"' style="color: red;">{{item.layer1confirmation}}</span>
+          
+                </div> -->
+          <!-- <ion-searchbar [ngModel]='search' (ionChange)='serachfilter()'></ion-searchbar> -->
+          <!-- <h5  class="ion-text-center" style="color: green;"><b>New Requests</b></h5><hr> -->
+          
+              <!-- </ion-list>
+            </div> -->
+          </mat-tab>
+        </mat-tab-group>
+      
+       
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

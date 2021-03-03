@@ -1,0 +1,74 @@
+<ion-header >
+  <ion-toolbar class="ion-text-center" style="--background: #895194;">
+    <ion-title color='light'>2nd LayerConfirmation</ion-title>
+    <ion-back-button color='light' slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-grid >
+  <ion-row>   
+    <ion-col>
+      <h2>Date</h2>
+    </ion-col>
+    <ion-col>
+      <h2>{{items.Date}}</h2>
+    </ion-col>
+  </ion-row>
+  <ion-row>   
+    <ion-col>
+      <h2>Name</h2>
+    </ion-col>
+    <ion-col>
+      <h2>{{items.Name}}</h2>
+    </ion-col>
+  </ion-row>
+  <ion-row>   
+    <ion-col>
+      <h2>Mobile No</h2>
+    </ion-col>
+    <ion-col>
+      <h2>{{items.Mobile}}</h2>
+    </ion-col>
+  </ion-row>
+  <ion-row>   
+    <ion-col>
+      <h2>Address</h2>
+    </ion-col>
+    <ion-col>
+      <h2>{{items.Address}}</h2>
+    </ion-col>
+  </ion-row>
+  <ion-row>   
+    <ion-col size="12">
+      <h2 class="text-center">Products</h2>
+    </ion-col>
+    <ion-col *ngFor="let item of items.Products" size="8">
+      <ol>
+        <li style="color: rebeccapurple;list-style: decimal;">
+          {{item.name}}
+        </li>
+      </ol>
+    </ion-col>
+  </ion-row>
+  <ion-row>   
+    <ion-col>
+      <h2>layer2confirmation</h2>
+    </ion-col>
+    <ion-col>
+      <h2 *ngIf='items.layer2confirmation == "Decline"' style="color: red;">{{items.layer2confirmation}}</h2>
+      <h2 *ngIf='items.layer2confirmation == "Accept"' style="color: green;">{{items.layer2confirmation}}</h2>
+
+    </ion-col>
+  </ion-row>
+  <div >
+    &nbsp;&nbsp;<ion-button [disabled]='items.layer2confirmation != null || undefined' fill='clear' style="--background: red; color: white;" (click)='decline()'>
+      Decline
+    </ion-button> &nbsp;&nbsp;&nbsp;
+  <ion-button fill='clear' [disabled]='items.layer2confirmation != null || undefined' style="--background: #895194;color: white;" (click)='accept()'>
+    Accept
+  </ion-button>
+  </div>
+</ion-grid>
+
+</ion-content>

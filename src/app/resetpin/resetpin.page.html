@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar style="--background: #895194;">
+    <ion-title color='light'>Reset Password</ion-title>
+    <ion-button (click)='model()' fill='clear' color='light' slot="end" style=" color: white;"><ion-icon color='light' name='close'></ion-icon></ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container pt-3" *ngIf='Reset == false'><br>
+    <h3>You Should Anser this Questions</h3><br>
+    <ion-list>
+      <ion-item>
+        <ion-label position='floating'>Which is your Father's Native ?</ion-label>
+        <ion-input [(ngModel)]='native'></ion-input>
+      </ion-item><br>
+      <ion-item>
+        <ion-label position='floating'>Where Did You studied (Primary School) ?</ion-label>
+        <ion-input [(ngModel)]='school'></ion-input>
+      </ion-item><br>
+      <ion-item>
+        <ion-label position='floating'>What's your phoneNo ?</ion-label>
+        <ion-input [(ngModel)]='phoneno'></ion-input>
+      </ion-item><br>
+      <ion-item>
+        <ion-label position='floating'>What's your favourite color ?</ion-label>
+        <ion-input [(ngModel)]='color'></ion-input>
+      </ion-item><br>
+    </ion-list>
+    <div class="ion-text-center">
+      <ion-button style="--background: #895194;" (click)='submit()'>Submit</ion-button>
+    </div>
+  </div>
+<div class="container pt-5" *ngIf='Reset == true'>
+  <br><br>
+  <ion-input class="input" maxlength='4' placeholder='NEW PASSWORD' type='password' [(ngModel)]='new'></ion-input><br>
+  <ion-input class="input" maxlength='4' placeholder='CONFIRM PASSWORD' type='password' [(ngModel)]='cnew'></ion-input><br>
+
+  <div class="ion-text-center">
+    <ion-button [disabled]='!new || !cnew' style="--background: rgb(175, 21, 189);" (click)='reset()' >SUBMIT</ion-button>
+  </div>
+</div>
+</ion-content>

@@ -1,5 +1,7 @@
 {
   "name": "layerconformation",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

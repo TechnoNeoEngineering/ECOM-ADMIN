@@ -1,0 +1,43 @@
+ion-toolbar{
+	--background: linear-gradient(130deg,#642b73,#c6426e);
+} 
+    .container-login {
+      opacity: .95;
+      margin: auto; 
+      background: transparent;
+      border-radius: 1em;
+      width: 80%;
+     
+    }
+    .alert-msg {
+      color: red;
+      }
+      
+    ion-item{
+      border-radius: 5px;
+      border: 1px solid black ;
+    }
+    .row {
+      height: 90%;
+    }
+    .log{
+        font-size: 30px;
+      font-weight: 600;
+      color: #332e6e;
+    }
+    .log_btn{
+      --background: linear-gradient(130deg,#642b73,#c6426e);     
+      --border-radius: 10px;  
+      
+    }
+    .skip_btn{
+      --border-radius: 10px;
+
+    }
+    // ion-selec{
+    //   border:1px solid rgba(0, 0, 0, 0.75);
+    // }
+    .input{
+      border:1px solid rgba(0, 0, 0, 0.13);
+    }
+    
