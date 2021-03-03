@@ -9,9 +9,9 @@
     <div class="col-md-6 m-auto">
       <div class="col-padding border p-3">
         <p class="para text-center ">Get started with our secure login flow</p>
-        <ion-item class="py-2" lines="none">
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input class="text" type="text" formControlName="email" placeholder = "Enter your email" ></ion-input>
+        <ion-item class="py-2" lines="none" class="border">
+          <ion-label position="floating">Email Address</ion-label>
+          <ion-input type="text" formControlName="email" ></ion-input>
         </ion-item>
         <div class="validation-errors">
           <ng-container *ngFor="let validation of validation_messages.email">
@@ -21,9 +21,9 @@
             </div>
           </ng-container>
         </div>
-       <ion-item class="py-2" lines="none">
-        <ion-label class="required" position="stacked">Password</ion-label>
-        <ion-input class="text" [type]="passwordType" clearOnEdit="false" formControlName="password" placeholder = "Enter password"required></ion-input>
+       <ion-item class="py-2" lines="none" class="border">
+        <ion-label class="required" position="floating">Password</ion-label>
+        <ion-input class="text" [type]="passwordType" clearOnEdit="false" formControlName="password"required></ion-input>
       </ion-item>      
         <div class="validation-errors">
           <ng-container *ngFor="let validation of validation_messages.password">
@@ -41,8 +41,8 @@
             </ion-label>        
           </ion-item>
         </div>
-        <div class="text-right">
-          <ion-button color="tertiary" type="submit" [disabled]="!validations_form.valid" ><b>Continue</b></ion-button>
+        <div class="text-right" style="text-align: right;">
+          <ion-button color="tertiary" type="submit" [disabled]="!validations_form.valid"><b>Continue</b></ion-button>
           <label  class="error-message">{{errorMessage}}</label>  
         </div>        
       </div>

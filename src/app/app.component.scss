@@ -8,3 +8,9 @@
 .class3{
     animation-iteration-count:initial;
 }
+
+@media only print {
+    .text-end{
+        display: none;
+    }
+}

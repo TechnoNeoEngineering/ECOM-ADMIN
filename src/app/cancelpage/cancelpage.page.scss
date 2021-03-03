@@ -1,0 +1,15 @@
+.color {
+    --background: #895194 !important;
+}
+@media only print {
+    ion-header{
+    display: none;
+    }
+    ion-segment{
+        display: none;
+    }
+    ion-content{
+        --margin: 0;
+        --overflow: hidden;
+    }
+}

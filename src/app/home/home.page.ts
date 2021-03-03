@@ -5,13 +5,23 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
 import {Chart} from 'node_modules/chart.js'
 import { CountUpModule } from 'ngx-countup';
+import { InputVal } from '../models/input-val';
+import { ReturnVal } from '../models/return-val';
+import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 @Component({
 	selector: 'app-home',
 	templateUrl: 'home.page.html',
 	styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-	
+	createtoken: any;
+	base_path = 'https://cors-anywhere.herokuapp.com/https://fcm.googleapis.com/fcm/send';
+	originaltoken: { id: string; isEdit: boolean; Token: any; }[];
+	title:any;
+	body:any;
+	inputdata: InputVal;
+	outputdata:ReturnVal;
 	option = {
 	  useEasing: true,
 	  duration: 2.5
@@ -37,9 +47,42 @@ export class HomePage implements OnInit{
 
 	constructor(private navCtrl: NavController,private fireStoreService: FireStoreService,
 		private firestore: AngularFirestore,public datepipe: DatePipe,countup:CountUpModule,
-		private AlertController : AlertController) {}
-
+		private AlertController : AlertController,private http: HttpClient) {this.inputdata = new InputVal();}
+		httpOptions = {
+			headers: new HttpHeaders({          
+			  'Content-Type': 'application/json',
+			  'Authorization' : 'Bearer AAAAyIbj1hI:APA91bFm9qtzkEqNGMikySL2e4TNWFopu3Mo1OG10Zy3nFQvZc-wQAAFE4ZAeGyS6MMe1dFWGZ9kInrcj2CYcGA2tD_V7cLHkhvttHcajJ6TNsc8rVNjqXSDieFGoyzwnTqid9x0CvqQ',                  
+			  'project_id' : 'mindmaxecommerce-2a890',         
+			  "Access-Control-Allow-Headers":"x-requested-with, x-requested-by",
+			})
+		  }
+		  handleError(error: HttpErrorResponse) {
+			if (error.error instanceof ErrorEvent) {
+			  // A client-side or network error occurred. Handle it accordingly.
+			  console.error('An error occurred:', error.error.message);
+			} else {
+			  // The backend returned an unsuccessful response code.
+			  // The response body may contain clues as to what went wrong,
+			  console.error(
+				`Backend returned code ${error.status}, ` +
+				`body was: ${error.error}`);
+			}
+			// return an observable with a user-facing error message
+			return throwError(
+			  'Something bad happened; please try again later.');
+		  }; 
 	ngOnInit() {
+		this.fireStoreService.read_webtoken().subscribe((data) => {			
+			this.createtoken = data.map((e) => {
+				console.log(e.payload.doc.data()['Token'])				
+				return {   
+					id: e.payload.doc.id,
+					isEdit: false,
+					Token: e.payload.doc.data()['Token']
+				}
+			});
+			console.log(this.createtoken);
+    });
 		var ctx:any = document.getElementById('myChart');
 var myChart = new Chart('myChart', {
     type: 'bar',
@@ -248,6 +291,7 @@ var myChart = new Chart('myChart', {
 			this.lowertotal = this.lower.length;
 			for(var i=0; i < this.ProductviewList.length; i++){
 				if(this.ProductviewList[i].stock < 10){
+					//this.send();
 				//   this.showalert();
 				}
 			  }
@@ -258,7 +302,25 @@ var myChart = new Chart('myChart', {
 		  
 		
 	}
-
+	send(){
+		let it = new InputVal();
+		for(var i=0;i<this.createtoken.length;i++){
+		  it.to = this.createtoken[i]['Token'];
+		  console.log(it.to);
+		  this.createItem(it).subscribe(t =>{
+			console.log(JSON.stringify(t));
+		  });      
+		 }    
+	  }
+	  createItem(it): Observable<ReturnVal> {
+		var user = localStorage.getItem('email');                               
+	   it.notification.title = "Lower Stock";
+		it.notification.body = "please add stock"
+	   it.notification.image = "https://i.ibb.co/k50xvFL/icon.png"
+	   
+		 return this.http
+		  .post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
+	  }
 	async showalert(){	
 		const res = await this.AlertController.create({
 	  header: '',

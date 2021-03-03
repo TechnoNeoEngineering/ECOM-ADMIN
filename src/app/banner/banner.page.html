@@ -12,25 +12,33 @@
 <ion-content [fullscreen]="true" class="ion-padding">
 
   <form [formGroup]="bannerForm">
-
+<ion-row>
+  <ion-col size="6" >
     <ion-item>
       <ion-label position="floating">Banner</ion-label>
       <ion-input formControlName="Banner"></ion-input>
     </ion-item>
+    </ion-col >
+    <ion-col size="6" >
+      <ion-item>
+        <ion-label position="floating">Banner Image</ion-label>
+        <ion-input formControlName="ban_image"></ion-input>
+      </ion-item>
+      <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="ban_id">
+    </ion-col>
+    <ion-col size="12">
+      <ion-item >
+        <ion-button slot="end" color="tertiary" (click)="CreateRecord()" [disabled]="bannerForm.invalid">
+          <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+          &nbsp;Create Record
+        </ion-button>
+      </ion-item>
+    </ion-col>
+</ion-row>
+    
 
-    <ion-item>
-      <ion-label position="floating">Banner Image</ion-label>
-      <ion-input formControlName="ban_image"></ion-input>
-    </ion-item>
 
-    <input type="hidden" name="max_id" value="max_id" [(ngModel)]="max_id" formControlName="ban_id">
 
-    <ion-item>
-      <ion-button (click)="CreateRecord()" [disabled]="bannerForm.invalid">
-        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-        &nbsp;Create Record
-      </ion-button>
-    </ion-item>
   </form>
 
   <!-- <ion-grid>
@@ -46,68 +54,87 @@
     </ion-row>
   </ion-grid> -->
   <!----------------------------------------------------------------------------------------->
+  <ion-grid>
+    <ion-row style="background: #F4ECF7;">
+      <ion-col size="1" offset="1">
+        <div class="py-1">
+          ID
+        </div>
+      </ion-col>
+      <ion-col size="4">
+        <div class="py-1">
+          CATEGORY
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div class="py-1">
 
-  <ion-card color="medium">
-    <ion-card *ngFor="let item of bannerList" color="primary">
-      <span *ngIf="!item.isEdit; else elseBlock">
-        <ion-card-header>
-          <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
-          <ion-card-subtitle>Id: {{item.ban_id}}</ion-card-subtitle>
-          <ion-card-subtitle>Name: {{item.Banner}}</ion-card-subtitle>
-          <ion-card-subtitle>URL: {{item.ban_image}}</ion-card-subtitle>
-        </ion-card-header>
-        <!-- <ion-item>
-    <ion-label>Category</ion-label>
-    <ion-select (ionChange)="setDistrictValues(sState)" [(ngModel)]="sState">
-         <ion-select-option  *ngFor ="let item of studentList">{{item.Category}} </ion-select-option> 
-   </ion-select>
-         
-</ion-item> -->
-        <ion-card-content>
+          URL
+        </div>
+      </ion-col>
+      <ion-col size="3">
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+    <div class="py-1" *ngFor="let item of bannerList" >
+      <ion-row  class="border" *ngIf="!item.isEdit; else elseBlock">
+        <ion-col size="1" offset="1">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.ban_id}}
+          </h4>
+        </ion-col>
 
-          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
-            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+        <ion-col size="4">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.Banner}}
+          </h4>
+        </ion-col>
+
+        <ion-col size="3">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{item.ban_image}}
+          </h4>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button shape="round" color="tertiary" size="small" (click)="EditRecord(item)">
+            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>EDIT 
+          </ion-button>
+          <ion-button shape="round" color="medium" size="small"(click)="RemoveRecord(item.id)" >
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>DELETE
 
           </ion-button>
-          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
-            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-
-          </ion-button>
-        </ion-card-content>
-      </span>
+        </ion-col>
+      </ion-row>
       <ng-template #elseBlock>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  Edit
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
-                    Cancel
-                  </ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
-                    Update
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label><strong>Banner</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.EditBanner"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label><strong>Banner Image</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="item.Editban_image"></ion-input>
-          </ion-item>
-        </ion-card-content>
+        <ion-row>
+          <ion-col size="4" offset="2">
+            <ion-item lines="none" style="--background: #F4ECF7;">
+              <ion-label position="stacked"><strong>Category</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.EditBanner" ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item lines="none" style="--background: #F4ECF7;">
+              <ion-label position="stacked"><strong>Category Image</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="item.Editban_image" ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12">
+            <div class="ion-text-end">
+              <ion-button fill="solid" color="medium" size="small"(click)="item.isEdit = false" >
+                Cancel
+              </ion-button>
+              <ion-button fill="solid" color="tertiary" size="small"  (click)="UpdateRecord(item)">
+                Update
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
       </ng-template>
-    </ion-card>
-  </ion-card>
+    </div>
+
+  
 </ion-content>

@@ -1,0 +1,161 @@
+<ion-header>
+  <ion-toolbar class="color">
+    <ion-title style="color: white;">Cancel Order Page</ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-segment [(ngModel)]="return">
+    <ion-segment-button value="Incompleted">
+      INCOMPLETED
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      COMPLETED
+    </ion-segment-button>
+  </ion-segment>  
+  <div [ngSwitch]="return">
+    
+    <div *ngSwitchCase="'Incompleted'">
+      <ion-row style="background: #F4ECF7;">
+        <ion-col size="1" offset="1">
+  <div>
+  PRODUCT ID
+  </div>
+        </ion-col>
+        
+        <ion-col size="2">
+  <div>
+  USER ID
+  </div>
+        </ion-col>
+        
+        <ion-col size="3">
+  <div>
+  PRODUCT NAME
+  </div>
+        </ion-col>
+        
+        <ion-col size="1">
+  <div>
+  QUANTITY
+  </div>
+        </ion-col>
+        
+        <ion-col size="2">
+  <div>
+  ORDER ID
+  </div>
+        </ion-col>
+        
+        <ion-col size="1">
+  CHECK
+        </ion-col>
+      </ion-row>
+        <div  *ngFor="let orderdata of selectedOrderid">
+          <ion-row *ngIf="orderdata.stockadded == 'StockAdded'">
+            <ion-col size="1" offset="1">
+              {{orderdata.Productid}}
+</ion-col>
+<ion-col size="2">
+<div>{{orderdata.userid}}</div>
+</ion-col>
+<ion-col size="3">
+  <div>
+    {{orderdata.Description}}  </div>
+</ion-col>
+<ion-col size="1">
+  {{orderdata.Quantity}}
+</ion-col>
+<ion-col size="2">
+  <div>{{orderdata.orderid}}</div>
+</ion-col>
+<ion-col size="1">
+  <div>           
+       <ion-checkbox (ionChange)="verifyEvent(orderdata.Productid, orderdata.orderid,orderdata.Quantity,orderdata.id)"></ion-checkbox>
+  </div>
+</ion-col>
+  
+
+          </ion-row>
+        </div>
+      <div style="text-align: center;">
+        <ion-button (click)="submit()">Submit</ion-button>
+      </div>
+     
+    </div>
+
+    <div *ngSwitchCase="'Completed'">
+      <ion-grid>
+        <ion-row style="background: #F4ECF7;">
+          <ion-col size="1" offset="1">
+<div >
+  PRODUCT ID
+</div>
+          </ion-col>
+          
+          <ion-col size="2">
+<div>
+USER ID
+</div>
+          </ion-col>
+          
+          <ion-col size="3">
+<div>
+PRODUCT NAME
+</div>
+          </ion-col>
+          
+          <ion-col size="1">
+<div>
+QUANTITY
+</div>
+          </ion-col>
+          
+          <ion-col size="2">
+<div>
+ORDER ID
+</div>
+          </ion-col>
+          
+        </ion-row>
+      <div *ngFor="let orderdata of selectedOrderid">
+        <ion-row *ngIf="orderdata.stockadded != 'StockAdded'">
+          <ion-col size="1" offset="1">
+<div>
+  {{orderdata.Productid}}
+</div>
+          </ion-col>
+          <ion-col size="2">
+<div>
+  {{orderdata.userid}}
+</div>
+          </ion-col>
+          <ion-col size="3">
+  <div>
+    {{orderdata.Description}}
+  </div>          
+          </ion-col>
+          <ion-col size="1">
+    <div>
+      {{orderdata.Quantity}}
+    </div>        
+          </ion-col>
+          <ion-col size="1">
+            <div>{{orderdata.orderid}}</div>
+          </ion-col>
+        </ion-row>
+      </div>
+      </ion-grid>
+      <ion-row>
+        <ion-col>
+          <button onclick="window.print()" >Print this page</button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+
+</ion-content>

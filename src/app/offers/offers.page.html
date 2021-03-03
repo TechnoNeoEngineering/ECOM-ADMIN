@@ -3,7 +3,7 @@
     <ion-title style="color: white;">
       Offers
     </ion-title>
-    <ion-button slot="start" class="color">
+    <ion-button slot="start" color="transparent" style="width: 4%;">
       <ion-menu-button></ion-menu-button>
     </ion-button>
   </ion-toolbar>
@@ -78,94 +78,176 @@
             <ion-input formControlName="offer_image"></ion-input>
           </ion-item>
         </ion-col>
+        <ion-col size="12">
+          <div class="text-center">
+            <ion-item lines="none">
+              <ion-button (click)="CreateRecord()" [disabled]="OffersForm.invalid">
+                <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+                &nbsp;Create Record
+              </ion-button>
+            </ion-item>
+            <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Offers_id">
+
+          </div>          
+        </ion-col>
       </ion-row>
 
-      <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Offers_id">
-
-      <ion-item lines="none">
-        <ion-button (click)="CreateRecord()" [disabled]="OffersForm.invalid">
-          <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-          &nbsp;Create Record
-        </ion-button>
-      </ion-item>
 
     </ion-grid>
   </form>
 
-  <ion-card color="medium">
-    <ion-card *ngFor="let offer of Offerlist" color="primary">
-      <span *ngIf="!offer.isEdit; else elseBlock">
-        <ion-card-header>
-          <ion-card-subtitle>Offer Id: {{offer.Offers_id}}</ion-card-subtitle>
-          <ion-card-subtitle>Category Id: {{offer.cat_id}}</ion-card-subtitle>
-          <ion-card-subtitle>SubCategory Id: {{offer.subcat_id}}</ion-card-subtitle>
-          <ion-card-subtitle>Product Id: {{offer.prdt_id}}</ion-card-subtitle>
-          <ion-card-subtitle>Product Name: {{offer.prdt_name}}</ion-card-subtitle>
-          <ion-card-subtitle>Offer Name: {{offer.offer_name}}</ion-card-subtitle>
-          <ion-card-subtitle>Offer Image: {{offer.offer_image}}</ion-card-subtitle>
-        </ion-card-header>
 
-        <ion-card-content>
-  
-          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(offer)">
-            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
-  
-          </ion-button>
-          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(offer.id)">
-            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-  
-          </ion-button>
-        </ion-card-content>
-      </span>
+
+  <ion-grid>
+    <ion-row style="background: #F4ECF7;">
+      <ion-col size="0.5">
+        <div class="py-1">
+          ID
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        <div class="py-1">
+          Category Id
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        <div class="py-1">
+          SubCategory Id:
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        <div class="py-1">
+          Product Id: 
+        </div>
+      </ion-col>
+      <ion-col size="3">
+         <div class="py-1">
+          Product Name
+         </div>
+      </ion-col>
+      
+      <ion-col size="1">
+        <div class="py-1">
+         Offer Name
+        </div>
+     </ion-col>
+     
+     <ion-col size="2">
+      <div class="py-1">
+       Offer Img
+      </div>
+   </ion-col>
+   <ion-col size="1.5">
+
+   </ion-col>
+    </ion-row>
+    <div *ngFor="let offer of Offerlist" class="py-1">
+      <ion-row *ngIf="!offer.isEdit; else elseBlock" class="border">
+        <ion-col size="0.5">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{offer.Offers_id}}
+          </h4>
+        </ion-col>
+
+        <ion-col size="1">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{offer.cat_id}}
+          </h4>
+        </ion-col>
+        <ion-col size="1">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{offer.subcat_id}}
+          </h4>
+        </ion-col>
+
+        <ion-col size="1">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{offer.prdt_id}}
+          </h4>
+        </ion-col>
+        <ion-col size="3">
+          <h4 style="vertical-align: middle;" class="py-1">
+            {{offer.prdt_name}}
+
+          </h4>
+        </ion-col>
+        <ion-col size="1">
+<h4 style="vertical-align: middle;" class="py-1">
+  {{offer.offer_name}}
+</h4>
+        </ion-col>
+        
+        <ion-col size="2">
+<h4 style="vertical-align: middle;" class="py-1">
+  {{offer.offer_image}}
+</h4>
+        </ion-col>
+        <ion-col size="1.5">
+          <div class="ion-text-end">
+            <div class="d-flex">
+              <ion-button shape="round" color="light" size="small" (click)="EditRecord(offer)">
+                <ion-icon size="small" slot="icon-only" name="create"></ion-icon>Edit
+              </ion-button>
+              <ion-button shape="round"  size="small" color="danger " (click)="RemoveRecord(offer.id)">
+              Delete  <ion-icon size="small"  slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
       <ng-template #elseBlock>
-        <ion-card-header>
-          <ion-card-title>
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  Edit
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="medium" size="small" (click)="offer.isEdit = false">
-                    Cancel
-                  </ion-button>
-                </ion-col>
-                <ion-col>
-                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(offer)">
-                    Update
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-item>
-            <ion-label position="floating"><strong>Category Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editcat_id"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating"><strong>SubCategory Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editsubcat_id"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating"><strong>Product Id:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editprdt_id"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating"><strong>Product Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editprdt_name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating"><strong>Offer Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editoffer_name"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating"><strong>Offer Image:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editoffer_image"></ion-input>
-          </ion-item>
-        </ion-card-content>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item style="--background: #F4ECF7;">
+              <ion-label position="floating"><strong>Category Name:</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="offer.Editcat_id"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item style="--background: #F4ECF7;">
+              <ion-label position="floating"><strong>SubCategory Name:</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="offer.Editsubcat_id"></ion-input>
+            </ion-item>  
+          </ion-col>
+          <ion-col size="6">
+            <ion-item style="--background: #F4ECF7;">
+              <ion-label position="floating"><strong>Product Id:</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="offer.Editprdt_id"></ion-input>
+            </ion-item>  
+          </ion-col>
+          <ion-col size="6">
+            <ion-item style="--background: #F4ECF7;">
+              <ion-label position="floating"><strong>Product Name:</strong></ion-label>
+              <ion-input type="text" [(ngModel)]="offer.Editprdt_name"></ion-input>
+            </ion-item>    
+          </ion-col>
+<ion-col size="6">
+  <ion-item style="--background: #F4ECF7;">
+    <ion-label position="floating"><strong>Offer Name:</strong></ion-label>
+    <ion-input type="text" [(ngModel)]="offer.Editoffer_name"></ion-input>
+  </ion-item> 
+</ion-col>
+<ion-col size="6">
+  <ion-item style="--background: #F4ECF7;">
+    <ion-label position="floating"><strong>Offer Image:</strong></ion-label>
+    <ion-input type="text" [(ngModel)]="offer.Editoffer_image"></ion-input>
+  </ion-item>    
+</ion-col>
+          <ion-col size="12">
+            <div class="ion-text-end">
+              <ion-button fill="solid" color="medium" size="small" (click)="offer.isEdit = false">
+                Cancel
+              </ion-button>
+              <ion-button fill="solid" color="tertiary" size="small" (click)="UpdateRecord(offer)">
+                Update
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+
       </ng-template>
-    </ion-card>
-  </ion-card>
+    </div>
+
+  </ion-grid>
 </ion-content>

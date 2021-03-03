@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -8,31 +8,77 @@ import { Storage } from '@ionic/storage';
 import { NavParams, NavController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
 import { PopoverController } from '@ionic/angular';
-import { NotificationsComponent } from './notifications/notifications.component';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { FireStoreService } from './service/fire-store.service';
+
 
 @Component({
 	selector: 'app-root',
 	templateUrl: 'app.component.html',
 	styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
 	rootPage: any = 'viewproduct';
+	createtoken:any[];
+	// createtoken: any[];
 	
 	constructor(private platform: Platform, private splashScreen: SplashScreen,public popoverCtrl: PopoverController,
 		private statusBar: StatusBar,private http:HTTP, public nav: NavController, public navParams: NavParams, 
-		private storage: Storage,private route: ActivatedRoute) {
+		private storage: Storage,private route: ActivatedRoute,
+		public afMessaging:AngularFireMessaging,public firestoreservice:FireStoreService) {
 
 		this.initializeApp();	
 	}
-
+	ngOnInit(){
+		this.firestoreservice.read_webtoken().subscribe((data) => {			
+			this.createtoken = data.map((e) => {
+				console.log(e.payload.doc.data()['Token'])				
+				return {   
+					id: e.payload.doc.id,
+					isEdit: false,
+					Token: e.payload.doc.data()['Token']
+				}
+			});
+			console.log(this.createtoken);		
+			this.afMessaging.requestToken.subscribe((token) => { 
+				var tokens = token;
+			  console.log('Permission granted!', token);
+			  localStorage.setItem('token',tokens); 
+			 let found = false;
+			  for(var i=0;i<this.createtoken.length;i++){
+				if(this.createtoken[i]['Token'] == tokens )
+				{
+					found=true;
+					console.log('Token exists');
+				}				
+				   }
+				if(!found){
+					let record = {};
+					record["Token"] = tokens;
+					this.firestoreservice.create_webtoken(record);
+					 console.log('Token created');
+				}
+			},
+			(error) => {
+			  console.error(error);
+			});	
+		});
+		
+}
 	initializeApp() {
+		
 		this.platform.ready().then(() => {
-			firebase.initializeApp(environment.firebaseConfig);
+		
+			if (!firebase.apps.length) {
+				firebase.initializeApp(environment.firebaseConfig);
+			}			
+			//firebase.initializeApp(environment.firebaseConfig);
 			this.http.setServerTrustMode('pinned'); 
 			this.statusBar.styleDefault();
 			this.splashScreen.hide();
+			
 		});
 	}
 
@@ -42,16 +88,16 @@ export class AppComponent {
 		ev.target.classList.contains('animate__animated animate__heartBeat'); // To check
 		ev.target.classList.toggle('class4'); // To toggle
 	}
-	async notifications(ev:any) {  	
-		const popover = await this.popoverCtrl.create({  
-			component: NotificationsComponent,  
-			event: ev,  
-			animated: true,  
-			showBackdrop: false  
-		});  
-		return await popover.present();  
+	// async notifications(ev:any) {  	
+	// 	const popover = await this.popoverCtrl.create({  
+	// 		component: NotificationsComponent,  
+	// 		event: ev,  
+	// 		animated: true,  
+	// 		showBackdrop: false  
+	// 	});  
+	// 	return await popover.present();  
 
-	}  
+	// }  
 
 	push(){
 		this.nav.navigateForward('/pushnotification')
@@ -119,6 +165,14 @@ export class AppComponent {
 
 	offers(){
 		this.nav.navigateForward('/offers');
+	}
+
+	cancel(){
+		this.nav.navigateForward('/cancelpage');
+	}
+
+	return(){
+		this.nav.navigateForward('/returnpage');
 	}
 
 	// invoicebill() {

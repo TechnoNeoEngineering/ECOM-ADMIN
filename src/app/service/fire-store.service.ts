@@ -16,6 +16,7 @@ export class FireStoreService {
   collectionorder = 'orderdetails';
   collectiondevice1 = 'newtoken';
   collectionuseridToken = 'useridToken';
+  collectionwebToken = 'webToken';
   collectionquery='Query';
   collectiongst = 'Gst';
   collectionName1 = 'Banner_Master';
@@ -42,6 +43,22 @@ export class FireStoreService {
   //   this.firestore.doc(this.collectionoriginaltoken + '/' + record_id).delete();
   // }
   //service for push notification
+  create_webtoken(record) {
+    return this.firestore.collection(this.collectionwebToken).add(record);
+  }
+
+  read_webtoken() {
+    return this.firestore.collection(this.collectionwebToken).snapshotChanges();
+  }
+
+  update_webtoken(recordID, record) {
+    this.firestore.doc(this.collectionwebToken + '/' + recordID).update(record);
+  }
+
+  delete_webtoken(record_id) {
+    this.firestore.doc(this.collectionwebToken + '/' + record_id).delete();
+  }
+
   create_useridToken(record) {
     return this.firestore.collection(this.collectionuseridToken).add(record);
   }

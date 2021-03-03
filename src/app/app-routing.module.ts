@@ -102,9 +102,18 @@ const routes: Routes = [
   {
     path: 'banner',
     loadChildren: () => import('./banner/banner.module').then( m => m.BannerPageModule)
-  },  {
+  },
+  {
     path: 'offers',
     loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
+  },
+  {
+    path: 'cancelpage',
+    loadChildren: () => import('./cancelpage/cancelpage.module').then( m => m.CancelpagePageModule)
+  },
+  {
+    path: 'returnpage',
+    loadChildren: () => import('./returnpage/returnpage.module').then( m => m.ReturnpagePageModule)
   },
 
 ];

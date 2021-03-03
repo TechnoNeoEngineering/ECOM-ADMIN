@@ -107,8 +107,7 @@ export class OrdertrackingPage implements OnInit {
       it.notification.title = 'Your Order Has been Deliverd' ;
       it.notification.body = product ;
       it.notification.image = image;
-       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
-          
+       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)          
     }
 
   read_cart() {
@@ -303,7 +302,7 @@ export class OrdertrackingPage implements OnInit {
   //  this.send(user,product);
  }
 
-  packed(data,i) {
+  packed(data) {
     this.showtoast('Item packed Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Packed';
@@ -457,13 +456,10 @@ export class OrdertrackingPage implements OnInit {
                 console.log(it.to);
                 this.itemdelivered(it,product,image).subscribe(t =>{
                   console.log(JSON.stringify(t));
-                  
                 });
-                
               }
-  }
-
-  async invoice(data) {
+            }
+               async invoice(data) {
     const alert = await this.AlertController.create({
       header: 'Do you want to move?',
      

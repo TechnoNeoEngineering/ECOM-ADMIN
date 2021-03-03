@@ -21,14 +21,12 @@ export class PushnotificationPage implements OnInit {
   tokens: any;
   base_path = 'https://cors-anywhere.herokuapp.com/https://fcm.googleapis.com/fcm/send';
   originaltoken: { id: string; isEdit: boolean; Token: any; }[];
-title:any;
-body:any;
-  
-  
-  data: InputVal;
+  title:any;
+  body:any;  
+  inputdata: InputVal;
   outputdata:ReturnVal;
   constructor(private firebaseservice: FireStoreService, private firestore: AngularFirestore,             
-              private http: HttpClient) { this.data = new InputVal();}
+              private http: HttpClient) { this.inputdata = new InputVal();}
 
               httpOptions = {
                 headers: new HttpHeaders({          
@@ -56,15 +54,14 @@ body:any;
 
               send(){
                 let it = new InputVal();
-
                 for(var i=0;i<this.tokens.length;i++){
-                  it.to = this.tokens[i]['Token'];
+                   it.to = this.tokens[i]['Token'];
+                  //it.to ="fKPCN9a9Onw_eeoyZtK0cZ:APA91bHDMGYFZN6qfwY0zbLCnoPxFaHn05K-zDsyJYDIWVlcydU9i55T4R0I5nbbiYD0x_mmJqi01zQ4rQBljMQCzJwZLLZ-nMSpeOBSqynMC2ip8Bcpn05fx8tFal7STilYODIBUuqk"
                   console.log(it.to);
                   this.createItem(it).subscribe(t =>{
                     console.log(JSON.stringify(t));
-                  });
-                  
-                 }
+                  });                  
+                  }
                  this.title = '';
                  this.body = '';
               }

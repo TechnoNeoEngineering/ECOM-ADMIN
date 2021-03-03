@@ -12,30 +12,42 @@
 <ion-content [fullscreen]="true" class="ion-padding">
 
   <form [formGroup]="discountForm" >
-
+<ion-row>
+  <ion-col size="6">
     <ion-item>
       <ion-label position="floating">From</ion-label>
       <ion-input formControlName="From"></ion-input>
     </ion-item>
+  </ion-col>
+  <ion-col size="6">
     <ion-item>
       <ion-label position="floating">To</ion-label>
       <ion-input formControlName="To"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="floating">Special Discount % on Monthly Volume Amt</ion-label>
-      <ion-input formControlName="Specialdiscount"></ion-input>
-    </ion-item>
+</ion-col>
+<ion-col size="6">
+  <ion-item>
+    <ion-label position="floating">Special Discount % on Monthly Volume Amt</ion-label>
+    <ion-input formControlName="Specialdiscount"></ion-input>
+  </ion-item>
+  </ion-col>
+  <ion-col size="6">
     <ion-item>
       <ion-label position="floating">Special Contest</ion-label>
       <ion-input formControlName="Specialcontest"></ion-input>
     </ion-item>
-    <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Discount_id">
-    <ion-item>
-      <ion-button (click)="CreateRecord()" [disabled]="discountForm.invalid">
-        <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
-        &nbsp;Create Record
-      </ion-button>
-    </ion-item>
+</ion-col>
+<ion-col size="12" >
+  <ion-item lines="none">
+    <ion-button color="tertiary" slot="end" (click)="CreateRecord()" [disabled]="discountForm.invalid">
+      <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+      &nbsp;Create Record
+    </ion-button>
+  </ion-item>
+  <input type="hidden" value="max_id" [(ngModel)]="max_id" formControlName="Discount_id">
+
+</ion-col>
+</ion-row>
   </form> 
  
 <!-- <ion-grid>
@@ -51,78 +63,125 @@
     </ion-row>
   </ion-grid> -->
 <!----------------------------------------------------------------------------------------->
+<ion-grid>
+  <ion-row style="background: #F4ECF7;">
+    <ion-col size="1" offset="1">
+      <div class="py-1">  
+DISCOUNT ID
+      </div>
+    </ion-col>
+    <ion-col size="2">
+      <div class="py-1">
+        FORM
 
-<ion-card color="medium">
-  <ion-card *ngFor="let item of discountlist" color="primary">
-    <span *ngIf="!item.isEdit; else elseBlock">
-      <ion-card-header>
-        <!-- <ion-card-title>{{item.Category}} of {{item.Age}} years</ion-card-title> -->
-        <ion-card-subtitle>Discount Id: {{item.Discount_id}}</ion-card-subtitle>
-        <ion-card-subtitle>From: {{item.From}}</ion-card-subtitle>
-        <ion-card-subtitle>To: {{item.To}}</ion-card-subtitle>
-        <ion-card-subtitle>Special Discount % on Monthly Volume Amt: {{item.Specialdiscount}}</ion-card-subtitle>
-        <ion-card-subtitle>Special Contest: {{item.Specialcontest}}</ion-card-subtitle>
-      </ion-card-header>
-          <!-- <ion-item>
-    <ion-label>Category</ion-label>
-    <ion-select (ionChange)="setDistrictValues(sState)" [(ngModel)]="sState">
-         <ion-select-option  *ngFor ="let item of studentList">{{item.Category}} </ion-select-option> 
-   </ion-select>
-         
-  </ion-item> -->
-      <ion-card-content>
+      </div>
+    </ion-col>
+    <ion-col size="2">
+      <div class="py-1">
 
-        <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(item)">
-          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+        TO
+      </div>
+    </ion-col>
+    <ion-col size="2">
+      <div class="py-1">
+        SPECIAL DISCOUNT
+      </div>
+    </ion-col>
+    <ion-col size="2">
+      <div class="py-1">
+        SPECIAL CONTENT
+      </div>
+    </ion-col>
+  </ion-row>
+  <div *ngFor="let item of discountlist" class="py-1">
+    <ion-row *ngIf="!item.isEdit; else elseBlock" class="border">
+      <ion-col size="1" offset="1">
+        <h4 style="vertical-align: middle;" class="py-1">
+          {{item.Discount_id}}
+                </h4>
+      </ion-col>
+
+      <ion-col size="2">
+        <h4 style="vertical-align: middle;" class="py-1">
+          {{item.From}}
+        </h4>
+      </ion-col>
+
+      <ion-col size="2">
+        <h4 style="vertical-align: middle;" class="py-1">
+          {{item.To}}     
+           </h4>
+      </ion-col>
+      <ion-col size="2">
+        <h4 style="vertical-align: middle;" class="py-1">
+          {{item.Specialdiscount}}
+           </h4>
+      </ion-col>
+      <ion-col size="2">
+        <h4 style="vertical-align: middle;" class="py-1">
+          {{item.Specialcontest}}
+        </h4>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button shape="round" color="tertiary" size="small" (click)="EditRecord(item)">
+          <ion-icon size="small" slot="icon-only" name="create"></ion-icon>EDIT
+        </ion-button>
+        <ion-button shape="round" color="medium" size="small" (click)="RemoveRecord(item.id)">
+          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>DELETE
 
         </ion-button>
-        <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(item.id)">
-          <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
-
-        </ion-button>
-      </ion-card-content>
-    </span>
+      </ion-col>
+    </ion-row>
     <ng-template #elseBlock>
-      <ion-card-header>
-        <ion-card-title>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                Edit
-              </ion-col>
-              <ion-col>
-                <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
-                  Cancel
-                </ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(item)">
-                  Update
-                </ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating"><strong>From:</strong></ion-label>
-          <ion-input type="text" [(ngModel)]="item.EditFrom"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating"><strong>Tot:</strong></ion-label>
-          <ion-input type="text" [(ngModel)]="item.EditTo"></ion-input>
-        </ion-item>
-        <ion-item>
+      <ion-row>
+        <ion-col size="6" >
+          <ion-item style="--background: #F4ECF7;">
+            <ion-label position="floating"><strong>From:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.EditFrom"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item style="--background: #F4ECF7;">
+            <ion-label position="floating"><strong>Tot:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="item.EditTo"></ion-input>
+          </ion-item>
+        </ion-col>
+
+          <ion-col size="6" >
+         
+        <ion-item style="--background: #F4ECF7;">
           <ion-label position="floating"><strong>Special Discount % on Monthly Volume Amt:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.EditSpecialdiscount"></ion-input>
         </ion-item>
-        <ion-item>
+          </ion-col>
+          <ion-col size="6" >
+         
+        <ion-item style="--background: #F4ECF7;">
           <ion-label position="floating"><strong>Special Contest:</strong></ion-label>
           <ion-input type="text" [(ngModel)]="item.EditSpecialcontest"></ion-input>
         </ion-item>
-      </ion-card-content>
+          </ion-col>
+
+        <ion-col size="12">
+          <div class="ion-text-end">
+            <ion-button fill="solid" color="medium" size="small" (click)="item.isEdit = false">
+              Cancel
+            </ion-button>
+            <ion-button fill="solid" color="tertiary" size="small" (click)="UpdateRecord(item)">
+              Update
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+
+
     </ng-template>
-  </ion-card>
-</ion-card>
+  </div>
+
+</ion-grid>
+
+
+
+
+
 </ion-content>
