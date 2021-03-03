@@ -25,6 +25,8 @@ import { HTTP } from '@ionic-native/http/ngx';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AngularFireMessagingModule } from '@angular/fire/messaging'
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { FormsModule } from '@angular/forms';
 		HttpClientModule,
 		IonicStorageModule.forRoot(),
 		NgxDatatableModule,
-		FormsModule
+		FormsModule,
+		AngularFireMessagingModule,
+		ServiceWorkerModule.register('combined-sw.js', { enabled: environment.production })
 	],
 	providers: [
 		StatusBar,

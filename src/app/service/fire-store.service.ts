@@ -16,10 +16,14 @@ export class FireStoreService {
   collectionorder = 'orderdetails';
   collectiondevice1 = 'newtoken';
   collectionuseridToken = 'useridToken';
+  collectionwebToken = 'webToken';
+  collectionsuperToken = 'superadminToken';
   collectionquery='Query';
   collectiongst = 'Gst';
   collectionName1 = 'Banner_Master';
   collectionoffers = 'Offers';
+  collectionadmin = 'AdminPassword';
+  collectionproductrequest = 'Admin_productrequest';
 
 
   constructor(private firestore: AngularFirestore) { }
@@ -42,6 +46,36 @@ export class FireStoreService {
   //   this.firestore.doc(this.collectionoriginaltoken + '/' + record_id).delete();
   // }
   //service for push notification
+  create_webtoken(record) {
+    return this.firestore.collection(this.collectionwebToken).add(record);
+  }
+
+  read_webtoken() {
+    return this.firestore.collection(this.collectionwebToken).snapshotChanges();
+  }
+
+  update_webtoken(recordID, record) {
+    this.firestore.doc(this.collectionwebToken + '/' + recordID).update(record);
+  }
+
+  delete_webtoken(record_id) {
+    this.firestore.doc(this.collectionwebToken + '/' + record_id).delete();
+  }
+  create_superadmintoken(record) {
+    return this.firestore.collection(this.collectionsuperToken).add(record);
+  }
+
+  read_superadmintoken() {
+    return this.firestore.collection(this.collectionsuperToken).snapshotChanges();
+  }
+
+  update_superadmintoken(recordID, record) {
+    this.firestore.doc(this.collectionsuperToken + '/' + recordID).update(record);
+  }
+
+  delete_superadmintoken(record_id) {
+    this.firestore.doc(this.collectionsuperToken + '/' + record_id).delete();
+  }
   create_useridToken(record) {
     return this.firestore.collection(this.collectionuseridToken).add(record);
   }
@@ -308,7 +342,56 @@ delete_gst(record_id) {
   delete_offers(record_id) {
     this.firestore.doc(this.collectionoffers + '/' + record_id).delete();
   }
+//Adminlogin
+create_admin(record) {
+  return this.firestore.collection(this.collectionadmin).add(record);
+}
 
+read_admin() {
+  return this.firestore.collection(this.collectionadmin).snapshotChanges();
+}
+
+update_admin(recordID, record) {
+  this.firestore.doc(this.collectionadmin + '/' + recordID).update(record);
+}
+
+delete_admin(record_id) {
+  this.firestore.doc(this.collectionadmin + '/' + record_id).delete();
+}
+//============productrequest==============
+
+create_productrequest(record) {
+    return this.firestore.collection(this.collectionproductrequest).add(record);
+  }
+
+  read_productrequest() {
+    return this.firestore.collection(this.collectionproductrequest).snapshotChanges();
+  }
+
+  update_productrequest(recordID, record) {
+    this.firestore.doc(this.collectionproductrequest + '/' + recordID).update(record);
+  }
+
+  delete_productrequest(record_id) {
+    this.firestore.doc(this.collectionproductrequest + '/' + record_id).delete();
+  }
+  collectionlayerconfirm ='layerconfirmpassword';
+  // ====================================
+   create_layerconfirmpassword(record) {
+      return this.firestore.collection(this.collectionlayerconfirm).add(record);
+    }
+    
+    read_layerconfirmpassword() {
+      return this.firestore.collection(this.collectionlayerconfirm).snapshotChanges();
+    }
+    
+    update_layerconfirmpassword(recordID, record) {
+      this.firestore.doc(this.collectionlayerconfirm + '/' + recordID).update(record);
+    }
+    
+    delete_layerconfirmpassword(record_id) {
+      this.firestore.doc(this.collectionlayerconfirm + '/' + record_id).delete();
+    }
   search(coll, record, field, opr, value) {
     /*  #A) one way of applying search query:
         In case when we have `single` where statement to search.

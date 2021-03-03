@@ -106,6 +106,18 @@ const routes: Routes = [
     path: 'offers',
     loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
   },
+  {
+    path: 'adminusers',
+    loadChildren: () => import('./adminusers/adminusers.module').then( m => m.AdminusersPageModule)
+  },
+  {
+    path: 'productrequests',
+    loadChildren: () => import('./productrequests/productrequests.module').then( m => m.ProductrequestsPageModule)
+  },
+  {
+    path: 'layerconfirmation',
+    loadChildren: () => import('./layerconfirmation/layerconfirmation.module').then( m => m.LayerconfirmationPageModule)
+  },
 
 ];
 

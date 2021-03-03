@@ -10,8 +10,8 @@
       <div class="col-padding border p-3">
         <p class="para text-center ">Get started with our secure login flow</p>
         <ion-item class="py-2" lines="none">
-          <ion-label position="stacked">Email Address</ion-label>
-          <ion-input class="text" type="text" formControlName="email" placeholder = "Enter your email" ></ion-input>
+          <ion-label position="floating">Email Address</ion-label>
+          <ion-input type="text" formControlName="email" placeholder = "Enter your email" ></ion-input>
         </ion-item>
         <div class="validation-errors">
           <ng-container *ngFor="let validation of validation_messages.email">

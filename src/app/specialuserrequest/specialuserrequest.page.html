@@ -8,41 +8,237 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <h2>Specail User Request Details</h2>
-      </ion-col>
-    </ion-row>
-     <!-- {{ RequestForm1 | json}} -->
-    <ion-row>
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Mobile</th>
-            <th scope="col">Email</th>
-            <th scope="col">Address</th>
-            <th scope="col">Product</th>
-            <th scope="col">Date</th>
-            <th scope="col">Accept/Decline</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor ="let special of RequestForm1">
-            <td>{{ special.Name }}</td>
-            <td>{{ special.Mobile }}</td>
-            <td>{{ special.Email }}</td>
-            <td>{{ special.Address }}</td>
-            <td>{{ special.Products}}</td>
-            <td>{{ special.Date }}</td>
-            <td>
-              <ion-button (click)="accept(special)">Accept</ion-button>
-              <ion-button (click)="decline(special.id)">Decline</ion-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ion-row>
-  </ion-grid>
+  <ion-segment value="newrequest" [(ngModel)]='type'>
+    <ion-segment-button value="newrequest">
+      <ion-label>New requests</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="updaterequest">
+      <ion-label>Updated requests</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="createdspecial">
+      <ion-label>Created specialusers</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="declinedrequest">
+      <ion-label>Declined requests</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
+  <div [ngSwitch]='type'>
+    <div *ngSwitchCase="'createdspecial'">
+      <ion-grid >
+        <ion-row>
+          <ion-col>
+            <h2>Special User Request Details</h2>
+          </ion-col>
+        </ion-row>
+         <!-- {{ RequestForm1 | json}} -->
+        <ion-row>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">Product</th>
+                <th scope="col">Date</th>
+                <th scope="col">Specialuser id to be</th>
+                <th scope="col">1st LayerConfirmation</th>
+                <th scope="col">2nd LayerConfirmation</th>
+    
+                <!-- <th scope="col">Accept/Decline</th> -->
+              </tr>
+            </thead>
+            <tbody *ngFor ="let special of RequestForm1;let i =index">
+              <tr *ngIf="special.request == 'createdspecial'">
+                <td>{{ special.Name }}</td>
+                <td>{{ special.Mobile }}</td>
+                <td>{{ special.Email }}</td>
+                <td>{{ special.Address }}</td>
+                <span *ngFor ="let child of special.Products;let i =index">
+                <td>{{i+1}} : {{ child.name}}</td>
+                </span>
+                <td>{{ special.Date }}</td>
+                <td>{{ special.Special_user }}</td>
+                <td *ngIf='!special.layer1confirmation'>No Response</td>   
+              <td *ngIf='special.layer1confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+              <td *ngIf='special.layer1confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+              <td *ngIf='!special.layer2confirmation'>No Response</td> 
+              <td *ngIf='special.layer2confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+              <td *ngIf='special.layer2confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+  
+                <!-- <td>
+                  <ion-button  [disabled]='special.layer1confirmation == "Decline" && special.layer2confirmation == "Decline"' (click)="accept(special)" color="tertiary"> Accept</ion-button>
+                  <ion-button [disabled]='special.layer1confirmation == "Accept" && special.layer2confirmation == "Accept"' (click)="decline(special.id)" color="light">Decline</ion-button>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </ion-row>
+      </ion-grid> </div>
+
+
+      <div *ngSwitchCase="'declinedrequest'">
+        <ion-grid >
+          <ion-row>
+            <ion-col>
+              <h2>Special User Request Details</h2>
+            </ion-col>
+          </ion-row>
+           <!-- {{ RequestForm1 | json}} -->
+          <ion-row>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Mobile</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Specialuser id to be</th>
+                  <th scope="col">1st LayerConfirmation</th>
+                  <th scope="col">2nd LayerConfirmation</th>
+      
+                  <!-- <th scope="col">Accept/Decline</th> -->
+                </tr>
+              </thead>
+              <tbody *ngFor ="let special of RequestForm1;let i =index">
+                <tr *ngIf="special.request == 'declinedrequest'">
+                  <td>{{ special.Name }}</td>
+                  <td>{{ special.Mobile }}</td>
+                  <td>{{ special.Email }}</td>
+                  <td>{{ special.Address }}</td>
+                  <span *ngFor ="let child of special.Products; let i = index">
+                    <td>{{i+1}} : {{ child.name}}</td>
+                    </span>
+                  <td>{{ special.Date }}</td>
+                  <td>{{ special.Special_user }}</td>
+                  <td *ngIf='!special.layer1confirmation'>No Response</td>   
+                <td *ngIf='special.layer1confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+                <td *ngIf='special.layer1confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+                <td *ngIf='!special.layer2confirmation'>No Response</td> 
+                <td *ngIf='special.layer2confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+                <td *ngIf='special.layer2confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+    
+                  <!-- <td>
+                    <ion-button  [disabled]='special.layer1confirmation == "Decline" && special.layer2confirmation == "Decline"' (click)="accept(special)" color="tertiary"> Accept</ion-button>
+                    <ion-button [disabled]='special.layer1confirmation == "Accept" && special.layer2confirmation == "Accept"' (click)="decline(special.id)" color="light">Decline</ion-button>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </ion-row>
+        </ion-grid> </div>
+
+
+   <div *ngSwitchCase="'newrequest'">
+    <ion-grid >
+      <ion-row>
+        <ion-col>
+          <h2>Special User Request Details</h2>
+        </ion-col>
+      </ion-row>
+       <!-- {{ RequestForm1 | json}} -->
+      <ion-row>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Email</th>
+              <th scope="col">Address</th>
+              <th scope="col">Product</th>
+              <th scope="col">Date</th>
+              <th scope="col">Specialuser id to be</th>
+              <th scope="col">1st LayerConfirmation</th>
+              <th scope="col">2nd LayerConfirmation</th>
+  
+              <th scope="col">Accept/Decline</th>
+            </tr>
+          </thead>
+          <tbody *ngFor ="let special of RequestForm1;let i =index">
+            <tr *ngIf="special.request == 'newrequest'">
+              <td>{{ special.Name }}</td>
+              <td>{{ special.Mobile }}</td>
+              <td>{{ special.Email }}</td>
+              <td>{{ special.Address }}</td>
+              <span *ngFor ="let child of special.Products; let i = index">
+                <td>{{i+1}} : {{ child.name}}</td>
+                </span>
+              <td>{{ special.Date }}</td>
+              <td>{{ special.Special_user }}</td>
+              <td *ngIf='!special.layer1confirmation'>No Response</td>   
+            <td *ngIf='special.layer1confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+            <td *ngIf='special.layer1confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+            <td *ngIf='!special.layer2confirmation'>No Response</td> 
+            <td *ngIf='special.layer2confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+            <td *ngIf='special.layer2confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+
+              <td>
+                <ion-button  [disabled]='!special.layer1confirmation || !special.layer2confirmation || special.layer1confirmation == "Decline" && special.layer2confirmation == "Decline"' (click)="accept(special)" color="tertiary"> Accept</ion-button>
+                <ion-button [disabled]='!special.layer1confirmation || !special.layer2confirmation || special.layer1confirmation == "Accept" && special.layer2confirmation == "Accept"' (click)="decline(special.id)" color="light">Decline</ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-row>
+    </ion-grid>   </div>
+
+   <div *ngSwitchCase="'updaterequest'">
+    <ion-grid >
+      <ion-row>
+        <ion-col>
+          <h2>Special User Request Details</h2>
+        </ion-col>
+      </ion-row>
+       <!-- {{ RequestForm1 | json}} -->
+      <ion-row>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Mobile</th>
+              <th scope="col">Email</th>
+              <th scope="col">Address</th>
+              <th scope="col">Product</th>
+              <th scope="col">Date</th>
+              <th scope="col">Specialuser id to be</th>
+              <th scope="col">1st LayerConfirmation</th>
+              <th scope="col">2nd LayerConfirmation</th>
+  
+              <th scope="col">Accept/Decline</th>
+            </tr>
+          </thead>
+          <tbody *ngFor ="let special of RequestForm1;;let i =index">
+            <tr  *ngIf="special.request == 'updaterequest'" >
+              <td>{{ special.Name }}</td>
+              <td>{{ special.Mobile }}</td>
+              <td>{{ special.Email }}</td>
+              <td>{{ special.Address }}</td>
+              <span *ngFor ="let child of special.Products; let i = index">
+                <td>{{i+1}} : {{ child.name}}</td>
+                </span>
+              <td>{{ special.Date }}</td>
+              <td>{{ special.Special_user }}</td>
+              <td *ngIf='!special.layer1confirmation'>No Response</td>
+              <td *ngIf='special.layer1confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+            <td *ngIf='special.layer1confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+            <td *ngIf='!special.layer2confirmation'>No Response</td>
+            <td *ngIf='special.layer2confirmation == "Accept"'><ion-icon color='success' name="checkmark-done-sharp"></ion-icon></td>
+            <td *ngIf='special.layer2confirmation == "Decline"'><ion-icon color='danger' name="close-sharp"></ion-icon></td>
+
+              <td>
+                <ion-button  [disabled]='!special.layer1confirmation || !special.layer2confirmation || special.layer1confirmation == "Decline" && special.layer2confirmation == "Decline"' (click)="accept(special)" color="tertiary"> Accept</ion-button>
+                <ion-button [disabled]=' !special.layer1confirmation || !special.layer2confirmation || special.layer1confirmation == "Accept" && special.layer2confirmation == "Accept"' (click)="decline(special.id)" color="light">Decline</ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-row>
+    </ion-grid> </div>
+  </div>
+
+  
 </ion-content>

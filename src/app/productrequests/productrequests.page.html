@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Product requests</ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <h2>Product Request Details</h2>
+      </ion-col>
+    </ion-row>
+     <!-- {{ RequestForm1 | json}} -->
+    <ion-row>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Warehouse</th>
+            <th scope="col">Warehouse Location</th>
+            <th scope="col">Product id</th>
+            <th scope="col">Product name</th>
+            <th scope="col">Date</th>
+            <!-- <th scope="col">Address</th> -->
+            <!-- <th scope="col">Product</th> -->
+             <th scope="col">Accept/Decline</th>
+          </tr>
+        </thead>
+        <tbody *ngFor ="let special of productrequstdtails">
+          <tr *ngIf="special.productrequest == 'Request'">
+            <td>{{ special.userid }}</td>
+            <td>{{ special.Adminlocation }}</td>
+            <td>{{ special.Productrequest_id }}</td>
+            <td>{{ special.Product_name }}</td>
+            <td>{{ special.currentdate }}</td>
+            <td>
+              <ion-button (click)="accept(special)" color="tertiary"> Accept</ion-button>
+              <ion-button (click)="decline(special)" color="light">Decline</ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-row>
+  </ion-grid>
+</ion-content>

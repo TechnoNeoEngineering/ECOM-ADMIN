@@ -1,0 +1,127 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="color">
+    <ion-title>
+      Adminusers
+    </ion-title>
+    <ion-button slot="start" class="color">
+      <ion-menu-button></ion-menu-button>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <form [formGroup]="AdminusersForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Id</ion-label>
+            <ion-input formControlName="UId"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input formControlName="email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input formControlName="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Location</ion-label>
+            <ion-input formControlName="location"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-item lines="none">
+        <ion-button (click)="CreateRecord()" [disabled]="AdminusersForm.invalid">
+          <ion-icon size="small" slot="icon-only" name="add"></ion-icon>
+          &nbsp;Create Record
+        </ion-button>
+      </ion-item>
+
+    </ion-grid>
+  </form>
+
+
+  
+  <ion-card color="medium">
+    <ion-card *ngFor="let admin of Adminlist" color="primary">
+      <span *ngIf="!admin.isEdit; else elseBlock">
+        <ion-card-header>
+          <ion-card-subtitle>Id: {{admin.UId}}</ion-card-subtitle>
+          <ion-card-subtitle>E-mail: {{admin.email}}</ion-card-subtitle>
+          <ion-card-subtitle>Password: {{admin.password}}</ion-card-subtitle>
+          <ion-card-subtitle>Location: {{admin.location}}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+  
+          <ion-button shape="round" color="secondary" size="small" (click)="EditRecord(admin)">
+            <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+  
+          </ion-button>
+          <ion-button shape="round" color="danger" size="small" (click)="RemoveRecord(admin.id)">
+            <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+  
+          </ion-button>
+        </ion-card-content>
+      </span>
+      <ng-template #elseBlock>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  Edit
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="medium" size="small" (click)="admin.isEdit = false">
+                    Cancel
+                  </ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button fill="solid" color="success" size="small" (click)="UpdateRecord(admin)">
+                    Update
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating"><strong>Id:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="admin.EditUId"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="floating"><strong>E-mail:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="admin.Editemail"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>password:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="admin.Editpassword"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Location:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="admin.Editlocation"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ng-template>
+    </ion-card>
+  </ion-card>
+
+</ion-content>

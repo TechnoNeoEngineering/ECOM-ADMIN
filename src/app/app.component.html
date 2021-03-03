@@ -1,5 +1,5 @@
 
-<ion-app  (sendData)="receive($event)">
+<ion-app>
   <ion-menu content-id="main">
     <ion-header>
       <ion-toolbar translucent>
@@ -12,6 +12,11 @@
         <ion-menu-toggle>
           <ion-item>
             <ion-label (click)="Home()">Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Adminusers()">Admin users</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
@@ -29,6 +34,11 @@
             <ion-label (click)="Productpage()">Product Details</ion-label>
           </ion-item>
         </ion-menu-toggle>  
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="Productrequestpage()">Product Requests</ion-label>
+          </ion-item>
+        </ion-menu-toggle> 
         <ion-menu-toggle>
           <ion-item>
             <ion-label (click)="Viewproduct()">View Product Details</ion-label>
@@ -53,7 +63,12 @@
           <ion-item>
             <ion-label (click)="Specialuserrequest()">Special User Request</ion-label>
           </ion-item>
-        </ion-menu-toggle>              
+        </ion-menu-toggle>  
+        <ion-menu-toggle>
+          <ion-item>
+            <ion-label (click)="layer()">Add/Remove Layer person </ion-label>
+          </ion-item>
+        </ion-menu-toggle>            
         <ion-menu-toggle>
           <ion-item>
             <ion-label (click)="Specialuser()">Special User</ion-label>
@@ -105,12 +120,12 @@
 
   <ion-router-outlet id="main"></ion-router-outlet>
 
-  <div class="text-end pt-1" >
+  <!-- <div class="text-end pt-1" >
     <ion-icon (sendData)="receive($event)" (click) ="blink($event)" (click) ="notifications($event)" style="vertical-align: middle;position: relative;right:5%;" color="light" size="large" name="notifications-circle"class="animate__animated animate__heartBeat pt-2"></ion-icon>
       <ion-badge fill="clear" style="position: absolute; top: 0%; right: 5%; " >
         {{4}}
       </ion-badge>
    
-  </div>
+  </div> -->
 
 </ion-app>

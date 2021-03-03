@@ -109,7 +109,7 @@ export class LoginPage implements OnInit {
   cre: any[];
   async loginUser(credentials): Promise<void> {
     credentials.email = credentials.email.toLowerCase().trim();
-    this.firestore.search('AdminPassword', '', 'email', '==', credentials.email).subscribe(data => {
+    this.firestore.search('SuperAdmin', '', 'email', '==', credentials.email).subscribe(data => {
       this.cre = data.map(e => {
         return {
           id: e.payload.doc.id,

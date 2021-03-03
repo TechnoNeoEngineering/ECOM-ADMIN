@@ -100,8 +100,7 @@ export class OrdertrackingPage implements OnInit {
       it.notification.title = 'Your Order is Shipped' ;
       it.notification.body = product;
       it.notification.image = image;
-       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)
-          
+       return this.http.post<ReturnVal>(this.base_path, JSON.stringify(it), this.httpOptions)          
     }
     itemdelivered(it,product,image): Observable<ReturnVal> {
       it.notification.title = 'Your Order Has been Deliverd' ;
@@ -303,7 +302,7 @@ export class OrdertrackingPage implements OnInit {
   //  this.send(user,product);
  }
 
-  packed(data,i) {
+  packed(data) {
     this.showtoast('Item packed Sucessfully');
     let record = {}
     record['deliverstatus'] = 'Packed';
@@ -440,10 +439,8 @@ export class OrdertrackingPage implements OnInit {
               // it.to ='cY9HirPsaJU:APA91bHiqRGH-Z6nC8yi0UiYlMqA43Z2_70So23Za1CNdRWvTQ5TpEA83LtCzuZ8qc2Oz5PbTnvdYFo_rFzPjxRO7VYcpCGaD5EIQEpwyxUkxm_fY_QXj8dlQYsPdeZkZuv-o36WQoLy'
                 console.log(it.to);
                 this.itemshipped(it,product,image).subscribe(t =>{
-                  console.log(JSON.stringify(t));
-                  
-                });
-                
+                  console.log(JSON.stringify(t));                  
+                });               
               }
   }
   senddeliverd(user,product,image){

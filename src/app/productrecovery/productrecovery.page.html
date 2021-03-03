@@ -6,7 +6,7 @@
       <ion-button slot="start" class="color">
         <ion-menu-button></ion-menu-button>
       </ion-button>
-		<ion-button (click)="switchStyle()" slot="end" color="light">
+		<ion-button (click)="switchStyle()" slot="start" >
 			{{ tableStyle }}
 		</ion-button>    
 	</ion-toolbar>
@@ -29,7 +29,7 @@
 	[footerHeight]="50"
 	[rowClass]="getRowClass.bind(this)" >
 	
-		<!-- <ngx-datatable-column name="S.NO" prop="rowcount"></ngx-datatable-column> -->
+		<ngx-datatable-column name="S.NO" prop="rowcount"></ngx-datatable-column>
 		<ngx-datatable-column name="Product Id" prop="Product_id"></ngx-datatable-column>
 		<ngx-datatable-column name="Product Name" prop="Product_name"></ngx-datatable-column>
 		<ngx-datatable-column name="Price" prop="Price1"></ngx-datatable-column>

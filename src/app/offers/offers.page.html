@@ -28,23 +28,26 @@
         <ion-col size="6">
           <ion-item>
             <ion-label>Select sub-category</ion-label>
-            <ion-select interface="popover" (ionChange)="setSubCategoryValues(sSubCat)" formControlName="subcat_id"
-            [(ngModel)]="sSubCat">
+            <ion-select interface="popover" (ionChange)="setSubCategoryValues(sSubCat)" formControlName="subcat_id" [(ngModel)]="sSubCat">
             <!-- <ion-select-option value='all' [selected]>ALL</ion-select-option> -->
             <ion-select-option [value]="sSubCat.SubCategory_id" *ngFor="let sSubCat of selectedCategory">
                 {{sSubCat.SubCategory}}</ion-select-option>
+               
             </ion-select>
+          
         </ion-item>
+       
         </ion-col>
+       
       </ion-row>
-
+      <ion-input hidden [value]="subcategory" formControlName="subcategory">{{subcategory}}</ion-input>
       <ion-row>
         <ion-col size="6">
           <ion-item>
-            <ion-label>Product Id</ion-label>
-            <ion-select interface="popover" (ionChange)="setproductid(pdtid)" formControlName="prdt_id"
-              [(ngModel)]="pdtid">
-              <ion-select-option [value]="pdtid.Product_id" *ngFor="let pdtid of selectedSubCategory">{{pdtid.Product_id}}
+            <ion-label>Product Name</ion-label>
+            <ion-select interface="popover" (ionChange)="setproductname(pdtname)" formControlName="prdt_name"
+              [(ngModel)]="pdtname">
+              <ion-select-option [value]="pdtname.Product_name" *ngFor="let pdtname of selectedSubCategory">{{pdtname.Product_name}}
               </ion-select-option>
             </ion-select>
           </ion-item>
@@ -53,8 +56,8 @@
         <ion-col size="6">
           <ion-item>
             <ion-label>Product Id</ion-label>
-            <ion-select interface="popover" [(ngModel)]="pdtiname" formControlName="prdt_name">
-              <ion-select-option [value]="pdtiname.Product_name" *ngFor="let pdtiname of selectproduct">{{pdtiname.Product_name}}
+            <ion-select interface="popover" [(ngModel)]="pdtid" formControlName="prdt_id">
+              <ion-select-option [value]="pdtid.Product_id" *ngFor="let pdtid of selectproduct">{{pdtid.Product_id}}
               </ion-select-option>
             </ion-select>
           </ion-item>
@@ -66,9 +69,15 @@
           <ion-item>
             <ion-label>Offers</ion-label>
             <ion-select interface="popover" formControlName="offer_name">
-              <ion-select-option value="today">Todayoffer</ion-select-option>
-              <ion-select-option value="special">Specialoffer</ion-select-option>
+              <ion-select-option value="Todayoffer">Todayoffer</ion-select-option>
+              <ion-select-option value="Specialoffer">Specialoffer</ion-select-option>
             </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item>
+            <ion-label position="floating">Offer keyword</ion-label>
+            <ion-input formControlName="offer_key"></ion-input>
           </ion-item>
         </ion-col>
 
@@ -99,9 +108,11 @@
           <ion-card-subtitle>Offer Id: {{offer.Offers_id}}</ion-card-subtitle>
           <ion-card-subtitle>Category Id: {{offer.cat_id}}</ion-card-subtitle>
           <ion-card-subtitle>SubCategory Id: {{offer.subcat_id}}</ion-card-subtitle>
+          <ion-card-subtitle>SubCategory Name: {{offer.subcategory}}</ion-card-subtitle>
           <ion-card-subtitle>Product Id: {{offer.prdt_id}}</ion-card-subtitle>
           <ion-card-subtitle>Product Name: {{offer.prdt_name}}</ion-card-subtitle>
           <ion-card-subtitle>Offer Name: {{offer.offer_name}}</ion-card-subtitle>
+          <ion-card-subtitle>Offer Keyword: {{offer.offer_key}}</ion-card-subtitle>
           <ion-card-subtitle>Offer Image: {{offer.offer_image}}</ion-card-subtitle>
         </ion-card-header>
 
@@ -144,9 +155,14 @@
             <ion-label position="floating"><strong>Category Name:</strong></ion-label>
             <ion-input type="text" [(ngModel)]="offer.Editcat_id"></ion-input>
           </ion-item>
+          
+          <ion-item>
+            <ion-label position="floating"><strong>SubCategory Id:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editsubcat_id"></ion-input>
+          </ion-item>
           <ion-item>
             <ion-label position="floating"><strong>SubCategory Name:</strong></ion-label>
-            <ion-input type="text" [(ngModel)]="offer.Editsubcat_id"></ion-input>
+            <ion-input type="text" [(ngModel)]="offer.Editsubcat_name"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating"><strong>Product Id:</strong></ion-label>
@@ -159,6 +175,10 @@
           <ion-item>
             <ion-label position="floating"><strong>Offer Name:</strong></ion-label>
             <ion-input type="text" [(ngModel)]="offer.Editoffer_name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"><strong>Offer Keyword:</strong></ion-label>
+            <ion-input type="text" [(ngModel)]="offer.Editoffer_key"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label position="floating"><strong>Offer Image:</strong></ion-label>
